@@ -1,50 +1,37 @@
 package com.world.back.controller;
 
-import com.world.back.model.User;
+import com.world.back.entity.Login;
+import com.world.back.entity.User;
+import com.world.back.entity.Result;
+import com.world.back.service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.util.HtmlUtils;
-
+import util.ResultHandler;
 import java.util.Objects;
 
-class Result {
-  //响应码
-  private int code;
-  
-  public Result(int code) {
-    this.code = code;
-  }
-  
-  public int getCode() {
-    return code;
-  }
-  
-  public void setCode(int code) {
-    this.code = code;
-  }
-  
-}
 
 @Controller
 public class LoginController
 {
+  @Autowired
+  private LoginService loginService;
   @CrossOrigin
-  @PostMapping("api/login")
+  @PostMapping("/login")
   @ResponseBody
-  public Result login(@RequestBody User requestUser)
+  public Result login(@RequestBody Login login)
   {
-    String username = requestUser.getUsername();
-    username = HtmlUtils.htmlEscape(username);
+    String username = login.getUsername();
+    String password = login.getPassword();
     
-    if (!Objects.equals("admin", username) || !Objects.equals("123456", requestUser.getPassword())) {
-      String message = "账号密码错误";
-      System.out.println("test");
-      return new Result(400);
-    } else {
-      return new Result(200);
+    User user = loginService.login(username, password);
+    if (Objects.isNull(user))
+    {
+      return ResultHandler.buildResult(400, "请求失败", null);
     }
+    return ResultHandler.buildResult(200, "登录成功", user);
   }
 }

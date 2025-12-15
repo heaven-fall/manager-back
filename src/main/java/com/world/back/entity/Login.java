@@ -1,23 +1,11 @@
-package com.world.back.model;
+package com.world.back.entity;
 
-public class User
+public class Login
 {
-  int id;
-  String username;
-  String password;
+  private String username;
+  private String password;
   
-  public int getId()
-  {
-    return id;
-  }
-  
-  public void setId(int id)
-  {
-    this.id = id;
-  }
-  
-  public String getUsername()
-  {
+  public String getUsername() {
     return username;
   }
   
@@ -35,4 +23,5 @@ public class User
   {
     this.password = password;
   }
+  
 }
