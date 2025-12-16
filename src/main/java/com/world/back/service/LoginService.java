@@ -1,10 +1,11 @@
 package com.world.back.service;
 
-import com.world.back.entity.User;
+import com.world.back.entity.*;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface LoginService
 {
-  User login(String username, String password);
+  // 新增统一登录方法
+  LoginResponse login(String username, String password);
 }
