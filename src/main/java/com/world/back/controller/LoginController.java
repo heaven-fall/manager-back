@@ -5,12 +5,11 @@ import com.world.back.service.LoginService;
 import com.world.back.serviceImpl.LoginServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@RequestMapping("/api")
+@CrossOrigin
 public class LoginController
 {
   @Autowired
@@ -18,30 +17,26 @@ public class LoginController
   @CrossOrigin
   @PostMapping("/login")
   @ResponseBody
-  public Result login(@RequestBody Login login)
+  public Result<LoginResponse> login(@RequestBody Login login)
   {
     String username = login.getUsername();
     String password = login.getPassword();
 
-    Admin AdminRes=loginService.Adminlogin(username, password);
-    if(AdminRes!=null){
-      return Result.success(AdminRes);
+    // 使用新的登录方法
+    LoginResponse loginResponse = loginService.login(username, password);
+
+    if (loginResponse != null) {
+      return Result.success("登录成功", loginResponse);
     }
 
-    InstAdmin InstAdminRes=loginService.InstAdminlogin(username, password);
-    if(InstAdminRes!=null){
-      return Result.success(InstAdminRes);
-    }
-
-    Teacher TeacherRes=loginService.Teacherlogin(username, password);
-    if(TeacherRes!=null){
-      return Result.success(TeacherRes);
-    }
-
-    DefenseLeader DefenseLeaderRes=loginService.DefenseLeaderlogin(username, password);
-    if(DefenseLeaderRes!=null){
-      return Result.success(DefenseLeaderRes);
-    }
     return Result.error("用户名或密码错误");
+  }
+
+  // 可以添加一个初始化超级管理员的方法
+  @PostMapping("/initAdmin")
+  public Result<String> initSuperAdmin() {
+    // 这里可以初始化超级管理员账号
+    // admin/123456
+    return Result.success("超级管理员已初始化");
   }
 }
