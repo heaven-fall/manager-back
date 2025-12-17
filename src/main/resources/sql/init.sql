@@ -1,52 +1,58 @@
-use manager;
+drop table if exists `defense_leader`;
+drop table if exists `institute_admin`;
+drop table if exists `teacher`;
+drop table if exists `institute`;
+drop table if exists `user`;
 
-DROP TABLE IF EXISTS `admin`;
-CREATE TABLE `admin` (
-                         `admin_id` INT NOT NULL AUTO_INCREMENT COMMENT '管理员ID',
-                         `admin_name` VARCHAR(100) NOT NULL COMMENT '管理员姓名',
-                         `pwd` VARCHAR(255) NOT NULL COMMENT '密码',
-                         `role` VARCHAR(50) NOT NULL DEFAULT 'admin' COMMENT '角色标识',
-                         PRIMARY KEY (`admin_id`),
-                         UNIQUE KEY `uk_admin_name` (`admin_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='超级管理员表';
-INSERT INTO `admin` (admin_name, pwd) VALUES ('admin', '123456');
--- 创建teacher表
-DROP TABLE IF EXISTS `teacher`;
-CREATE TABLE `teacher` (
-                           `teacher_id` INT NOT NULL AUTO_INCREMENT COMMENT '教师ID',
-                           `teacher_name` VARCHAR(100) NOT NULL COMMENT '教师姓名',
-                           `institute` VARCHAR(200) NOT NULL COMMENT '所属院系',
-                           `pwd` VARCHAR(255) NOT NULL COMMENT '密码',
-                           `role` VARCHAR(50) NOT NULL DEFAULT 'teacher' COMMENT '角色标识（teacher、defenseLeader）',
-                           PRIMARY KEY (`teacher_id`),
-                           UNIQUE KEY `uk_teacher_name` (`teacher_name`),
-                           KEY `idx_institute` (`institute`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='教师表';
+-- 创建系统用户表
+create table `user` (
+                        `user_id` int not null auto_increment comment '用户id',
+                        `username` varchar(30) not null comment '用户名',
+                        `pwd` varchar(30) not null comment '密码',
+                        `role` varchar(20) not null comment '角色标识',
+                        `real_name` varchar(10) not null comment '真实姓名',
+                        primary key (`user_id`),
+                        unique key `uk_username_role` (`username`, `role`)
+) engine=innodb default charset=utf8mb4 comment='系统用户表';
 
--- 创建inst_admin表
-DROP TABLE IF EXISTS `inst_admin`;
-CREATE TABLE `inst_admin` (
-                              `admin_id` INT NOT NULL AUTO_INCREMENT COMMENT '院系管理员ID',
-                              `admin_name` VARCHAR(100) NOT NULL COMMENT '管理员姓名',
-                              `institute` VARCHAR(200) NOT NULL COMMENT '院系名',
-                              `pwd` VARCHAR(255) NOT NULL COMMENT '密码',
-                              `role` VARCHAR(50) NOT NULL DEFAULT 'instAdmin' COMMENT '角色标识',
-                              PRIMARY KEY (`admin_id`),
-                              UNIQUE KEY `uk_inst_admin_name` (`admin_name`),
-                              KEY `idx_institute` (`institute`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='院系管理员表';
+-- 院系表
+create table `institute` (
+                             `institute_id` int not null auto_increment comment '院系id',
+                             `institute_name` varchar(20) not null comment '院系名称',
+                             primary key (`institute_id`),
+                             unique key `uk_institute_name` (`institute_name`)
+) engine=innodb default charset=utf8mb4 comment='院系表';
 
--- 创建defense_leader表
-DROP TABLE IF EXISTS `defense_leader`;
-CREATE TABLE `defense_leader` (
-                                  `teacher_id` INT NOT NULL COMMENT '教师ID',
-                                  `granted_year` VARCHAR(10) NOT NULL COMMENT '答辩组长授予的年份',
-                                  PRIMARY KEY (`teacher_id`),
-                                  CONSTRAINT `fk_defense_leader_teacher` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-                                  KEY `idx_granted_year` (`granted_year`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='答辩组长表';
+-- 教师信息扩展表
+create table `teacher` (
+                           `teacher_id` int not null comment '教师用户id',
+                           `institute_id` int not null comment '所属院系id',
+                           primary key (`teacher_id`),
+                           foreign key (`teacher_id`) references `user`(`user_id`) on delete cascade on update cascade,
+                           foreign key (`institute_id`) references `institute`(`institute_id`) on delete restrict on update cascade,
+                           key `idx_institute` (`institute_id`)
+) engine=innodb default charset=utf8mb4 comment='教师信息表';
+
+-- 院系管理员扩展表
+create table `institute_admin` (
+                                   `admin_id` int not null comment '院系管理员用户id',
+                                   `institute_id` int not null comment '管理的院系id',
+                                   primary key (`admin_id`),
+                                   foreign key (`admin_id`) references `user`(`user_id`) on delete cascade on update cascade,
+                                   foreign key (`institute_id`) references `institute`(`institute_id`) on delete cascade on update cascade,
+                                   key `idx_institute` (`institute_id`)
+) engine=innodb default charset=utf8mb4 comment='院系管理员关联表';
+
+-- 答辩组长表
+create table `defense_leader` (
+                                  `teacher_id` int not null comment '教师id',
+                                  `granted_year` varchar(10) not null comment '答辩组长授予的年份',
+                                  primary key (`teacher_id`),
+                                  foreign key (`teacher_id`) references `teacher`(`teacher_id`) on delete cascade on update cascade,
+                                  key `idx_granted_year` (`granted_year`)
+) engine=innodb default charset=utf8mb4 comment='答辩组长表';
 
 -- 添加索引
-CREATE INDEX idx_admin_name ON admin(admin_name);
-CREATE INDEX idx_teacher_name_institute ON teacher(teacher_name, institute);
-CREATE INDEX idx_inst_admin_institute ON inst_admin(institute, admin_name);
+create index idx_user_role on user(role);
+create index idx_username_password on user(username, pwd);
+create index idx_real_name on user(real_name)
