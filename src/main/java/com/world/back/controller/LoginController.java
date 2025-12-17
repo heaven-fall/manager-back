@@ -2,6 +2,7 @@ package com.world.back.controller;
 
 import com.world.back.entity.*;
 import com.world.back.service.LoginService;
+import com.world.back.serviceImpl.LoginServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LoginController
 {
   @Autowired
-  private LoginService loginService;
+  private LoginServiceImpl loginService;
   @CrossOrigin
   @PostMapping("/login")
   @ResponseBody

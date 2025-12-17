@@ -9,4 +9,5 @@ public class InstAdmin {
     private String institute;  // 院系名
     private String pwd;
     private String role;
+    private String realName;
 }

@@ -6,11 +6,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface LoginService
 {
-  Admin Adminlogin(String username, String password);
-
-  InstAdmin InstAdminlogin(String username, String password);
-
-  Teacher Teacherlogin(String username, String password);
-
-  DefenseLeader DefenseLeaderlogin(String username, String password);
+  // 新增统一登录方法
+  LoginResponse login(String username, String password);
 }
