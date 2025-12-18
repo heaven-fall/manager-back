@@ -9,4 +9,5 @@ public class Teacher {
     private String institute;
     private String pwd;
     private String role;  // 用于角色的标识（teacher、defenseLeader）
+    private String realName;
 }

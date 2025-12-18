@@ -8,5 +8,6 @@ public class Admin {
     private String adminName;
     private String pwd;
     private String role;
+    private String realName;
 }
 

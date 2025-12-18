@@ -1,3 +1,4 @@
+use manager;
 drop table if exists `defense_leader`;
 drop table if exists `institute_admin`;
 drop table if exists `teacher`;

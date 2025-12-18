@@ -28,11 +28,11 @@ public class LoginServiceImpl implements LoginService
 
     // 3. 尝试教师登录（教师使用ID登录）
     try {
-      Integer teacherId = Integer.valueOf(username);
-      Teacher teacher = loginMapper.teacherLogin(teacherId, password);
+      Integer.valueOf(username);
+      Teacher teacher = loginMapper.teacherLogin(username, password);
       if (teacher != null) {
         // 检查是否为答辩组长（当前年份）
-        int isDefenseLeader = loginMapper.defenseLeaderLogin(teacherId,password).getTeacherId();
+        int isDefenseLeader = loginMapper.defenseLeaderLogin(username,password).getTeacherId();
         if (isDefenseLeader > 0) {
           return new LoginResponse("defenseLeader", teacher);
         } else {
@@ -57,7 +57,7 @@ public class LoginServiceImpl implements LoginService
 
   public Teacher Teacherlogin(String username, String password) {
     try {
-      return loginMapper.teacherLogin(Integer.valueOf(username), password);
+      return loginMapper.teacherLogin(username, password);
     } catch (NumberFormatException e) {
       return null;
     }
@@ -65,7 +65,7 @@ public class LoginServiceImpl implements LoginService
 
 
   public DefenseLeader DefenseLeaderlogin(String username, String password) {
-    return loginMapper.defenseLeaderLogin(Integer.valueOf(username), password);
+    return loginMapper.defenseLeaderLogin(username, password);
   }
 
 
