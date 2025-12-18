@@ -1,72 +1,129 @@
 package com.world.back.serviceImpl;
 
-import com.world.back.entity.*;
+import com.world.back.entity.user.*;
 import com.world.back.mapper.LoginMapper;
+import com.world.back.entity.res.LoginResponse;
 import com.world.back.service.LoginService;
+import com.world.back.utils.EntityHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoginServiceImpl implements LoginService
-{
+public class LoginServiceImpl implements LoginService {
+
   @Autowired
   private LoginMapper loginMapper;
 
   @Override
   public LoginResponse login(String username, String password) {
-    // 1. 先尝试超级管理员登录
-    Admin admin = loginMapper.adminLogin(username, password);
-    if (admin != null) {
-      return new LoginResponse("admin", admin);
-    }
-
-    // 2. 尝试院系管理员登录
-    InstAdmin instAdmin = loginMapper.instAdminLogin(username, password);
-    if (instAdmin != null) {
-      return new LoginResponse("instAdmin", instAdmin);
-    }
-
-    // 3. 尝试教师登录（教师使用ID登录）
-    try {
-      Integer.valueOf(username);
-      Teacher teacher = loginMapper.teacherLogin(username, password);
-      if (teacher != null) {
-        // 检查是否为答辩组长（当前年份）
-        int isDefenseLeader = loginMapper.defenseLeaderLogin(username,password).getTeacherId();
-        if (isDefenseLeader > 0) {
-          return new LoginResponse("defenseLeader", teacher);
-        } else {
-          return new LoginResponse("teacher", teacher);
-        }
-      }
-    } catch (NumberFormatException e) {
-      // 如果不是数字，说明不是教师ID
-    }
-
-    return null;
-  }
-
-  public Admin Adminlogin(String username, String password) {
-    return loginMapper.adminLogin(username, password);
-  }
-
-
-  public InstAdmin InstAdminlogin(String username, String password) {
-    return loginMapper.instAdminLogin(username, password);
-  }
-
-  public Teacher Teacherlogin(String username, String password) {
-    try {
-      return loginMapper.teacherLogin(username, password);
-    } catch (NumberFormatException e) {
+    // 1. 查询基础用户信息
+    BaseUser baseUser = loginMapper.findBaseUser(username, password);
+    if (baseUser == null) {
       return null;
     }
+
+    // 2. 根据角色构建不同的用户对象
+    switch (baseUser.getRole()) {
+      case 0: // 超级管理员
+        return buildAdminResponse(baseUser);
+
+      case 1: // 院系管理员
+        return buildInstituteAdminResponse(baseUser);
+
+      case 2: // 教师
+        return buildTeacherResponse(baseUser, null); // 不带年份
+
+      default:
+        return null;
+    }
   }
 
+  @Override
+  public LoginResponse loginWithYear(String username, String password, Integer year) {
+    // 1. 查询基础用户信息
+    BaseUser baseUser = loginMapper.findBaseUser(username, password);
+    if (baseUser == null) {
+      return null;
+    }
 
-  public DefenseLeader DefenseLeaderlogin(String username, String password) {
-    return loginMapper.defenseLeaderLogin(username, password);
+    // 2. 根据角色和年份构建不同的用户对象
+    switch (baseUser.getRole()) {
+      case 0: // 超级管理员
+        return buildAdminResponse(baseUser);
+
+      case 1: // 院系管理员
+        return buildInstituteAdminResponse(baseUser);
+
+      case 2: // 教师
+        return buildTeacherResponse(baseUser, year); // 带年份
+
+      default:
+        return null;
+    }
   }
 
+  private LoginResponse buildAdminResponse(BaseUser baseUser) {
+    Admin admin = new Admin();
+    copyBaseUserProperties(admin, baseUser);
+    return new LoginResponse("admin", admin);
+  }
 
+  private LoginResponse buildInstituteAdminResponse(BaseUser baseUser) {
+    InstituteAdmin instAdmin = new InstituteAdmin();
+    copyBaseUserProperties(instAdmin, baseUser);
+
+    // 查询院系信息
+    Integer instituteId = loginMapper.findInstituteIdByUserId(baseUser.getId());
+    if (instituteId != null) {
+      instAdmin.setInstituteId(instituteId);
+      String instituteName = loginMapper.findInstituteNameById(instituteId);
+      instAdmin.setInstituteName(instituteName);
+    }
+
+    return new LoginResponse("instAdmin", instAdmin);
+  }
+
+  private LoginResponse buildTeacherResponse(BaseUser baseUser, Integer year) {
+    Teacher teacher = new Teacher();
+    copyBaseUserProperties(teacher, baseUser);
+
+    // 查询教师所属院系
+    Integer instituteId = loginMapper.findInstituteIdByUserId(baseUser.getId());
+    if (instituteId != null) {
+      teacher.setInstituteId(instituteId);
+      String instituteName = loginMapper.findInstituteNameById(instituteId);
+      teacher.setInstituteName(instituteName);
+    }
+
+    // 检查是否为答辩组长
+    boolean isDefenseLeader = false;
+    String userType = "teacher";
+
+    if (year != null) {
+      // 有年份参数，检查该年份是否为答辩组长
+      isDefenseLeader = loginMapper.checkIsDefenseLeaderByYear(baseUser.getId(), year);
+    } else {
+      // 没有年份参数，检查是否有任何年份是答辩组长
+      isDefenseLeader = loginMapper.checkIsDefenseLeader(baseUser.getId());
+    }
+
+    teacher.setIsDefenseLeader(isDefenseLeader);
+
+    if (isDefenseLeader) {
+      // 如果是答辩组长，创建DefenseLeader对象
+      DefenseLeader defenseLeader = EntityHelper.buildDefenseLeader(teacher, year);
+      userType = "defenseLeader";
+      return new LoginResponse(userType, defenseLeader);
+    } else {
+      userType = "teacher";
+      return new LoginResponse(userType, teacher);
+    }
+  }
+
+  private void copyBaseUserProperties(BaseUser target, BaseUser source) {
+    target.setId(source.getId());
+    target.setPwd(source.getPwd());
+    target.setRole(source.getRole());
+    target.setRealName(source.getRealName());
+  }
 }

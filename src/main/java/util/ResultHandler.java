@@ -1,6 +1,6 @@
 package util;
 
-import com.world.back.entity.Result;
+import com.world.back.entity.res.Result;
 
 public class ResultHandler
 {

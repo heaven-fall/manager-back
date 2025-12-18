@@ -1,52 +1,32 @@
 package com.world.back.mapper;
 
-import com.world.back.entity.Admin;
-import com.world.back.entity.DefenseLeader;
-import com.world.back.entity.InstAdmin;
-import com.world.back.entity.Teacher;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import com.world.back.entity.user.BaseUser;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
-public interface LoginMapper
-{
-  // admin登录
-  @Select("select user_id as admin_id, real_name as admin_name, pwd, role " +
-          "from user " +
-          "where username = #{adminName} and password = #{password} and role = 'admin'")
-  Admin adminLogin(@Param("adminName") String adminName,
-                   @Param("password") String password);
+public interface LoginMapper {
 
-  // 院系管理员登录
-  @Select("select u.user_id as admin_id, u.real_name as admin_name, " +
-          "u.pwd, u.role, ia.institute_id, i.institute_name as institute " +
-          "from user u " +
-          "join institute_admin ia on u.user_id = ia.admin_id " +
-          "join institute i on ia.institute_id = i.institute_id " +
-          "where u.username = #{adminName} and u.password = #{password} and u.role = 'institute_admin'")
-  InstAdmin instAdminLogin(@Param("adminName") String adminName,
-                           @Param("password") String password);
+  @Select("SELECT id, pwd, role, real_name as realName " +
+          "FROM user " +
+          "WHERE id = #{username} AND pwd = #{password}")
+  BaseUser findBaseUser(@Param("username") String username,
+                        @Param("password") String password);
 
-  // 教师登录
-  @Select("select u.user_id as teacher_id, u.real_name as teacher_name, " +
-          "u.pwd, u.role, t.institute_id, i.institute_name as institute " +
-          "from user u " +
-          "join teacher t on u.user_id = t.teacher_id " +
-          "join institute i on t.institute_id = i.institute_id " +
-          "where u.username = #{username} and u.password = #{password} and u.role = 'teacher'")
-  Teacher teacherLogin(@Param("username") String username,
-                       @Param("password") String password);
+  @Select("SELECT inst_id FROM user_inst_rel WHERE user_id = #{userId}")
+  Integer findInstituteIdByUserId(@Param("userId") String userId);
 
-  // 答辩组长登录
-  @Select("select u.user_id as teacher_id, u.real_name as teacher_name, " +
-          "u.pwd, u.role, t.institute_id, i.institute_name as institute, " +
-          "dl.granted_year " +
-          "from user u " +
-          "join defense_leader dl on u.user_id = dl.teacher_id " +
-          "join teacher t on u.user_id = t.teacher_id " +
-          "join institute i on t.institute_id = i.institute_id " +
-          "where u.username = #{username} and u.password = #{password} and u.role = 'teacher'")
-  DefenseLeader defenseLeaderLogin(@Param("username") String username,
-                                   @Param("password") String password);
+  @Select("SELECT name FROM institute WHERE id = #{instituteId}")
+  String findInstituteNameById(@Param("instituteId") Integer instituteId);
+
+  @Select("SELECT COUNT(*) > 0 FROM dbgroup WHERE user_id = #{userId}")
+  Boolean checkIsDefenseLeader(@Param("userId") String userId);
+
+  @Select("SELECT COUNT(*) > 0 FROM dbgroup WHERE user_id = #{userId} AND year = #{year}")
+  Boolean checkIsDefenseLeaderByYear(@Param("userId") String userId,
+                                     @Param("year") Integer year);
+
+  // 可以添加更多查询方法
+  @Select("SELECT id FROM dbgroup WHERE user_id = #{userId} AND year = #{year} LIMIT 1")
+  Integer findGroupIdByLeaderAndYear(@Param("userId") String userId,
+                                     @Param("year") Integer year);
 }

@@ -1,11 +1,12 @@
 package com.world.back.service;
 
-import com.world.back.entity.*;
+import com.world.back.entity.res.LoginResponse;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface LoginService
 {
-  // 新增统一登录方法
   LoginResponse login(String username, String password);
+  // 带年份的登录方法
+  LoginResponse loginWithYear(String username, String password, Integer year);
 }
