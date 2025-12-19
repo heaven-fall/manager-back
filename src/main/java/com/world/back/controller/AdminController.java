@@ -1,6 +1,7 @@
 package com.world.back.controller;
 
 import com.world.back.entity.res.Result;
+import com.world.back.serviceImpl.UserServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class AdminController {
 
+    private UserServiceImpl userService;
     @PostMapping("/create")
     public Result<String> createInstituteAdmin(@RequestBody Map<String, Object> data) {
         System.out.println("创建院系管理员: " + data);
@@ -28,5 +30,11 @@ public class AdminController {
         admin1.put("institute", "计算机学院");
         admins.add(admin1);
         return Result.success(admins);
+    }
+    
+    @GetMapping("/count")
+    public Result<Long> getCount()
+    {
+        return Result.success(userService.getAdminCount());
     }
 }
