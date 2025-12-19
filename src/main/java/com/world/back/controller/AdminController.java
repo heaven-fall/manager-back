@@ -9,16 +9,16 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/admin")
 public class AdminController {
 
-    @PostMapping("/institute")
+    @PostMapping("/create")
     public Result<String> createInstituteAdmin(@RequestBody Map<String, Object> data) {
         System.out.println("创建院系管理员: " + data);
         return Result.success("创建成功");
     }
 
-    @GetMapping("/institute/list")
+    @GetMapping("/list")
     public Result<List<Map<String, Object>>> getInstituteAdmins() {
         // 返回模拟数据
         List<Map<String, Object>> admins = new ArrayList<>();

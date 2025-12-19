@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/")
 @CrossOrigin
 public class LoginController
 {
@@ -25,8 +25,8 @@ public class LoginController
 
     // 使用统一登录方法
     LoginResponse loginResponse = loginService.login(username, password);
-
     if (loginResponse != null) {
+      System.out.println(Result.success(loginResponse).toString());
       return Result.success("登录成功", loginResponse);
     }
 
