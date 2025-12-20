@@ -38,6 +38,8 @@ create table student(
                         real_name varchar(20) not null comment '姓名',
                         tel char(11) comment '电话号码',
                         email varchar(20) comment '邮箱',
+                        institute_id int not null comment '所属院系id',
+                        foreign key fk_institute_id(institute_id) references institute(id),
                         primary key (id)
 ) comment='学生基本信息';
 
@@ -52,10 +54,10 @@ create table tea_stu_rel(
 
 create table dbgroup(
                         id int auto_increment comment '编号',
-                        user_id char(10) comment '组长id',
+                        admin_id char(10) comment '组长id',
                         year int comment '答辩年份',
                         primary key (id),
-                        foreign key fk_user_id(user_id) references user(id)
+                        foreign key fk_user_id(admin_id) references user(id)
 ) comment='答辩组';
 
 create table dbinfo(
