@@ -17,4 +17,7 @@ public interface UserMapper
   
   @Select("select id, real_name from user where role=2")
   List<BaseUser> getAllTeachers();
+  
+  @Select("select real_name from user where id=#{id}")
+  String getRealNameById(String id);
 }
