@@ -9,10 +9,10 @@ public class Institute {
     private Integer id;
     private String name;
     private String adminId;
+    private String adminName;
 
     private Integer teacherCount;    // 教师数量
     private Integer studentCount;    // 学生数量
-    private BaseUser adminUser;
 
     public Institute(int id, String name, String adminId) {
         this.id=id;

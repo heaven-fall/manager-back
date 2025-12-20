@@ -1,9 +1,7 @@
 package com.world.back.mapper;
 
 import com.world.back.entity.Institute;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -22,4 +20,10 @@ public interface InstituteMapper
   
   @Insert("insert into institute(name, user_id) values(#{name}, #{dean})")
   void addInstitute(String name, String dean);
+  
+  @Update("update institute set name=#{name},user_id=#{dean} where id=#{id}")
+  void updateInstitute(int id, String name, String dean);
+  
+  @Delete("delete from institute where id=#{id}")
+  void deleteInstitute(Integer id);
 }
