@@ -33,7 +33,6 @@ public class LoginController
     return Result.error("用户名或密码错误");
   }
 
-
   // 带年份的登录（用于选择答辩年份后）
   @PostMapping("/loginWithYear")
   public Result<LoginResponse> loginWithYear(@RequestBody LoginWithYearRequest request) {
@@ -50,18 +49,16 @@ public class LoginController
     return Result.error("用户名或密码错误或该年份下无权限");
   }
 
-  @PostMapping("/initAdmin")
-  public Result<String> initSuperAdmin() {
-    // 这里可以初始化超级管理员账号
-    // admin/123456
-    return Result.success("超级管理员已初始化");
-  }
-
-  @GetMapping("/defenseYears")
-  public Result<List<Integer>> getDefenseYears() {
-    // 模拟数据，实际应从数据库查询
-    List<Integer> years = Arrays.asList(2023, 2024, 2025);
-    return Result.success(years);
+  @GetMapping("/defenseYears/{teacherId}")
+  public Result<List<Integer>> getDefenseYears(@PathVariable String teacherId) {  // 添加 @PathVariable 注解
+    try {
+      List<Integer> years = loginService.getTeacherDefenseYears(teacherId);
+      System.out.println("返回年份数据: " + years);
+      return Result.success(years);
+    } catch (Exception e) {
+      System.out.println("获取年份异常: " + e.getMessage());
+      return Result.error("获取答辩年份失败: " + e.getMessage());
+    }
   }
 
   @PostMapping("/changePassword")
