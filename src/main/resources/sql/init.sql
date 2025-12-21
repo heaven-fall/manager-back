@@ -77,9 +77,9 @@ create index idx_student_id on student(id);
 
 insert into user (id, pwd, role, real_name) values
                                                 ('admin', '123456', 0, 'jj1'),
-                                                ('linst', '123456', 1, 'jj2'),
-                                                ('leader', '123456', 2, 'jj3'),
-                                                ('teacher', '123456', 2, 'jj4');
+                                                ('inst', '123456', 1, 'jj2'),
+                                                ('123123', '123456', 2, 'jj3'),
+                                                ('123456', '123456', 2, 'jj4');
 
 insert into student (id, real_name, tel, email) values
                                                     ('2023001', 'wxy', '13800138001', 'wxy@email.com'),
