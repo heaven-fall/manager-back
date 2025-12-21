@@ -3,6 +3,7 @@ package com.world.back.controller;
 import com.world.back.entity.Institute;
 import com.world.back.entity.res.Result;
 import com.world.back.serviceImpl.InstituteServiceImpl;
+import com.world.back.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,8 @@ public class InstituteController {
 
     @Autowired
     private InstituteServiceImpl instituteService;
+    @Autowired
+    private UserServiceImpl userService;
     @GetMapping("/list")
     public Result<List<Institute>> getInstituteList() {
         List<Institute> list = instituteService.getAll();
@@ -47,6 +50,7 @@ public class InstituteController {
         Institute institute = new Institute(name, adminId);
         institute.setId(Integer.parseInt(id));
         institute.setAdminId(map.get("adminId").toString());
+        
         return Result.success(instituteService.updateInstitute(institute));
     }
     

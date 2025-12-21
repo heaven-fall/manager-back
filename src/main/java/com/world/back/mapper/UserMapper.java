@@ -3,10 +3,7 @@ package com.world.back.mapper;
 import com.world.back.entity.user.Admin;
 import com.world.back.entity.user.BaseUser;
 import com.world.back.entity.user.InstituteAdmin;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -36,4 +33,7 @@ public interface UserMapper
   
   @Update("update user set real_name=#{realName},id=#{username},phone=#{phone},email=#{email} where id=#{username}")
   void updateAdmin(String realName, String username, String phone, String email);
+  
+  @Delete("delete from user_inst_rel where inst_id=#{inst_id}")
+  Boolean deleteUserInstRel(Integer inst_id);
 }

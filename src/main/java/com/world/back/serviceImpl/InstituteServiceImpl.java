@@ -51,7 +51,10 @@ public class InstituteServiceImpl implements InstituteService
     {
       user_id = "admin";
     }
-    instituteMapper.updateInstitute(institute.getId(), institute.getName(), user_id);
+    institute.setAdminId(user_id);
+    instituteMapper.updateInstitute(institute.getId(), institute.getName(), institute.getAdminId());
+    userMapper.deleteUserInstRel(institute.getId());
+    userMapper.createUserInstRel(institute.getAdminId(), institute.getId());
     return true;
   }
   
