@@ -88,5 +88,6 @@ insert into student (id, real_name, tel, email) values
                                                     ('2023002', 'lwx', '13800138002', 'lwx@email.com'),
                                                     ('2023003', 'zzh', '13800138003', 'zzh@email.com');
 insert into tea_stu_rel (tea_id, stu_id, year) values
-    ('teacher', '2023003', 2025)
+                    ('123123', '2023003', 2025)
+
 

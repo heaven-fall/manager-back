@@ -36,9 +36,6 @@ public class LoginServiceImpl implements LoginService {
       case 1: // 院系管理员
         return buildInstituteAdminResponse(baseUser);
 
-      case 2: // 教师
-        return buildTeacherResponse(baseUser, null); // 不带年份
-
       default:
         return null;
     }

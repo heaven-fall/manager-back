@@ -39,7 +39,7 @@ public class LoginController
     LoginResponse loginResponse = loginService.loginWithYear(
             request.getUsername(),
             request.getPassword(),
-            request.getYear()
+            request.getDefenseYear()
     );
 
     if (loginResponse != null) {
