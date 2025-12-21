@@ -7,5 +7,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class Admin extends BaseUser {
     // 管理员特有属性
-
+    
 }

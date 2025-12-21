@@ -128,9 +128,7 @@ public class LoginServiceImpl implements LoginService {
     // 查询院系信息
     Integer instituteId = loginMapper.findInstituteIdByUserId(baseUser.getId());
     if (instituteId != null) {
-      instAdmin.setInstituteId(instituteId);
-      String instituteName = loginMapper.findInstituteNameById(instituteId);
-      instAdmin.setInstituteName(instituteName);
+      instAdmin.setInstId(instituteId);
     }
 
     return new LoginResponse("instAdmin", instAdmin);
