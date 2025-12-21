@@ -17,6 +17,8 @@ public interface InstituteMapper
   Integer getTeacherCount(int id);
   @Select("select count(1) from student where institute_id=#{id}")
   Integer getStudentCount(int id);
+  @Select("select name from institute where id=#{id}")
+  String getInstituteNameById(Integer id);
   
   @Insert("insert into institute(name, user_id) values(#{name}, #{dean})")
   void addInstitute(String name, String dean);

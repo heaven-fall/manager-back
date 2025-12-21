@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class InstituteServiceImpl implements InstituteService
@@ -37,9 +38,20 @@ public class InstituteServiceImpl implements InstituteService
   }
   
   @Override
+  public String getInstituteNameById(Integer id)
+  {
+    return instituteMapper.getInstituteNameById(id);
+  }
+  
+  @Override
   public Boolean updateInstitute(Institute institute)
   {
-    instituteMapper.updateInstitute(institute.getId(), institute.getName(), institute.getAdminId());
+    String user_id = institute.getAdminId();
+    if (Objects.equals(user_id, ""))
+    {
+      user_id = "admin";
+    }
+    instituteMapper.updateInstitute(institute.getId(), institute.getName(), user_id);
     return true;
   }
   
@@ -54,6 +66,7 @@ public class InstituteServiceImpl implements InstituteService
   public void addInstitute(Institute institute)
   {
     instituteMapper.addInstitute(institute.getName(), institute.getAdminId());
+    userMapper.createUserInstRel(institute.getAdminId(), institute.getId());
   }
   
 }

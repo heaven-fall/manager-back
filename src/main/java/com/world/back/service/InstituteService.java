@@ -10,6 +10,7 @@ public interface InstituteService
 {
   Long getInstituteCount();
   List<Institute> getAll();
+  String getInstituteNameById(Integer id);
   Boolean updateInstitute(Institute institute);
   Boolean deleteInstitute(Integer id);
   void addInstitute(Institute institute);

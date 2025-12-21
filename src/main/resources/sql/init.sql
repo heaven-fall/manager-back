@@ -14,6 +14,8 @@ create table user(
                      role int not null comment '角色标识',
                      -- 0-2,admin,instAdmin,defenseLeader/teacher,
                      real_name varchar(20) not null comment '真实姓名',
+                     phone char(11) null comment '联系电话',
+                     email varchar(32) null comment '邮箱',
                      primary key (id)
 ) comment='用户表';
 
@@ -87,3 +89,4 @@ insert into student (id, real_name, tel, email) values
                                                     ('2023003', 'zzh', '13800138003', 'zzh@email.com');
 insert into tea_stu_rel (tea_id, stu_id, year) values
     ('teacher', '2023003', 2025)
+
