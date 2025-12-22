@@ -36,4 +36,10 @@ public interface UserMapper
   
   @Delete("delete from user_inst_rel where inst_id=#{inst_id}")
   Boolean deleteUserInstRel(Integer inst_id);
+
+  @Select("select id, pwd, role, real_name, phone, email from user where id=#{id}")
+  BaseUser getUserById(String userId);
+
+  @Update("UPDATE user SET pwd = #{newPassword} WHERE id = #{userId}")
+  int updatePassword(@Param("userId") String userId, @Param("newPassword") String newPassword);
 }

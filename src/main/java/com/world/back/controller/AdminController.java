@@ -1,5 +1,6 @@
 package com.world.back.controller;
 
+import com.world.back.entity.res.ChangePasswordRequest;
 import com.world.back.entity.res.Result;
 import com.world.back.entity.user.Admin;
 import com.world.back.entity.user.InstituteAdmin;
