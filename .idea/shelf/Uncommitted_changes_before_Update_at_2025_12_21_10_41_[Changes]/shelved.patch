@@ -1,0 +1,58 @@
+Index: src/main/java/com/world/back/entity/user/InstituteAdmin.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.world.back.entity.user;\n\nimport lombok.Data;\nimport lombok.EqualsAndHashCode;\n\n@Data\n@EqualsAndHashCode(callSuper = true)\npublic class InstituteAdmin extends BaseUser {\n    private Integer instituteId;\n    private String instituteName;\n    // 动态属性\n    private Integer managedTeachersCount;\n    private Integer managedStudentsCount;\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/world/back/entity/user/InstituteAdmin.java b/src/main/java/com/world/back/entity/user/InstituteAdmin.java
+--- a/src/main/java/com/world/back/entity/user/InstituteAdmin.java	(revision 88aac3733578ca3fa6f79d8748dd637d1b028ec5)
++++ b/src/main/java/com/world/back/entity/user/InstituteAdmin.java	(date 1766284628263)
+@@ -7,8 +7,4 @@
+ @EqualsAndHashCode(callSuper = true)
+ public class InstituteAdmin extends BaseUser {
+     private Integer instituteId;
+-    private String instituteName;
+-    // 动态属性
+-    private Integer managedTeachersCount;
+-    private Integer managedStudentsCount;
+ }
+Index: src/main/java/com/world/back/entity/user/BaseUser.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.world.back.entity.user;\n\nimport lombok.Data;\n\n@Data\npublic class BaseUser {\n    protected String id;\n    protected String realName;\n    protected String pwd;\n    protected Integer role;\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/world/back/entity/user/BaseUser.java b/src/main/java/com/world/back/entity/user/BaseUser.java
+--- a/src/main/java/com/world/back/entity/user/BaseUser.java	(revision 88aac3733578ca3fa6f79d8748dd637d1b028ec5)
++++ b/src/main/java/com/world/back/entity/user/BaseUser.java	(date 1766284815112)
+@@ -8,4 +8,7 @@
+     protected String realName;
+     protected String pwd;
+     protected Integer role;
+-}
+\ No newline at end of file
++    protected Integer instituteId;
++    protected String phone;
++    protected String email;
++}
+Index: src/main/java/com/world/back/entity/user/Admin.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.world.back.entity.user;\n\nimport lombok.Data;\nimport lombok.EqualsAndHashCode;\n\n@Data\n@EqualsAndHashCode(callSuper = true)\npublic class Admin extends BaseUser {\n    // 管理员特有属性\n\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/world/back/entity/user/Admin.java b/src/main/java/com/world/back/entity/user/Admin.java
+--- a/src/main/java/com/world/back/entity/user/Admin.java	(revision 88aac3733578ca3fa6f79d8748dd637d1b028ec5)
++++ b/src/main/java/com/world/back/entity/user/Admin.java	(date 1766284537391)
+@@ -7,5 +7,5 @@
+ @EqualsAndHashCode(callSuper = true)
+ public class Admin extends BaseUser {
+     // 管理员特有属性
+-
+-}
+\ No newline at end of file
++    
++}
