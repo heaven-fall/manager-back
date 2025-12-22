@@ -25,8 +25,8 @@ public interface UserMapper
   @Select("select id,role,real_name,inst_id,phone,email from user left join user_inst_rel on user_id=id where role=1")
   List<Admin> getAllAdmins();
   
-  @Insert("insert into user values(#{id},#{password},#{role},#{realName})")
-  Boolean createAdmin(String id, String realName, int role, String password, Integer instituteId);
+  @Insert("insert into user(id, pwd, role, real_name) values(#{id},#{password},#{role},#{realName})")
+  Boolean createAdmin(String id, String realName, int role, String password);
   
   @Insert("insert into user_inst_rel values(#{user_id}, #{inst_id})")
   Boolean createUserInstRel(String user_id, Integer inst_id);

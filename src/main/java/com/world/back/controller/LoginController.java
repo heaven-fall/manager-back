@@ -62,7 +62,7 @@ public class LoginController
   }
 
   @PostMapping("/changePassword")
-  public Result<String> changePassword(@RequestBody ChangePasswordRequest request) {
+  public Result<String> changePassword(@RequestBody  ChangePasswordRequest request) {
     // 这里实现修改密码逻辑
     return Result.success("密码修改成功");
   }

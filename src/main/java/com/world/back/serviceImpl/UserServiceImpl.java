@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService
   @Override
   public Boolean createAdmin(InstituteAdmin admin)
   {
-    userMapper.createAdmin(admin.getId(), admin.getRealName(), admin.getRole(), admin.getPwd(), admin.getInstId());
+    userMapper.createAdmin(admin.getId(), admin.getRealName(), admin.getRole(), admin.getPwd());
     userMapper.createUserInstRel(admin.getId(), admin.getInstId());
     return true;
   }
