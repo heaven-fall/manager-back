@@ -36,9 +36,8 @@ public class InstituteController {
     public Result<Boolean> addInstitute(@RequestBody Map<String, Object> map)
     {
         String id=map.get("deanId").toString();
-        if (Objects.equals(id, ""))
-        {
-            id = "admin";
+        if(Objects.equals(id,"")){
+            id="admin";
         }
         String name=map.get("name").toString();
         Institute institute = new Institute(name, id);

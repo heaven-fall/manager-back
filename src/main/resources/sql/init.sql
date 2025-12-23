@@ -1,12 +1,12 @@
 use manager;
 
-drop table if exists user;
-drop table if exists institute;
-drop table if exists user_inst_rel;
-drop table if exists student;
-drop table if exists tea_stu_rel;
-drop table if exists dbgroup;
 drop table if exists dbinfo;
+drop table if exists tea_stu_rel;
+drop table if exists user_inst_rel;
+drop table if exists dbgroup;
+drop table if exists student;
+drop table if exists institute;
+drop table if exists user;
 
 create table user(
                      id char(10) not null comment '用户id',
@@ -83,11 +83,15 @@ insert into user (id, pwd, role, real_name) values
                                                 ('123123', '123456', 2, 'jj3'),
                                                 ('123456', '123456', 2, 'jj4');
 
-insert into student (id, real_name, tel, email) values
-                                                    ('2023001', 'wxy', '13800138001', 'wxy@email.com'),
-                                                    ('2023002', 'lwx', '13800138002', 'lwx@email.com'),
-                                                    ('2023003', 'zzh', '13800138003', 'zzh@email.com');
+insert into institute (name, user_id) values
+                                          ('计算机与信息学院', 'inst');
+
+insert into student (id, real_name, tel, email, institute_id) values
+                                                    ('2023001', 'wxy', '13800138001', 'wxy@email.com',1),
+                                                    ('2023002', 'lwx', '13800138002', 'lwx@email.com',1),
+                                                    ('2023003', 'zzh', '13800138003', 'zzh@email.com',1);
+
 insert into tea_stu_rel (tea_id, stu_id, year) values
-                    ('123123', '2023003', 2025)
+                                                ('123123', '2023003', 2025)
 
 

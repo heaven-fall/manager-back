@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService
   @Override
   public Boolean createAdmin(InstituteAdmin admin)
   {
-    userMapper.createAdmin(admin.getId(), admin.getRealName(), admin.getRole(), admin.getPwd(), admin.getInstId());
+    userMapper.createAdmin(admin.getId(), admin.getRealName(), admin.getRole(), admin.getPwd());
     userMapper.createUserInstRel(admin.getId(), admin.getInstId());
     return true;
   }
@@ -52,5 +52,23 @@ public class UserServiceImpl implements UserService
   public List<Admin> getAllAdmins()
   {
     return userMapper.getAllAdmins();
+  }
+
+  @Override
+  public boolean changePassword(String userId, String oldPassword, String newPassword) {
+    // 1. 验证用户存在
+    BaseUser user = userMapper.getUserById(userId);
+    if (user == null) {
+      return false;
+    }
+
+    // 2. 验证原密码是否正确
+    if (!user.getPwd().equals(oldPassword)) {
+      return false;
+    }
+
+    // 3. 更新密码
+    int rows = userMapper.updatePassword(userId, newPassword);
+    return rows > 0;
   }
 }

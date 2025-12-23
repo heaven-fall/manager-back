@@ -25,8 +25,8 @@ public interface UserMapper
   @Select("select id,role,real_name,inst_id,phone,email from user left join user_inst_rel on user_id=id where role=1")
   List<Admin> getAllAdmins();
   
-  @Insert("insert into user values(#{id},#{password},#{role},#{realName})")
-  Boolean createAdmin(String id, String realName, int role, String password, Integer instituteId);
+  @Insert("insert into user(id, pwd, role, real_name) values(#{id},#{password},#{role},#{realName})")
+  Boolean createAdmin(String id, String realName, int role, String password);
   
   @Insert("insert into user_inst_rel values(#{user_id}, #{inst_id})")
   Boolean createUserInstRel(String user_id, Integer inst_id);
@@ -36,4 +36,10 @@ public interface UserMapper
   
   @Delete("delete from user_inst_rel where inst_id=#{inst_id}")
   Boolean deleteUserInstRel(Integer inst_id);
+
+  @Select("select id, pwd, role, real_name, phone, email from user where id=#{id}")
+  BaseUser getUserById(String userId);
+
+  @Update("UPDATE user SET pwd = #{newPassword} WHERE id = #{userId}")
+  int updatePassword(@Param("userId") String userId, @Param("newPassword") String newPassword);
 }

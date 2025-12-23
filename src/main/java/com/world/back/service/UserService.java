@@ -16,4 +16,6 @@ public interface UserService
   Boolean createAdmin(InstituteAdmin admin);
   Boolean updateAdmin(String realName, String username, String phone, String email);
   List<Admin> getAllAdmins();
+
+  boolean changePassword(String userId, String oldPassword, String newPassword);
 }
