@@ -11,4 +11,5 @@ public class BaseUser {
     protected Integer InstId;
     protected String phone;
     protected String email;
+    protected String signaturePath;
 }

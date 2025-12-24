@@ -16,6 +16,7 @@ create table user(
                      real_name varchar(20) not null comment '真实姓名',
                      phone char(11) null comment '联系电话',
                      email varchar(32) null comment '邮箱',
+                     signaturePath varchar(100) null comment '签名路径',
                      primary key (id)
 ) comment='用户表';
 

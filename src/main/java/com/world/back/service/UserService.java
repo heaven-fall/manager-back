@@ -1,9 +1,11 @@
 package com.world.back.service;
 
+import com.world.back.entity.res.Result;
 import com.world.back.entity.user.Admin;
 import com.world.back.entity.user.BaseUser;
 import com.world.back.entity.user.InstituteAdmin;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,4 +20,8 @@ public interface UserService
   List<Admin> getAllAdmins();
 
   boolean changePassword(String userId, String oldPassword, String newPassword);
+
+  Result<String> getCurrentSignature(String userId);
+
+  Result<String> uploadSignature(MultipartFile file, String userId);
 }

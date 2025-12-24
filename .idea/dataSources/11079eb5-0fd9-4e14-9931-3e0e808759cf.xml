@@ -1036,7 +1036,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <Current>1</Current>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2025-12-23.05:12:42</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-12-24.11:59:34</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="292" parent="1" name="mysql">
@@ -1366,45 +1366,50 @@ stu_id</ColNames>
       <Position>6</Position>
       <StoredType>varchar(32)|0s</StoredType>
     </column>
-    <index id="358" parent="306" name="PRIMARY">
+    <column id="358" parent="306" name="signaturePath">
+      <Comment>签名路径</Comment>
+      <Position>7</Position>
+      <StoredType>varchar(100)|0s</StoredType>
+    </column>
+    <index id="359" parent="306" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="359" parent="306" name="idx_user_id">
+    <index id="360" parent="306" name="idx_user_id">
       <ColNames>id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="360" parent="306" name="PRIMARY">
+    <key id="361" parent="306" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="361" parent="307" name="user_id">
+    <column id="362" parent="307" name="user_id">
       <Comment>用户id</Comment>
       <Position>1</Position>
       <StoredType>char(10)|0s</StoredType>
     </column>
-    <column id="362" parent="307" name="inst_id">
+    <column id="363" parent="307" name="inst_id">
       <Comment>院系id</Comment>
       <Position>2</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <foreign-key id="363" parent="307" name="user_inst_rel_ibfk_1">
+    <foreign-key id="364" parent="307" name="user_inst_rel_ibfk_1">
       <ColNames>user_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <foreign-key id="364" parent="307" name="user_inst_rel_ibfk_2">
+    <foreign-key id="365" parent="307" name="user_inst_rel_ibfk_2">
       <ColNames>inst_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>institute</RefTableName>
     </foreign-key>
-    <index id="365" parent="307" name="uk_user_id">
+    <index id="366" parent="307" name="uk_user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="366" parent="307" name="uk_inst_id">
+    <index id="367" parent="307" name="uk_inst_id">
       <ColNames>inst_id</ColNames>
       <Type>btree</Type>
     </index>
