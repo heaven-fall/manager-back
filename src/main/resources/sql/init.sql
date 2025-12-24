@@ -59,6 +59,7 @@ create table dbgroup(
                         id int auto_increment comment '编号',
                         admin_id char(10) comment '组长id',
                         year int comment '答辩年份',
+                        status int comment '状态'
                         primary key (id),
                         foreign key fk_user_id(admin_id) references user(id)
 ) comment='答辩组';

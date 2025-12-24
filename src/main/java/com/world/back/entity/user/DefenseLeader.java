@@ -10,7 +10,7 @@ import java.util.List;
 public class DefenseLeader extends Teacher {
     private Integer groupId;
     private Integer year;
-    private String groupName;
+    private Integer guidedStudentsCount;
 
     private List<Teacher> groupTeachers;
 
