@@ -178,4 +178,14 @@ public class StudentServiceImpl implements StudentService {
             return true;
         }
     }
+
+    @Override
+    public Integer countStudentsByInstitute(Long instituteId) {
+        try {
+            return studentMapper.countByInstitute(instituteId, null);
+        } catch (Exception e) {
+            log.error("统计学生数量失败", e);
+            return 0;
+        }
+    }
 }

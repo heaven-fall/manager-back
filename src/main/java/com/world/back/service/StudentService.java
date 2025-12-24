@@ -28,4 +28,6 @@ public interface StudentService {
 
     // 验证学号是否重复
     boolean isStudentIdDuplicate(String studentId, String excludeId);
+
+    Integer countStudentsByInstitute(Long instituteId);
 }

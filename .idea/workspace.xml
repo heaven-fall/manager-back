@@ -5,23 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca7450dc-fe82-43f5-9e3d-563e958d74e8" name="Changes" comment="评价指标上传下载">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/TeacherMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/TeacherService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/TeacherServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/11079eb5-0fd9-4e14-9931-3e0e808759cf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/11079eb5-0fd9-4e14-9931-3e0e808759cf.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/InstAdminStatsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/InstAdminStatsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/manager-back" beforeDir="false" afterPath="$PROJECT_DIR$/manager-back" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/controller/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/TeacherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/BaseUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/BaseUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/DefenseLeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/DefenseLeader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/Teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/Teacher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/LoginMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/LoginMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/StudentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/StudentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/world/back/BackApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/controller/TeacherController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/controller/TeacherController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/entity/user/DefenseLeader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/entity/user/DefenseLeader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/entity/user/Teacher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/entity/user/Teacher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/service/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/StudentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/StudentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/StudentServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
