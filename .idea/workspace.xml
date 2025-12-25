@@ -5,12 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca7450dc-fe82-43f5-9e3d-563e958d74e8" name="Changes" comment="评价指标上传下载">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/config/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/SignatureController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/11079eb5-0fd9-4e14-9931-3e0e808759cf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/11079eb5-0fd9-4e14-9931-3e0e808759cf.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/BaseUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/BaseUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/controller/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/controller/InstituteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/controller/InstituteController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/controller/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/entity/user/BaseUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/entity/user/BaseUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/mapper/LoginMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/mapper/LoginMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/serviceImpl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/serviceImpl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/file/evaluation.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/file/evaluation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sql/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sql/init.sql" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/InstAdminStatsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/InstAdminStatsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/manager-back" beforeDir="false" afterPath="$PROJECT_DIR$/manager-back" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manager-back/src/main/java/com/world/back/entity/user/DefenseLeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/manager-back/src/main/java/com/world/back/entity/user/DefenseLeader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manager-back/src/main/java/com/world/back/entity/user/Teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/manager-back/src/main/java/com/world/back/entity/user/Teacher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/mapper/LoginMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/mapper/LoginMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/service/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/StudentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/StudentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/StudentServiceImpl.java" afterDir="false" />
+>>>>>>> 2a9ac2473e0d08a0c562dd8b3afea0301c090e7a
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +56,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {}
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/heaven-fall/manager-back.git&quot;,
+    &quot;accountId&quot;: &quot;120592d9-10da-4939-88b0-5be4bbf03521&quot;
+  }
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -48,38 +84,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;Spring Boot.BackApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/dream/working_dir/JavaProjects/manager/back&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.20641977&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Spring Boot.BackApplication.executor": "Run",
+<<<<<<< HEAD
+    "git-widget-placeholder": "main",
+=======
+    "git-widget-placeholder": "master",
+>>>>>>> 2a9ac2473e0d08a0c562dd8b3afea0301c090e7a
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/dream/working_dir/JavaProjects/manager/back",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.20641977",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="BackApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="back" />
@@ -92,7 +133,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-cffe25b9f5b3-intellij.indexing.shared.core-IU-253.28294.334" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
       </set>
     </attachedChunks>
   </component>
@@ -121,6 +163,8 @@
       <workItem from="1766412369640" duration="779000" />
       <workItem from="1766413747935" duration="1283000" />
       <workItem from="1766416691596" duration="469000" />
+      <workItem from="1766574107007" duration="10349000" />
+      <workItem from="1766584836517" duration="5318000" />
     </task>
     <task id="LOCAL-00001" summary="数据表设计">
       <option name="closed" value="true" />
@@ -210,7 +254,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/world/back/controller/InstituteController.java</url>
-          <line>48</line>
+          <line>42</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -220,7 +264,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/world/back/controller/InstituteController.java</url>
-          <line>59</line>
+          <line>53</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -230,7 +274,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/world/back/controller/AdminController.java</url>
-          <line>53</line>
+          <line>50</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
