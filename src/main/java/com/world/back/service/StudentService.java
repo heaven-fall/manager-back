@@ -6,8 +6,8 @@ import java.util.Map;
 
 public interface StudentService {
     // 获取学生列表
-    Map<String, Object> getStudentList(Long instituteId, String search, Integer page, Integer size);
-
+    Map<String, Object> getStudentList(Long instituteId);
+    
     // 根据ID获取学生
     Student getStudentById(String id);
 
@@ -24,10 +24,8 @@ public interface StudentService {
     boolean deleteStudent(String id);
 
     // 分配答辩小组
-    boolean assignGroup(String studentId, Long groupId);
+    boolean assignGroup(String studentId, Integer groupId);
 
     // 验证学号是否重复
     boolean isStudentIdDuplicate(String studentId, String excludeId);
-
-    Integer countStudentsByInstitute(Long instituteId);
 }

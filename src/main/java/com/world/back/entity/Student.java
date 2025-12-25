@@ -1,5 +1,6 @@
 package com.world.back.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
@@ -8,7 +9,6 @@ public class Student {
     private String realName;
     private String tel;
     private String email;
-
     private Integer instituteId;
     private String instituteName;
 

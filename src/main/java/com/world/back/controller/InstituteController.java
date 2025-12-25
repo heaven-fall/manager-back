@@ -63,4 +63,5 @@ public class InstituteController {
     {
         return Result.success(instituteService.deleteInstitute(Integer.parseInt(map.get("id").toString())));
     }
+    
 }

@@ -1,0 +1,19 @@
+package com.world.back.service;
+
+import com.world.back.entity.res.Group;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+@Service
+public interface GroupService
+{
+    List<Map<String, Object>> getAllGroups(Integer year);
+    
+    void createGroup(Group group);
+    
+    void updateGroup(Group group);
+    
+    void deleteGroup(Integer id);
+}

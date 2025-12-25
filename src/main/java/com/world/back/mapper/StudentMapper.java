@@ -18,45 +18,9 @@ public interface StudentMapper {
     Student findByStudentId(@Param("studentId") String studentId);
 
     // 查询学院下的学生列表（支持分页和搜索）
-    @Select({
-            "<script>",
-            "select s.*, ",
-            "g.year as group_year, g.status as group_status, ",
-            "u.real_name as admin_name ",
-            "from student s",
-            "left join dbinfo d on s.id = d.stu_id",
-            "left join dbgroup g on d.gid = g.id",
-            "left join user u on g.admin_id = u.id",
-            "where s.institute_id = #{instituteId}",
-            "<if test='search != null and search != \"\"'>",
-            "and (s.real_name like concat('%', #{search}, '%')",
-            "or s.id like concat('%', #{search}, '%'))",
-            "</if>",
-            "order by s.id desc",
-            "limit #{offset}, #{pageSize}",
-            "</script>"
-    })
+    @Select("select * from student where institute_id=#{instituteId}")
     List<Map<String, Object>> findListByInstitute(
-            @Param("instituteId") Long instituteId,
-            @Param("search") String search,
-            @Param("offset") Integer offset,
-            @Param("pageSize") Integer pageSize
-    );
-
-    // 查询总数
-    @Select({
-            "<script>",
-            "select count(*) from student",
-            "where institute_id = #{instituteId}",
-            "<if test='search != null and search != \"\"'>",
-            "and (real_name like concat('%', #{search}, '%')",
-            "or id like concat('%', #{search}, '%'))",
-            "</if>",
-            "</script>"
-    })
-    Integer countByInstitute(
-            @Param("instituteId") Long instituteId,
-            @Param("search") String search
+            @Param("instituteId") Long instituteId
     );
 
     // 插入学生
@@ -84,7 +48,7 @@ public interface StudentMapper {
     // 分配答辩小组（通过dbinfo表关联）
     @Insert("insert into dbinfo(gid, stu_id) values(#{groupId}, #{studentId}) " +
             "on duplicate key update gid = #{groupId}")
-    int assignGroup(@Param("studentId") String studentId, @Param("groupId") Long groupId);
+    int assignGroup(@Param("studentId") String studentId, @Param("groupId") Integer groupId);
 
     // 检查学号是否存在
     @Select("select count(*) from student where id = #{studentId}")
@@ -95,6 +59,9 @@ public interface StudentMapper {
             "join dbinfo d on s.id = d.stu_id " +
             "where d.gid = #{groupId}")
     List<Student> findStudentsByGroupId(@Param("groupId") Long groupId);
+    
+    @Select("select gid from dbinfo where stu_id=#{id}")
+    Integer findGroupIdByStudentId(@Param("id") String id);
 
     // 移除学生答辩小组分配
     @Delete("delete from dbinfo where stu_id = #{studentId}")

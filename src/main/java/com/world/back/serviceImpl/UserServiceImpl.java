@@ -96,6 +96,12 @@ public class UserServiceImpl implements UserService
     int rows = userMapper.updatePassword(userId, newPassword);
     return rows > 0;
   }
+  
+  @Override
+  public String getNameById(String id)
+  {
+    return userMapper.getUserById(id).getRealName();
+  }
 
   @Override
   public Result<String> getCurrentSignature(String userId) {
@@ -296,4 +302,5 @@ public class UserServiceImpl implements UserService
       log.warn("删除旧签名文件失败：{}", oldSignaturePath, e);
     }
   }
+  
 }
