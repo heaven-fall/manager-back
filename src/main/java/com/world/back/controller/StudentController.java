@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/students")
 @RequiredArgsConstructor
 public class StudentController {
 
@@ -22,13 +22,10 @@ public class StudentController {
      */
     @GetMapping("/list")
     public ResponseEntity<Map<String, Object>> getStudentList(
-            @RequestParam Long institute_id,
-            @RequestParam(required = false) String search,
-            @RequestParam(defaultValue = "1") Integer page,
-            @RequestParam(defaultValue = "10") Integer size) {
+            @RequestParam Long institute_id) {
 
         try {
-            Map<String, Object> result = studentService.getStudentList(institute_id, search, page, size);
+            Map<String, Object> result = studentService.getStudentList(institute_id);
             return ResponseEntity.ok(buildSuccessResponse(result));
         } catch (Exception e) {
             return ResponseEntity.ok(buildErrorResponse(e.getMessage()));
@@ -103,9 +100,9 @@ public class StudentController {
      * POST /api/students/assign-group
      */
     @PostMapping("/assign-group")
-    public ResponseEntity<Map<String, Object>> assignGroup(
-            @RequestParam String student_id,
-            @RequestParam Long group_id) {
+    public ResponseEntity<Map<String, Object>> assignGroup(@RequestBody Map<String, Object> map) {
+        String student_id = (String) map.get("student_id");
+        Integer group_id = (Integer) map.get("group_id");
         try {
             boolean success = studentService.assignGroup(student_id, group_id);
             if (success) {

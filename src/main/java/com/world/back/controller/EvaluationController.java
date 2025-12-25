@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/evaluation")
@@ -24,9 +21,18 @@ public class EvaluationController
     private InstituteService instituteService;
     
     @PostMapping("/save")
-    public Result<Boolean> saveEvaluation(@RequestBody Map<String, Object> map) throws IOException
+    public Result<Boolean> saveEvaluation(@RequestParam String type, @RequestParam Integer year, @RequestBody Map<String, Object> map) throws IOException
     {
-        FileOutputStream fos = new FileOutputStream(PathHelper.root + "/evaluation.json");
+        String path;
+        if (Objects.equals(type, "1"))
+        {
+            path = PathHelper.root + "/t" + year + ".json";
+        }
+        else
+        {
+            path = PathHelper.root + "/d" + year + ".json";
+        }
+        FileOutputStream fos = new FileOutputStream(path);
         ObjectMapper objectMapper = new ObjectMapper();
         List<String> jsonArray = new ArrayList<>();
         for (String i : map.keySet())
@@ -39,9 +45,18 @@ public class EvaluationController
     }
     
     @GetMapping("/load")
-    public Result<List<Evaluation>> loadEvaluation() throws IOException
+    public Result<List<Evaluation>> loadEvaluation(@RequestParam String type, @RequestParam String year) throws IOException
     {
-        FileInputStream fis = new FileInputStream(PathHelper.root + "/evaluation.json");
+        String path;
+        if (Objects.equals(type, "1"))
+        {
+            path = PathHelper.root + "/t" + year + ".json";
+        }
+        else
+        {
+            path = PathHelper.root + "/d" + year + ".json";
+        }
+        FileInputStream fis = new FileInputStream(path);
         ObjectMapper objectMapper = new ObjectMapper();
         return Result.success(objectMapper.readValue(fis.readAllBytes(), new TypeReference<List<Evaluation>>(){}));
     }

@@ -20,8 +20,10 @@ public interface UserService
   List<Admin> getAllAdmins();
 
   boolean changePassword(String userId, String oldPassword, String newPassword);
-
-  Result<String> getCurrentSignature(String userId);
+    
+    String getNameById(String id);
+    
+    Result<String> getCurrentSignature(String userId);
 
   Result<String> uploadSignature(MultipartFile file, String userId);
 }

@@ -1,0 +1,27 @@
+package com.world.back.serviceImpl;
+
+import com.world.back.mapper.DefenseMapper;
+import com.world.back.service.DefenseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class DefenseServiceImpl implements DefenseService
+{
+    @Autowired
+    private DefenseMapper defenseMapper;
+    @Override
+    public void yearAdd(Integer year)
+    {
+        defenseMapper.yearAdd(year);
+    }
+    
+    @Override
+    public List<Map<String, Object>> yearAll()
+    {
+        return defenseMapper.yearAll();
+    }
+}

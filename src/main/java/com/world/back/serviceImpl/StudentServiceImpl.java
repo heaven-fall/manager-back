@@ -5,6 +5,7 @@ import com.world.back.mapper.StudentMapper;
 import com.world.back.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,21 +18,18 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
 
+    @Autowired
     private final StudentMapper studentMapper;
-
+    
     @Override
-    public Map<String, Object> getStudentList(Long instituteId, String search, Integer page, Integer size) {
+    public Map<String, Object> getStudentList(Long instituteId) {
         try {
             Map<String, Object> result = new HashMap<>();
 
-            // 计算分页偏移量
-            Integer offset = (page - 1) * size;
-
-            // 查询数据列表
-            List<Map<String, Object>> list = studentMapper.findListByInstitute(instituteId, search, offset, size);
+            List<Map<String, Object>> list = studentMapper.findListByInstitute(instituteId);
 
             // 查询总数
-            Integer total = studentMapper.countByInstitute(instituteId, search);
+            Integer total = list.size();
 
             // 处理字段映射
             list.forEach(item -> {
@@ -47,32 +45,9 @@ public class StudentServiceImpl implements StudentService {
                     item.put("phone", item.get("tel"));
                 }
 
-                // 处理答辩小组信息
-                if (item.containsKey("group_year")) {
-                    item.put("groupYear", item.get("group_year"));
-                    // 生成小组名称
-                    String adminName = (String) item.get("admin_name");
-                    if (adminName != null) {
-                        item.put("groupName", item.get("group_year") + "年答辩小组（组长：" + adminName + "）");
-                    } else {
-                        item.put("groupName", item.get("group_year") + "年答辩小组");
-                    }
-                }
-
-                if (item.containsKey("group_status")) {
-                    item.put("groupStatus", item.get("group_status"));
-                }
-
-                if (item.containsKey("admin_name")) {
-                    item.put("adminName", item.get("admin_name"));
-                    item.remove("admin_name");
-                }
-
                 // 添加前端需要的字段
                 item.put("studentId", item.get("id"));  // 学号
-                item.put("major", "计算机科学与技术");   // 硬编码专业，根据实际情况调整
-                item.put("className", "计算机一班");     // 硬编码班级
-                item.put("gender", 1);                 // 硬编码性别
+                item.put("dbgroup", studentMapper.findGroupIdByStudentId(item.get("id").toString()));
             });
 
             result.put("list", list);
@@ -151,7 +126,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @Transactional
-    public boolean assignGroup(String studentId, Long groupId) {
+    public boolean assignGroup(String studentId, Integer groupId) {
         try {
             // 先移除旧的分配
             studentMapper.removeGroupAssignment(studentId);
@@ -176,16 +151,6 @@ public class StudentServiceImpl implements StudentService {
         } catch (Exception e) {
             log.error("检查学号重复失败", e);
             return true;
-        }
-    }
-
-    @Override
-    public Integer countStudentsByInstitute(Long instituteId) {
-        try {
-            return studentMapper.countByInstitute(instituteId, null);
-        } catch (Exception e) {
-            log.error("统计学生数量失败", e);
-            return 0;
         }
     }
 }
