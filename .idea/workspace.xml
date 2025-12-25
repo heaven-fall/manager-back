@@ -4,39 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6547de0-22eb-4f5b-92d4-b7a1c82ff669" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/DefenseController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/GroupController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/entity/res/Group.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/DefenseMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/GroupMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/DefenseService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/GroupService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/DefenseServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/GroupServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="e6547de0-22eb-4f5b-92d4-b7a1c82ff669" name="Changes" comment="超级管理员的年份操作，院系管理员的学生操作">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/controller/EvaluationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/EvaluationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/controller/InstituteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/InstituteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/controller/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/StudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/entity/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/entity/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/BaseUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/BaseUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/StudentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/StudentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/service/InstAdminStatsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/InstAdminStatsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/service/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/StudentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/StudentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/StudentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/file/evaluation.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/file/evaluation.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/init.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/controller/EvaluationController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/controller/EvaluationController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/controller/EvaluationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/controller/EvaluationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/entity/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/entity/Student.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/mapper/LoginMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/mapper/LoginMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/serviceImpl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/serviceImpl/UserServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/file/evaluation.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/file/evaluation.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sql/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sql/init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/controller/DefenseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/DefenseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/controller/DefenseYearController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/controller/GroupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/GroupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/controller/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/TeacherController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/DefenseMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/DefenseMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/GroupMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/GroupMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/TeacherMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/TeacherMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/service/DefenseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/DefenseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/service/GroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/GroupService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/service/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/TeacherService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/DefenseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/DefenseServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/GroupServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/GroupServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/TeacherServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/TeacherServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/controller/TeacherController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/controller/TeacherController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,43 +66,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;Spring Boot.BackApplication.executor&quot;: &quot;Run&quot;,
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-=======
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; 2a9ac2473e0d08a0c562dd8b3afea0301c090e7a
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/dream/working_dir/JavaProjects/manager/back&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.20641977&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
-    ]
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Spring Boot.BackApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "node.js.selected.package.tslint": "(autodetect)"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="BackApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="back" />
@@ -213,7 +166,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766408033466</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="超级管理员的年份操作，院系管理员的学生操作">
+      <option name="closed" value="true" />
+      <created>1766637289513</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1766637289513</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -238,7 +199,8 @@
     <MESSAGE value="院系创建，显示功能" />
     <MESSAGE value="管理员显示，修改功能，用户表添加电话，邮箱字段" />
     <MESSAGE value="评价指标上传下载" />
-    <option name="LAST_COMMIT_MESSAGE" value="评价指标上传下载" />
+    <MESSAGE value="超级管理员的年份操作，院系管理员的学生操作" />
+    <option name="LAST_COMMIT_MESSAGE" value="超级管理员的年份操作，院系管理员的学生操作" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

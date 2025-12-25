@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,22 +17,14 @@ public class TeacherServiceImpl implements TeacherService {
     private TeacherMapper teacherMapper;
 
     @Override
-    public Map<String, Object> getTeacherList(Integer instituteId, Integer page, Integer size, String search) {
-        Map<String, Object> result = new HashMap<>();
-
-        // 计算分页参数
-        int offset = (page - 1) * size;
-
-        // 查询教师列表
-        List<Teacher> teacherList = teacherMapper.selectTeacherList(instituteId, search, size, offset);
-
-        // 查询总数
-        Long total = teacherMapper.countTeachers(instituteId, search);
-
-        result.put("list", teacherList);
-        result.put("total", total);
-
-        return result;
+    public List<Map<String, Object>> getTeacherList(Integer instituteId) {
+        return teacherMapper.getTeacherListByInstituteId(instituteId);
+    }
+    
+    @Override
+    public List<Map<String, Object>> getTeacherList()
+    {
+        return teacherMapper.getTeacherList();
     }
 
     @Override

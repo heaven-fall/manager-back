@@ -25,4 +25,17 @@ public class GroupServiceImpl implements GroupService
     {
         groupMapper.createGroup(group.getAdmin_id(), group.getYear(), group.getMax_student_count());
     }
+    
+    @Override
+    public void updateGroup(Group group)
+    {
+        groupMapper.updateGroup(group.getId(), group.getAdmin_id(), group.getMax_student_count());
+    }
+    
+    @Override
+    public void deleteGroup(Integer id)
+    {
+        groupMapper.beforeDeleteGroup(id);
+        groupMapper.deleteGroup(id);
+    }
 }

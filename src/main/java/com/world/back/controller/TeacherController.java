@@ -2,29 +2,33 @@ package com.world.back.controller;
 
 import com.world.back.entity.res.Result;
 import com.world.back.entity.user.Teacher;
-import com.world.back.service.TeacherService;
+import com.world.back.serviceImpl.TeacherServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/teachers")
+@RequestMapping("/teachers")
 public class TeacherController {
 
   @Autowired
-  private TeacherService teacherService;
+  private TeacherServiceImpl teacherService;
 
   // 获取教师列表（分页+搜索）
   @GetMapping("/list")
-  public Result<Map<String, Object>> getTeacherList(
-          @RequestParam(value = "institute_id", required = false) Integer instituteId,
-          @RequestParam(value = "page", defaultValue = "1") Integer page,
-          @RequestParam(value = "size", defaultValue = "10") Integer size,
-          @RequestParam(value = "search", required = false) String search) {
-
-    Map<String, Object> teacherList = teacherService.getTeacherList(instituteId, page, size, search);
+  public Result<List<Map<String, Object>>> getTeacherList(
+          @RequestParam(value = "institute_id", required = false) Integer instituteId) {
+    
+    List<Map<String, Object>> teacherList = teacherService.getTeacherList(instituteId);
     return Result.success(teacherList);
+  }
+  
+  @GetMapping("/all")
+  public Result<List<Map<String, Object>>> getAllTeacherList()
+  {
+    return Result.success(teacherService.getTeacherList());
   }
 
   // 获取教师详情

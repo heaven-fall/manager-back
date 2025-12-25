@@ -1,8 +1,6 @@
 package com.world.back.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -15,4 +13,13 @@ public interface GroupMapper
     
     @Insert("insert into dbgroup(admin_id, year, student_count, max_student_count) values(#{admin_id},#{year},0,#{max_student_count})")
     void createGroup(String admin_id, int year, int max_student_count);
+    
+    @Update("update dbgroup set admin_id=#{admin_id},max_student_count=#{max_student_count} where id=#{id}")
+    void updateGroup(Integer id, String admin_id, int max_student_count);
+    
+    @Delete("delete from dbinfo where gid=#{id}")
+    void beforeDeleteGroup(Integer id);
+    
+    @Delete("delete from dbgroup where id=#{id}")
+    void deleteGroup(Integer id);
 }

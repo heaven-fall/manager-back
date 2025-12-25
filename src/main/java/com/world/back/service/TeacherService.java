@@ -6,9 +6,10 @@ import java.util.Map;
 
 public interface TeacherService {
 
-    // 获取教师列表（分页+搜索）
-    Map<String, Object> getTeacherList(Integer instituteId, Integer page, Integer size, String search);
-
+    List<Map<String, Object>> getTeacherList(Integer instituteId);
+    
+    List<Map<String, Object>> getTeacherList();
+    
     // 获取教师详情
     Teacher getTeacherById(String id);
 

@@ -25,6 +25,11 @@ public class DefenseController
     @GetMapping("/allyear")
     public Result<List<Map<String, Object>>> yearAll()
     {
-        return Result.success(defenseService.yearAll());
+        List<Map<String, Object>> res = defenseService.yearAll();
+        for (Map<String, Object> map : res) {
+            map.put("groupCount", defenseService.getCountByYear((Integer)map.get("year")));
+            map.put("defenseCount", defenseService.getStudentCountByYear((Integer)map.get("year")));
+        }
+        return Result.success(res);
     }
 }

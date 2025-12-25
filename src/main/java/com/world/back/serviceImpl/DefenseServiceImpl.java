@@ -24,4 +24,17 @@ public class DefenseServiceImpl implements DefenseService
     {
         return defenseMapper.yearAll();
     }
+    
+    @Override
+    public Integer getCountByYear(Integer year)
+    {
+        return defenseMapper.getCountByYear(year);
+    }
+    
+    @Override
+    public Integer getStudentCountByYear(Integer year)
+    {
+        return defenseMapper.getStudentCountByYear(year);
+    }
+    
 }

@@ -11,4 +11,8 @@ public interface DefenseService
     void yearAdd(Integer year);
     
     List<Map<String, Object>> yearAll();
+    
+    Integer getCountByYear(Integer year);
+    
+    Integer getStudentCountByYear(Integer year);
 }

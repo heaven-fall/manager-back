@@ -3,47 +3,22 @@ package com.world.back.mapper;
 import com.world.back.entity.user.Teacher;
 import org.apache.ibatis.annotations.*;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface TeacherMapper {
 
-    // 查询教师列表（包括院系信息）
-    @Select("""
-    select 
-        u.id, 
-        u.real_name as real_name,  
-        u.phone, 
-        u.email, 
-        u.role,
-        ui.inst_id as instituteId, 
-        i.name as instituteName,
-        dg.id as groupId, 
-        dg.year as groupYear,  
-        case when dg.admin_id = u.id then true else false end as isDefenseLeader,
-        case when u.role = 1 then true else false end as isAdmin
-    from user u
-    left join user_inst_rel ui on u.id = ui.user_id
-    left join institute i on ui.inst_id = i.id
-    left join dbgroup dg on u.id = dg.admin_id
-    where u.role in (1, 2) 
-    and (#{instituteId} is null or ui.inst_id = #{instituteId})
-    and (#{search} is null or u.real_name like concat('%', #{search}, '%') or u.id like concat('%', #{search}, '%'))
-    order by u.id
-    limit #{limit} offset #{offset}
-""")
-    List<Teacher> selectTeacherList(
-            @Param("instituteId") Integer instituteId,
-            @Param("search") String search,
-            @Param("limit") Integer limit,
-            @Param("offset") Integer offset
-    );
-
+    @Select("select * from user_inst_rel inner join user on user_id=id where inst_id=#{instituteId} and role=2")
+    List<Map<String, Object>> getTeacherListByInstituteId(@Param("instituteId") Integer instituteId);
+    
+    @Select("select * from user where role=2")
+    List<Map<String, Object>> getTeacherList();
     // 查询教师总数
     @Select("""
         select count(*)
         from user u
         left join user_inst_rel ui on u.id = ui.user_id
-        where u.role in (1, 2) 
+        where u.role in (1, 2)
         and (#{instituteId} is null or ui.inst_id = #{instituteId})
         and (#{search} is null or u.real_name like concat('%', #{search}, '%') or u.id like concat('%', #{search}, '%'))
     """)
@@ -66,7 +41,7 @@ public interface TeacherMapper {
 
     // 创建教师
     @Insert("""
-    insert into user (id, real_name, pwd, role, phone, email) 
+    insert into user (id, real_name, pwd, role, phone, email)
     values (#{id}, #{realName}, #{pwd}, #{role}, #{phone}, #{email})
     """)
     int insertTeacher(Teacher teacher);
@@ -80,7 +55,7 @@ public interface TeacherMapper {
 
     // 更新教师信息
     @Update("""
-        update user 
+        update user
         set real_name = #{name}, phone = #{phone}, email = #{email}
         where id = #{id}
     """)
