@@ -2,10 +2,16 @@ package com.world.back.controller;
 
 import com.world.back.entity.res.Result;
 import com.world.back.entity.user.Teacher;
+import com.world.back.mapper.TeacherMapper;
 import com.world.back.service.TeacherService;
+import com.world.back.serviceImpl.TeacherServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -15,54 +21,89 @@ public class TeacherController {
   @Autowired
   private TeacherService teacherService;
 
+  @Autowired
+  private TeacherServiceImpl teacherServiceImpl;
+
   // 获取教师列表（分页+搜索）
   @GetMapping("/list")
-  public Result<Map<String, Object>> getTeacherList(
-          @RequestParam(value = "institute_id", required = false) Integer instituteId,
-          @RequestParam(value = "page", defaultValue = "1") Integer page,
-          @RequestParam(value = "size", defaultValue = "10") Integer size,
-          @RequestParam(value = "search", required = false) String search) {
-
-    Map<String, Object> teacherList = teacherService.getTeacherList(instituteId, page, size, search);
-    return Result.success(teacherList);
+  public ResponseEntity<?> getTeacherList(
+          @RequestParam(required = false) Integer institute_id,
+          @RequestParam(defaultValue = "1") Integer page,
+          @RequestParam(defaultValue = "10") Integer size,
+          @RequestParam(required = false) String search) {
+    try {
+      Map<String, Object> result = teacherService.getTeacherList(institute_id, page, size, search);
+      return ResponseEntity.ok(Map.of(
+              "success", true,
+              "code", 200,
+              "message", "成功",
+              "data", result
+      ));
+    } catch (Exception e) {
+      return ResponseEntity.ok(Map.of(
+              "success", false,
+              "code", 500,
+              "message", e.getMessage()
+      ));
+    }
   }
 
   // 获取教师详情
   @GetMapping("/{id}")
-  public Result<Teacher> getTeacher(@PathVariable String id) {
-    Teacher teacher = teacherService.getTeacherById(id);
-    return Result.success(teacher);
+  public ResponseEntity<?> getTeacherById(@PathVariable String id) {
+    try {
+      Teacher teacher = teacherService.getTeacherById(id);
+      return ResponseEntity.ok(Map.of(
+              "success", true,
+              "code", 200,
+              "message", "成功",
+              "data", teacher
+      ));
+    } catch (Exception e) {
+      return ResponseEntity.ok(Map.of(
+              "success", false,
+              "code", 500,
+              "message", e.getMessage()
+      ));
+    }
   }
 
   // 创建教师
   @PostMapping("/create")
-  public Result<Boolean> createTeacher(@RequestBody Teacher teacher) {
-    boolean result = teacherService.createTeacher(teacher);
-    return result ? Result.success(true) : Result.error("创建失败");
-  }
-
-  // 更新教师
-  @PostMapping("/update")
-  public Result<Boolean> updateTeacher(@RequestBody Teacher teacher) {
-    boolean result = teacherService.updateTeacher(teacher);
-    return result ? Result.success(true) : Result.error("更新失败");
+  public ResponseEntity<?> createTeacher(@RequestBody Teacher teacher) {
+    try {
+      boolean result = teacherService.createTeacher(teacher);
+      return ResponseEntity.ok(Map.of(
+              "success", result,
+              "code", result ? 200 : 500,
+              "message", result ? "创建成功" : "创建失败"
+      ));
+    } catch (Exception e) {
+      return ResponseEntity.ok(Map.of(
+              "success", false,
+              "code", 500,
+              "message", e.getMessage()
+      ));
+    }
   }
 
   // 删除教师
   @DeleteMapping("/delete/{id}")
-  public Result<Boolean> deleteTeacher(@PathVariable String id) {
-    boolean result = teacherService.deleteTeacher(id);
-    return result ? Result.success(true) : Result.error("删除失败");
-  }
-
-  // 设置答辩组长
-  @PostMapping("/set-leader")
-  public Result<Boolean> setDefenseLeader(
-          @RequestParam("group_id") Integer groupId,
-          @RequestParam("teacher_id") String teacherId) {
-
-    boolean result = teacherService.setDefenseLeader(groupId, teacherId);
-    return result ? Result.success(true) : Result.error("设置失败");
+  public ResponseEntity<?> deleteTeacher(@PathVariable String id) {
+    try {
+      boolean result = teacherService.deleteTeacher(id);
+      return ResponseEntity.ok(Map.of(
+              "success", result,
+              "code", result ? 200 : 500,
+              "message", result ? "删除成功" : "删除失败"
+      ));
+    } catch (Exception e) {
+      return ResponseEntity.ok(Map.of(
+              "success", false,
+              "code", 500,
+              "message", e.getMessage()
+      ));
+    }
   }
 
   // 获取教师总数
@@ -73,28 +114,195 @@ public class TeacherController {
     Long count = teacherService.getTeacherCount(instituteId);
     return Result.success(count);
   }
-  // 分配教师到小组（非组长）
-  @PostMapping("/assign-group")
-  public Result<Boolean> assignTeacherToGroup(
-          @RequestParam("teacher_id") String teacherId,
-          @RequestParam("group_id") Integer groupId) {
 
-    // 这里需要实现将教师分配到小组的逻辑（非组长）
-    // 具体实现需要根据你的业务需求来定
-    // 可能需要修改 dbgroup 表结构，添加 teacher_id 字段来关联非组长教师
+  // 添加教师到小组
+  // 添加教师到小组
+  @PostMapping("/add-to-group")
+  public ResponseEntity<?> addToGroup(
+          @RequestParam String teacher_id,
+          @RequestParam Integer group_id,
+          @RequestParam(required = false, defaultValue = "false") Boolean is_leader) {
+    try {
+      boolean result = teacherService.addTeacherToGroup(teacher_id, group_id, is_leader);
 
-    return Result.success(true);
+      if (result) {
+        return ResponseEntity.ok(Map.of(
+                "success", true,
+                "code", 200,
+                "message", is_leader ? "成功加入小组并设为组长" : "成功加入小组"
+        ));
+      } else {
+        // 如果返回false，可能是小组已有组长
+        return ResponseEntity.ok(Map.of(
+                "success", true, // 注意这里也返回true
+                "code", 200,
+                "message", "成功加入小组"
+        ));
+      }
+    } catch (Exception e) {
+      return ResponseEntity.ok(Map.of(
+              "success", false,
+              "code", 500,
+              "message", e.getMessage()
+      ));
+    }
   }
 
   // 从小组中移除教师
-  @PostMapping("/remove-group")
-  public Result<Boolean> removeTeacherFromGroup(
-          @RequestParam("teacher_id") String teacherId) {
+  @PostMapping("/remove-from-group")
+  public ResponseEntity<?> removeFromGroup(
+          @RequestParam String teacher_id,
+          @RequestParam Integer group_id) {
+    try {
+      boolean result = teacherService.removeTeacherFromGroup(teacher_id, group_id);
+      return ResponseEntity.ok(Map.of(
+              "success", result,
+              "code", result ? 200 : 500,
+              "message", result ? "移除成功" : "移除失败"
+      ));
+    } catch (Exception e) {
+      return ResponseEntity.ok(Map.of(
+              "success", false,
+              "code", 500,
+              "message", e.getMessage()
+      ));
+    }
+  }
 
-    // 实现从小组中移除教师的逻辑
-    // 如果该教师是组长，则需要清空 dbgroup 表的 admin_id
-    // 如果只是普通成员，则需要从相关表中移除关联
 
-    return Result.success(true);
+  // 获取可用年份
+  @GetMapping("/years")
+  public ResponseEntity<?> getYears() {
+    try {
+      List<Integer> years = teacherService.getAvailableYears();
+      return ResponseEntity.ok(Map.of(
+              "success", true,
+              "code", 200,
+              "message", "成功",
+              "data", years
+      ));
+    } catch (Exception e) {
+      return ResponseEntity.ok(Map.of(
+              "success", false,
+              "code", 500,
+              "message", e.getMessage()
+      ));
+    }
+  }
+
+  // 获取某年份下的小组
+  @GetMapping("/groups-by-year")
+  public ResponseEntity<?> getGroupsByYear(@RequestParam Integer year) {
+    try {
+      List<Integer> groups = teacherService.getGroupsByYear(year);
+      return ResponseEntity.ok(Map.of(
+              "success", true,
+              "code", 200,
+              "message", "成功",
+              "data", groups
+      ));
+    } catch (Exception e) {
+      return ResponseEntity.ok(Map.of(
+              "success", false,
+              "code", 500,
+              "message", e.getMessage()
+      ));
+    }
+  }
+
+  // 检查教师是否在某年份已有小组
+  @GetMapping("/check-year")
+  public ResponseEntity<?> checkTeacherInYear(
+          @RequestParam String teacher_id,
+          @RequestParam Integer year) {
+    try {
+      boolean result = teacherService.isTeacherInYear(teacher_id, year);
+      return ResponseEntity.ok(Map.of(
+              "success", true,
+              "code", 200,
+              "message", "成功",
+              "data", result
+      ));
+    } catch (Exception e) {
+      return ResponseEntity.ok(Map.of(
+              "success", false,
+              "code", 500,
+              "message", e.getMessage()
+      ));
+    }
+  }
+
+  // 设置答辩组长
+  @PostMapping("/set-defense-leader")
+  public ResponseEntity<?> setDefenseLeader(
+          @RequestParam Integer group_id,
+          @RequestParam String teacher_id) {
+    try {
+      boolean result = teacherService.setDefenseLeader(group_id, teacher_id);
+      return ResponseEntity.ok(Map.of(
+              "success", result,
+              "code", result ? 200 : 500,
+              "message", result ? "设置成功" : "设置失败"
+      ));
+    } catch (Exception e) {
+      // 如果是组长已存在的特殊提示，返回特定code
+      if (e.getMessage().contains("已有答辩组长")) {
+        return ResponseEntity.ok(Map.of(
+                "success", false,
+                "code", 400, // 业务错误码
+                "message", e.getMessage(),
+                "data", Map.of("hasLeader", true)
+        ));
+      }
+      return ResponseEntity.ok(Map.of(
+              "success", false,
+              "code", 500,
+              "message", e.getMessage()
+      ));
+    }
+  }
+
+  // 清除答辩组长
+  @PostMapping("/clear-defense-leader")
+  public Result<Boolean> clearDefenseLeader(@RequestParam("group_id") Integer groupId) {
+    boolean result = teacherServiceImpl.clearDefenseLeader(groupId);
+    return result ? Result.success(true) : Result.error("清除失败");
+  }
+  // 调试接口：获取教师的小组信息
+  @GetMapping("/debug/{id}/groups")
+  public Result<List<Teacher.GroupInfo>> getTeacherGroups(@PathVariable String id) {
+    Teacher teacher = teacherService.getTeacherById(id);
+    if (teacher == null) {
+      return Result.error("教师不存在");
+    }
+    return Result.success(teacher.getGroups());
+  }
+
+
+  // 调试接口2：获取完整教师信息
+  @GetMapping("/debug/{id}/full")
+  public Result<Teacher> getTeacherFull(@PathVariable String id) {
+    Teacher teacher = teacherService.getTeacherById(id);
+    if (teacher == null) {
+      return Result.error("教师不存在");
+    }
+
+    // 打印调试信息
+    System.out.println("=== 调试接口: /api/teachers/debug/" + id + "/full ===");
+    System.out.println("教师对象: " + teacher);
+    System.out.println("教师ID: " + teacher.getId());
+    System.out.println("教师姓名: " + teacher.getRealName());
+    System.out.println("groups字段: " + teacher.getGroups());
+
+    if (teacher.getGroups() != null) {
+      System.out.println("groups数量: " + teacher.getGroups().size());
+      for (Teacher.GroupInfo group : teacher.getGroups()) {
+        System.out.println("  - 小组ID: " + group.getGroupId());
+        System.out.println("  - 年份: " + group.getGroupYear());
+        System.out.println("  - 是否组长: " + group.getIsDefenseLeader());
+      }
+    }
+
+    return Result.success(teacher);
   }
 }

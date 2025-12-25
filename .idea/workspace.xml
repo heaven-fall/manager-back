@@ -4,289 +4,75 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca7450dc-fe82-43f5-9e3d-563e958d74e8" name="Changes" comment="评价指标上传下载">
-<<<<<<< HEAD
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/config/WebConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/SignatureController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/11079eb5-0fd9-4e14-9931-3e0e808759cf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/11079eb5-0fd9-4e14-9931-3e0e808759cf.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/BaseUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/BaseUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/init.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/controller/AdminController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/controller/InstituteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/controller/InstituteController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/controller/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/entity/user/BaseUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/entity/user/BaseUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/mapper/LoginMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/mapper/LoginMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/mapper/UserMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/serviceImpl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/serviceImpl/UserServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/file/evaluation.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/file/evaluation.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sql/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sql/init.sql" afterDir="false" />
-=======
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/InstAdminStatsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/InstAdminStatsService.java" afterDir="false" />
+    <list default="true" id="270b56bb-1420-461c-a5cd-f3b1c2b70c3a" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/manager-back" beforeDir="false" afterPath="$PROJECT_DIR$/manager-back" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/service/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/StudentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/StudentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/StudentServiceImpl.java" afterDir="false" />
->>>>>>> 2a9ac2473e0d08a0c562dd8b3afea0301c090e7a
+      <change beforePath="$PROJECT_DIR$/manager-back/src/main/java/com/world/back/entity/user/DefenseLeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/manager-back/src/main/java/com/world/back/entity/user/DefenseLeader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manager-back/src/main/java/com/world/back/entity/user/Teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/manager-back/src/main/java/com/world/back/entity/user/Teacher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/controller/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/TeacherController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/BaseUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/BaseUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/Teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/entity/user/Teacher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/TeacherMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/TeacherMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/service/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/TeacherService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/TeacherServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/TeacherServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/controller/TeacherController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/controller/TeacherController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/entity/user/Teacher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/entity/user/Teacher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/mapper/LoginMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/mapper/LoginMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/serviceImpl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/serviceImpl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sql/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sql/init.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Interface" />
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
-  </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {}
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/heaven-fall/manager-back.git&quot;,
-    &quot;accountId&quot;: &quot;120592d9-10da-4939-88b0-5be4bbf03521&quot;
-  }
-}</component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="localRepository" value="$MAVEN_REPOSITORY$" />
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-        <option name="userSettingsFile" value="$USER_HOME$/.m2/settings.xml" />
-      </MavenGeneralSettings>
-    </option>
   </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 8
+  &quot;associatedIndex&quot;: 2
 }</component>
-  <component name="ProjectId" id="36x2i7stjzoOHuDPbqxKEl2wxtZ" />
+  <component name="ProjectId" id="37JzKw56tBEfCIHa9oxpDEpTFAt" />
   <component name="ProjectViewState">
-    <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "Spring Boot.BackApplication.executor": "Run",
-<<<<<<< HEAD
-    "git-widget-placeholder": "main",
-=======
-    "git-widget-placeholder": "master",
->>>>>>> 2a9ac2473e0d08a0c562dd8b3afea0301c090e7a
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/dream/working_dir/JavaProjects/manager/back",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.20641977",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
-  },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
-    ]
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BackApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/idealc/back&quot;
   }
-}]]></component>
-  <component name="RunManager">
-    <configuration name="BackApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="back" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.world.back.BackApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
-        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+        <option value="bundled-jdk-30f59d01ecdd-cffe25b9f5b3-intellij.indexing.shared.core-IU-253.28294.334" />
       </set>
     </attachedChunks>
   </component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="ca7450dc-fe82-43f5-9e3d-563e958d74e8" name="Changes" comment="" />
-      <created>1765934026486</created>
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="270b56bb-1420-461c-a5cd-f3b1c2b70c3a" name="更改" comment="" />
+      <created>1766635902469</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1765934026486</updated>
-      <workItem from="1765934028100" duration="1292000" />
-      <workItem from="1766018823033" duration="17714000" />
-      <workItem from="1766061292624" duration="308000" />
-      <workItem from="1766061603547" duration="680000" />
-      <workItem from="1766139804975" duration="12286000" />
-      <workItem from="1766188899760" duration="314000" />
-      <workItem from="1766189229175" duration="612000" />
-      <workItem from="1766189851272" duration="8344000" />
-      <workItem from="1766201266838" duration="38000" />
-      <workItem from="1766201319423" duration="33000" />
-      <workItem from="1766201361073" duration="10898000" />
-      <workItem from="1766279820776" duration="17298000" />
-      <workItem from="1766361955869" duration="18237000" />
-      <workItem from="1766411410826" duration="654000" />
-      <workItem from="1766412084910" duration="77000" />
-      <workItem from="1766412369640" duration="779000" />
-      <workItem from="1766413747935" duration="1283000" />
-      <workItem from="1766416691596" duration="469000" />
-      <workItem from="1766574107007" duration="10349000" />
-      <workItem from="1766584836517" duration="5318000" />
+      <updated>1766635902469</updated>
     </task>
-    <task id="LOCAL-00001" summary="数据表设计">
-      <option name="closed" value="true" />
-      <created>1766042216610</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1766042216610</updated>
-    </task>
-    <task id="LOCAL-00002" summary="建立前端连接">
-      <option name="closed" value="true" />
-      <created>1766153226248</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1766153226248</updated>
-    </task>
-    <task id="LOCAL-00003" summary="同步前端">
-      <option name="closed" value="true" />
-      <created>1766157601225</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1766157601225</updated>
-    </task>
-    <task id="LOCAL-00004" summary="管理员，教师数量返回">
-      <option name="closed" value="true" />
-      <created>1766159152159</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1766159152159</updated>
-    </task>
-    <task id="LOCAL-00005" summary="院系创建，显示功能">
-      <option name="closed" value="true" />
-      <created>1766207077034</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1766207077034</updated>
-    </task>
-    <task id="LOCAL-00006" summary="管理员显示，修改功能，用户表添加电话，邮箱字段">
-      <option name="closed" value="true" />
-      <created>1766305778487</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1766305778487</updated>
-    </task>
-    <task id="LOCAL-00007" summary="评价指标上传下载">
-      <option name="closed" value="true" />
-      <created>1766408033466</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1766408033466</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="数据表设计" />
-    <MESSAGE value="建立前端连接" />
-    <MESSAGE value="同步前端" />
-    <MESSAGE value="管理员，教师数量返回" />
-    <MESSAGE value="院系创建，显示功能" />
-    <MESSAGE value="管理员显示，修改功能，用户表添加电话，邮箱字段" />
-    <MESSAGE value="评价指标上传下载" />
-    <option name="LAST_COMMIT_MESSAGE" value="评价指标上传下载" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/world/back/controller/InstituteController.java</url>
-          <line>42</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/InstituteServiceImpl.java</url>
-          <line>36</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/world/back/controller/InstituteController.java</url>
-          <line>53</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/InstituteServiceImpl.java</url>
-          <line>54</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/world/back/controller/AdminController.java</url>
-          <line>50</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/world/back/utils/PathHelper.java</url>
-          <line>9</line>
-          <option name="timeStamp" value="12" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/TeacherServiceImpl.java</url>
+          <line>74</line>
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>
