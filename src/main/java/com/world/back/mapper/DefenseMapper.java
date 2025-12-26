@@ -15,6 +15,9 @@ public interface DefenseMapper
     @Insert("insert into dbgroup(admin_id,year) values('admin',#{year})")
     void yearAdd(Integer year);
     
+    @Delete("delete from dbgroup where year=#{year} and admin_id='admin'")
+    void yearDelete(Integer year);
+    
     @Select("select * from dbgroup where admin_id='admin'")
     List<Map<String, Object>> yearAll();
     
@@ -26,7 +29,4 @@ public interface DefenseMapper
     
     @Select("select * from student join dbinfo on id=stu_id where gid=#{gid}")
     List<Student> getStudentByGid(Integer gid);
-    
-    @Delete("delete from dbgroup where year=#{year} and admin_id='admin'")
-    void yearDelete(Integer year);
 }
