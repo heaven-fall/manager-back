@@ -1,5 +1,7 @@
 package com.world.back.mapper;
 
+import com.world.back.entity.Student;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -19,6 +21,12 @@ public interface DefenseMapper
     @Select("select count(1) from dbgroup where year=#{year} and admin_id!='admin'")
     Integer getCountByYear(Integer year);
     
-    @Select("select * from dbgroup inner join dbinfo on id=gid where year=#{year} and admin_id!='admin'")
+    @Select("select count(1) from dbgroup inner join dbinfo on id=gid where year=#{year} and admin_id!='admin'")
     Integer getStudentCountByYear(Integer year);
+    
+    @Select("select * from student join dbinfo on id=stu_id where gid=#{gid}")
+    List<Student> getStudentByGid(Integer gid);
+    
+    @Delete("delete from dbgroup where year=#{year} and admin_id='admin'")
+    void yearDelete(Integer year);
 }

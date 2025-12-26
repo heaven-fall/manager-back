@@ -1,8 +1,9 @@
 use manager;
 
-drop table if exists dbinfo;
 drop table if exists tea_stu_rel;
 drop table if exists user_inst_rel;
+drop table if exists tea_group_rel;
+drop table if exists dbinfo;
 drop table if exists dbgroup;
 drop table if exists student;
 drop table if exists institute;
@@ -57,9 +58,10 @@ create table tea_stu_rel(
 
 create table dbgroup(
                         id int auto_increment comment '编号',
-                        admin_id char(10) comment '组长id',
                         year int comment '答辩年份',
-                        status int comment '状态',
+                        admin_id char(10) comment '答辩组长',
+                        student_count int comment '学生数量',
+                        max_student_count int comment '最大学生数量',
                         primary key (id),
                         foreign key fk_user_id(admin_id) references user(id)
 ) comment='答辩组';
@@ -124,12 +126,12 @@ insert into user_inst_rel (user_id, inst_id) values
                                                  ('100004', 1);
 
 -- 插入多个年份的小组数据
-insert into dbgroup (admin_id, year, status) values
-                                                 ('100001', 2023, 1),
-                                                 (null, 2023, 1),  -- 第2组，没有指定组长
-                                                 ('100003', 2024, 1),
-                                                 (null, 2024, 1),  -- 第4组，没有指定组长
-                                                 (null, 2025, 1);  -- 第5组，2025年的小组
+insert into dbgroup (admin_id, year) values
+                                                 ('100001', 2023),
+                                                 (null, 2023),  -- 第2组，没有指定组长
+                                                 ('100003', 2024),
+                                                 (null, 2024),  -- 第4组，没有指定组长
+                                                 (null, 2025);  -- 第5组，2025年的小组
 
 insert into tea_group_rel (teacher_id, group_id, is_defense_leader) values
                                                                         ('100001', 1, true),   -- 张老师是第1组组长

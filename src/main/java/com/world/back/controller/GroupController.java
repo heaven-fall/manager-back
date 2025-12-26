@@ -58,9 +58,10 @@ public class GroupController
         return Result.success(true);
     }
     
-//    @GetMapping("/studentlist")
-//    public Result<List<Student>> getStudentList(@RequestParam Integer group_id)
-//    {
-//        List<Student> res = defenseService.getStudentByGid();
-//    }
+    @GetMapping("/studentlist")
+    public Result<List<Student>> getStudentList(@RequestParam Integer group_id)
+    {
+        List<Student> res = defenseService.getStudentByGid(group_id);
+        return Result.success(res);
+    }
 }

@@ -22,6 +22,14 @@ public class DefenseController
         return Result.success(true);
     }
     
+    @PostMapping("/yeardelete")
+    public Result<Boolean> yearDelete(@RequestBody Map<String, Object> map)
+    {
+        Integer year = (Integer) map.get("year");
+        defenseService.yearDelete(year);
+        return Result.success(true);
+    }
+    
     @GetMapping("/allyear")
     public Result<List<Map<String, Object>>> yearAll()
     {

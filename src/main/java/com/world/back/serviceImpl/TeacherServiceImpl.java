@@ -18,20 +18,15 @@ public class TeacherServiceImpl implements TeacherService {
     private TeacherMapper teacherMapper;
 
     @Override
-    public Map<String, Object> getTeacherList(Integer instituteId, Integer page, Integer size, String search) {
-        Map<String, Object> result = new HashMap<>();
-        int offset = (page - 1) * size;
+    public List<Teacher> getTeacherList(Integer instituteId) {
 
-        List<Teacher> teacherList = teacherMapper.selectTeacherList(instituteId, search, size, offset);
+        List<Teacher> teacherList = teacherMapper.selectTeacherList(instituteId);
         for (Teacher teacher : teacherList) {
             List<Teacher.GroupInfo> groups = teacherMapper.selectTeacherGroups(teacher.getId());
             teacher.setGroups(groups);
         }
 
-        Long total = teacherMapper.countTeachers(instituteId, search);
-        result.put("list", teacherList);
-        result.put("total", total);
-        return result;
+        return teacherList;
     }
 
     @Override

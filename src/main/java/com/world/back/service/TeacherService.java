@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface TeacherService {
-    Map<String, Object> getTeacherList(Integer instituteId, Integer page, Integer size, String search);
+    List<Teacher> getTeacherList(Integer instituteId);
     Teacher getTeacherById(String id);
     boolean createTeacher(Teacher teacher);
     boolean deleteTeacher(String id);

@@ -1,17 +1,28 @@
-package com.world.back.service;
+package com.world.back.serviceImpl;
 
+import com.world.back.service.DefenseService;
+import com.world.back.service.GroupService;
+import com.world.back.service.StudentService;
+import com.world.back.service.TeacherService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class InstAdminStatsService {
+public class InstAdminStatsServiceImpl
+{
 
-    private final StudentService studentService;
-    private final TeacherService teacherService;
-
+    @Autowired
+    private StudentService studentService;
+    @Autowired
+    private TeacherService teacherService;
+    @Autowired
+    private DefenseService defenseService;
+    @Autowired
+    private GroupService groupService;
     /**
      * 获取院系管理员首页统计数据
      */
@@ -30,10 +41,10 @@ public class InstAdminStatsService {
             stats.put("teacher_count", teacherCount);
 
             // 3. 获取答辩年份数量
-
+            stats.put("defense_year_count", defenseService.yearAll().size());
 
             // 4. 获取答辩小组数量
-
+            stats.put("group_count", groupService.getAllGroups(0).size());
 
         } catch (Exception e) {
             // 设置默认值

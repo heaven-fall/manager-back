@@ -1,7 +1,7 @@
 package com.world.back.controller;
 
 import com.world.back.entity.res.Result;
-import com.world.back.service.InstAdminStatsService;
+import com.world.back.serviceImpl.InstAdminStatsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/inst-admin")
+@RequestMapping("/inst-admin")
 @RequiredArgsConstructor
 public class InstAdminStatsController {
 
-    private final InstAdminStatsService statsService;
+    private final InstAdminStatsServiceImpl statsService;
     @GetMapping("/stats")
     public Result<Map<String, Object>> getDashboardStats(
             @RequestParam("institute_id") Long instituteId) {
@@ -35,8 +35,8 @@ public class InstAdminStatsController {
             Map<String, Object> simpleStats = new HashMap<>();
             simpleStats.put("studentCount", stats.get("student_count"));
             simpleStats.put("teacherCount", stats.get("teacher_count"));
-            //simpleStats.put("defenseYearCount", stats.get("defense_year_count"));
-            //simpleStats.put("groupCount", stats.get("group_count"));
+            simpleStats.put("defenseYearCount", stats.get("defense_year_count"));
+            simpleStats.put("groupCount", stats.get("group_count"));
 
             return Result.success(simpleStats);
         } catch (Exception e) {
