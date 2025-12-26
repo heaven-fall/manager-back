@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/teachers")
+@RequestMapping("/teachers")
 public class TeacherController {
 
   @Autowired
@@ -27,12 +27,9 @@ public class TeacherController {
   // 获取教师列表（分页+搜索）
   @GetMapping("/list")
   public ResponseEntity<?> getTeacherList(
-          @RequestParam(required = false) Integer institute_id,
-          @RequestParam(defaultValue = "1") Integer page,
-          @RequestParam(defaultValue = "10") Integer size,
-          @RequestParam(required = false) String search) {
+          @RequestParam(required = false) Integer institute_id) {
     try {
-      Map<String, Object> result = teacherService.getTeacherList(institute_id, page, size, search);
+      List<Teacher> result = teacherService.getTeacherList(institute_id);
       return ResponseEntity.ok(Map.of(
               "success", true,
               "code", 200,

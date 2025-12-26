@@ -1,5 +1,6 @@
 package com.world.back.serviceImpl;
 
+import com.world.back.entity.Student;
 import com.world.back.mapper.DefenseMapper;
 import com.world.back.service.DefenseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +38,9 @@ public class DefenseServiceImpl implements DefenseService
         return defenseMapper.getStudentCountByYear(year);
     }
     
+    @Override
+    public List<Student> getStudentByGid(Integer group_id)
+    {
+        return defenseMapper.getStudentByGid(group_id);
+    }
 }

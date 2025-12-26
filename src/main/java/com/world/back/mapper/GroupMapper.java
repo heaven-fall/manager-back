@@ -8,7 +8,7 @@ import java.util.Map;
 @Mapper
 public interface GroupMapper
 {
-    @Select("select * from dbgroup where year=#{year} and admin_id!='admin'")
+    @Select("select * from dbgroup where admin_id!='admin' and (year=#{year} or #{year}=0)")
     List<Map<String, Object>> getAllGroups(Integer year);
     
     @Insert("insert into dbgroup(admin_id, year, student_count, max_student_count) values(#{admin_id},#{year},0,#{max_student_count})")

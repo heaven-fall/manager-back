@@ -1,5 +1,6 @@
 package com.world.back.service;
 
+import com.world.back.entity.Student;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,4 +16,8 @@ public interface DefenseService
     Integer getCountByYear(Integer year);
     
     Integer getStudentCountByYear(Integer year);
+    
+    List<Student> getStudentByGid(Integer group_id);
+    
+    
 }
