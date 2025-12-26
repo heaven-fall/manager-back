@@ -12,5 +12,4 @@ public class BaseUser {
     protected String phone;
     protected String email;
     protected String signaturePath;
-
 }
