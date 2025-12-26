@@ -5,21 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6547de0-22eb-4f5b-92d4-b7a1c82ff669" name="Changes" comment="超级管理员的年份操作，院系管理员的学生操作">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/controller/DefenseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/DefenseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/controller/DefenseYearController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/controller/GroupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/GroupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/controller/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/controller/TeacherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/DefenseMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/DefenseMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/GroupMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/GroupMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/TeacherMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/mapper/TeacherMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/service/DefenseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/DefenseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/service/GroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/GroupService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/service/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/service/TeacherService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/DefenseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/DefenseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/GroupServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/GroupServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/TeacherServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/world/back/serviceImpl/TeacherServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/controller/TeacherController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/controller/TeacherController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,9 +54,12 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.BackApplication.executor": "Run",
     "git-widget-placeholder": "main",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager">
@@ -82,9 +71,16 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ca7450dc-fe82-43f5-9e3d-563e958d74e8" name="Changes" comment="" />
       <created>1765934026486</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -109,6 +105,7 @@
       <workItem from="1766416691596" duration="469000" />
       <workItem from="1766574107007" duration="10349000" />
       <workItem from="1766584836517" duration="5318000" />
+      <workItem from="1766717075030" duration="60000" />
     </task>
     <task id="LOCAL-00001" summary="数据表设计">
       <option name="closed" value="true" />
