@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="270b56bb-1420-461c-a5cd-f3b1c2b70c3a" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/manager-back" beforeDir="false" afterPath="$PROJECT_DIR$/manager-back" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manager-back/src/main/java/com/world/back/entity/user/DefenseLeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/manager-back/src/main/java/com/world/back/entity/user/DefenseLeader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manager-back/src/main/java/com/world/back/entity/user/Teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/manager-back/src/main/java/com/world/back/entity/user/Teacher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/controller/TeacherController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/controller/TeacherController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/world/back/serviceImpl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/world/back/serviceImpl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sql/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sql/init.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

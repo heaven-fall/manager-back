@@ -71,6 +71,8 @@ create table dbinfo(
                        title varchar(128) comment '毕业考核题目',
                        time date comment '答辩日期',
                        summary varchar(255) comment '毕业考核摘要',
+                       reviewer_id char(10) comment '评阅人id',
+                       foreign key fk_rev_id(reviewer_id) references user(id),
                        foreign key fk_gid(gid) references dbgroup(id),
                        foreign key fk_stu_id(stu_id) references student(id)
 ) comment='学生答辩信息';
@@ -105,6 +107,9 @@ insert into student (id, real_name, tel, email, institute_id) values
 
 insert into tea_stu_rel (tea_id, stu_id, year) values
     ('123123', '2023003', 2025);
+
+insert into user_inst_rel(user_id, inst_id) values
+    ('inst',1);
 
 insert into user (id, pwd, role, real_name, phone, email) values
                                                               ('100001', '123456', 2, '张老师', '13800138001', 'zhang@example.com'),
