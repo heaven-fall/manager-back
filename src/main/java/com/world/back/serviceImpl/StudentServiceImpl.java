@@ -20,7 +20,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private final StudentMapper studentMapper;
-    
+    @Autowired
+    private final GroupServiceImpl groupService;
+
     @Override
     public Map<String, Object> getStudentList(Long instituteId) {
         try {
@@ -80,6 +82,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Student> getStudentByInstituteId(Integer institute_id)
+    {
+        return studentMapper.getStudentByInstituteId(institute_id);
+    }
+
+    @Override
     @Transactional
     public boolean createStudent(Student student) {
         try {
@@ -128,6 +136,10 @@ public class StudentServiceImpl implements StudentService {
     @Transactional
     public boolean assignGroup(String studentId, Integer groupId) {
         try {
+            if (groupService.getStudentByGid(groupId).size() == groupService.getMaxStudentCountByGid(groupId))
+            {
+                return false;
+            }
             // 先移除旧的分配
             studentMapper.removeGroupAssignment(studentId);
 

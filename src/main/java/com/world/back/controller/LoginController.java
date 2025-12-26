@@ -26,7 +26,6 @@ public class LoginController
     // 使用统一登录方法
     LoginResponse loginResponse = loginService.login(username, password);
     if (loginResponse != null) {
-      System.out.println(Result.success(loginResponse).toString());
       return Result.success("登录成功", loginResponse);
     }
 
@@ -53,10 +52,8 @@ public class LoginController
   public Result<List<Integer>> getDefenseYears(@PathVariable String teacherId) {  // 添加 @PathVariable 注解
     try {
       List<Integer> years = loginService.getTeacherDefenseYears(teacherId);
-      System.out.println("返回年份数据: " + years);
       return Result.success(years);
     } catch (Exception e) {
-      System.out.println("获取年份异常: " + e.getMessage());
       return Result.error("获取答辩年份失败: " + e.getMessage());
     }
   }

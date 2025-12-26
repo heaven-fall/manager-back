@@ -12,28 +12,22 @@ public interface UserMapper
 {
   @Select("select count(1) from user where role=1")
   Long getAdminCount();
-  
-  @Select("select count(1) from user where role=2")
-  Long getTeacherCount();
-  
-  @Select("select id, real_name from user where role=2")
-  List<BaseUser> getAllTeachers();
-  
+
   @Select("select real_name from user where id=#{id}")
   String getRealNameById(String id);
-  
+
   @Select("select id,role,real_name,inst_id,phone,email from user left join user_inst_rel on user_id=id where role=1")
   List<Admin> getAllAdmins();
-  
+
   @Insert("insert into user(id, pwd, role, real_name) values(#{id},#{password},#{role},#{realName})")
   Boolean createAdmin(String id, String realName, int role, String password);
-  
+
   @Insert("insert into user_inst_rel values(#{user_id}, #{inst_id})")
   Boolean createUserInstRel(String user_id, Integer inst_id);
-  
+
   @Update("update user set real_name=#{realName},id=#{username},phone=#{phone},email=#{email} where id=#{username}")
   void updateAdmin(String realName, String username, String phone, String email);
-  
+
   @Delete("delete from user_inst_rel where inst_id=#{inst_id}")
   Boolean deleteUserInstRel(Integer inst_id);
 

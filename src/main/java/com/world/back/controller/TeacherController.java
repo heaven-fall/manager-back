@@ -113,7 +113,6 @@ public class TeacherController {
   }
 
   // 添加教师到小组
-  // 添加教师到小组
   @PostMapping("/add-to-group")
   public ResponseEntity<?> addToGroup(
           @RequestParam String teacher_id,
@@ -131,9 +130,9 @@ public class TeacherController {
       } else {
         // 如果返回false，可能是小组已有组长
         return ResponseEntity.ok(Map.of(
-                "success", true, // 注意这里也返回true
+                "success", false, // 注意这里也返回true
                 "code", 200,
-                "message", "成功加入小组"
+                "message", "失败"
         ));
       }
     } catch (Exception e) {
@@ -284,19 +283,9 @@ public class TeacherController {
       return Result.error("教师不存在");
     }
 
-    // 打印调试信息
-    System.out.println("=== 调试接口: /api/teachers/debug/" + id + "/full ===");
-    System.out.println("教师对象: " + teacher);
-    System.out.println("教师ID: " + teacher.getId());
-    System.out.println("教师姓名: " + teacher.getRealName());
-    System.out.println("groups字段: " + teacher.getGroups());
 
     if (teacher.getGroups() != null) {
-      System.out.println("groups数量: " + teacher.getGroups().size());
       for (Teacher.GroupInfo group : teacher.getGroups()) {
-        System.out.println("  - 小组ID: " + group.getGroupId());
-        System.out.println("  - 年份: " + group.getGroupYear());
-        System.out.println("  - 是否组长: " + group.getIsDefenseLeader());
       }
     }
 

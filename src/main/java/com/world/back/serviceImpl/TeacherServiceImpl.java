@@ -141,7 +141,6 @@ public class TeacherServiceImpl implements TeacherService {
                 // 检查该小组是否已有组长
                 String currentLeader = teacherMapper.getDefenseLeaderByGroupId(groupId);
                 if (currentLeader != null) {
-                    // 已有组长，直接返回false，但不抛出异常
                     return false;
                 }
             }

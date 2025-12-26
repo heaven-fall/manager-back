@@ -166,7 +166,7 @@ public interface TeacherMapper {
     select teacher_id
     from tea_group_rel
     where group_id = #{groupId}
-    and is_defense_leader = true
+    and is_defense_leader!=0
     limit 1
     """)
     String getDefenseLeaderByGroupId(@Param("groupId") Integer groupId);

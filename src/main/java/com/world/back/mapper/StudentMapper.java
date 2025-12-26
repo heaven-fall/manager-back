@@ -59,7 +59,7 @@ public interface StudentMapper {
             "join dbinfo d on s.id = d.stu_id " +
             "where d.gid = #{groupId}")
     List<Student> findStudentsByGroupId(@Param("groupId") Long groupId);
-    
+
     @Select("select gid from dbinfo where stu_id=#{id}")
     Integer findGroupIdByStudentId(@Param("id") String id);
 
@@ -77,4 +77,7 @@ public interface StudentMapper {
     // 获取学生答辩信息（从dbinfo表）
     @Select("select d.* from dbinfo d where d.stu_id = #{studentId}")
     Map<String, Object> getStudentDefenseInfo(@Param("studentId") String studentId);
+
+    @Select("select * from student where institute_id=#{instituteId}")
+    List<Student> getStudentByInstituteId(Integer instituteId);
 }

@@ -43,14 +43,12 @@ public class LoginServiceImpl implements LoginService {
 
   @Override
   public LoginResponse loginWithYear(String username, String password, Integer year) {
-    System.out.println("教师登录请求 - 用户名: " + username + ", 年份: " + year);
 
     // 1. 验证教师登录参数
     validateTeacherLogin(username, year);
 
     // 2. 查询基础用户信息
     BaseUser baseUser = loginMapper.findBaseUser(username, password);
-    System.out.println("查询到的用户: " + (baseUser != null ? baseUser.getId() : "null"));
 
     if (baseUser == null) {
       throw new IllegalArgumentException("用户名或密码错误");
@@ -63,13 +61,11 @@ public class LoginServiceImpl implements LoginService {
 
     // 4. 验证教师是否有该年份的权限
     boolean hasPermission = checkTeacherYearPermission(baseUser.getId(), year);
-    System.out.println("教师 " + baseUser.getId() + " 是否有 " + year + " 年权限: " + hasPermission);
 
     if (!hasPermission) {
       // 进一步检查原因
       boolean hasTeaStuRel = loginMapper.checkTeacherDefenseYearPermission(baseUser.getId(), year);
       boolean isLeader = loginMapper.checkIsDefenseLeaderByYear(baseUser.getId(), year);
-      System.out.println("详细检查 - tea_stu_rel: " + hasTeaStuRel + ", dbgroup: " + isLeader);
 
       throw new IllegalArgumentException("该教师没有" + year + "年的答辩权限");
     }
@@ -88,7 +84,6 @@ public class LoginServiceImpl implements LoginService {
       hasPermission = Boolean.TRUE.equals(isDefenseLeader);
     }
 
-    System.out.println("检查权限 - 教师ID: " + teacherId + ", 年份: " + year + ", 是否有权限: " + hasPermission);
     return hasPermission;
   }
 
@@ -136,14 +131,11 @@ public class LoginServiceImpl implements LoginService {
       // 查询教师是否存在
       BaseUser user = loginMapper.findUserById(teacherId);
       if (user == null) {
-        System.out.println("教师 " + teacherId + " 不存在");
         return false;
       }
 
-      System.out.println("找到用户: " + user.getId() + ", 角色: " + user.getRole());
       return user.getRole() == 2; // 确保是教师角色
     } catch (Exception e) {
-      System.out.println("查询教师时出错: " + e.getMessage());
       return false;
     }
   }
@@ -199,15 +191,11 @@ public class LoginServiceImpl implements LoginService {
     // 3. 从数据库查询该教师指导过的年份
     List<Integer> years = loginMapper.findDefenseYearsByTeacherId(teacherId);
 
-    // 4. 打印调试信息
-    System.out.println("查询教师 " + teacherId + " 的年份数据: " + years);
 
     // 5. 如果没有找到年份，检查是否在 dbgroup 表中作为答辩组长
     if (CollectionUtils.isEmpty(years)) {
       // 检查教师是否在任何年份担任过答辩组长
       List<Integer> leaderYears = findDefenseLeaderYears(teacherId);
-      System.out.println("从答辩组查询到的年份: " + leaderYears);
-
       if (CollectionUtils.isNotEmpty(leaderYears)) {
         years = leaderYears;
       }
