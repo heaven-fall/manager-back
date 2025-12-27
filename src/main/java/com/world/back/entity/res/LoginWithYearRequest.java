@@ -8,6 +8,5 @@ public class LoginWithYearRequest {
     private String username;
     private String password;
     private Integer year;
-    private Integer group_id;
 }
 
