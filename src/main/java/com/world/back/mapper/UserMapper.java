@@ -40,5 +40,7 @@ public interface UserMapper
   @Update("update user set signaturePath = #{signaturePath} where id = #{userId}")
   int updateSignaturePath(@Param("userId") String userId,
                           @Param("signaturePath") String signaturePath);
-
+  
+  @Select("select inst_id from user_inst_rel where user_id=#{id}")
+  Integer getInstIdByUserId(String userId);
 }

@@ -1,6 +1,7 @@
 package com.world.back.serviceImpl;
 
 import com.world.back.entity.Student;
+import com.world.back.mapper.GroupMapper;
 import com.world.back.mapper.StudentMapper;
 import com.world.back.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private final StudentMapper studentMapper;
     @Autowired
-    private final GroupServiceImpl groupService;
+    private final GroupMapper groupMapper;
 
     @Override
     public Map<String, Object> getStudentList(Long instituteId) {
@@ -68,16 +69,6 @@ public class StudentServiceImpl implements StudentService {
         } catch (Exception e) {
             log.error("获取学生信息失败", e);
             throw new RuntimeException("获取学生信息失败");
-        }
-    }
-
-    @Override
-    public Student getStudentByStudentId(String studentId) {
-        try {
-            return studentMapper.findByStudentId(studentId);
-        } catch (Exception e) {
-            log.error("根据学号查询学生失败", e);
-            throw new RuntimeException("根据学号查询学生失败");
         }
     }
 
@@ -136,7 +127,7 @@ public class StudentServiceImpl implements StudentService {
     @Transactional
     public boolean assignGroup(String studentId, Integer groupId) {
         try {
-            if (groupService.getStudentByGid(groupId).size() == groupService.getMaxStudentCountByGid(groupId))
+            if (groupMapper.getStudentByGid(groupId).size() == groupMapper.getMaxStudentCountByGid(groupId))
             {
                 return false;
             }

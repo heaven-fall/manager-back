@@ -34,4 +34,7 @@ public interface GroupMapper
 
     @Select("select max_student_count from dbgroup where id=#{gid}")
     int getMaxStudentCountByGid(Integer gid);
+    
+    @Select("select * from dbinfo where gid=#{id}")
+    List<Map<String, Object>> getMember(Integer id);
 }

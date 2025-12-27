@@ -12,9 +12,6 @@ public interface StudentService {
     // 根据ID获取学生
     Student getStudentById(String id);
 
-    // 根据学号获取学生
-    Student getStudentByStudentId(String studentId);
-
     List<Student> getStudentByInstituteId(Integer institute_id);
 
     // 创建学生

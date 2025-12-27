@@ -70,4 +70,10 @@ public class GroupController
         return Result.success(res);
     }
 
+    @GetMapping("/getmember")
+    public Result<List<Map<String, Object>>> getMember(@RequestParam Integer group_id)
+    {
+        return Result.success(groupService.getMember(group_id));
+    }
+    
 }

@@ -40,7 +40,7 @@ public class LoginController
             request.getPassword(),
             request.getDefenseYear()
     );
-
+    
     if (loginResponse != null) {
       return Result.success("登录成功", loginResponse);
     }

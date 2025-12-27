@@ -264,31 +264,4 @@ public class TeacherController {
     boolean result = teacherServiceImpl.clearDefenseLeader(groupId);
     return result ? Result.success(true) : Result.error("清除失败");
   }
-  // 调试接口：获取教师的小组信息
-  @GetMapping("/debug/{id}/groups")
-  public Result<List<Teacher.GroupInfo>> getTeacherGroups(@PathVariable String id) {
-    Teacher teacher = teacherService.getTeacherById(id);
-    if (teacher == null) {
-      return Result.error("教师不存在");
-    }
-    return Result.success(teacher.getGroups());
-  }
-
-
-  // 调试接口2：获取完整教师信息
-  @GetMapping("/debug/{id}/full")
-  public Result<Teacher> getTeacherFull(@PathVariable String id) {
-    Teacher teacher = teacherService.getTeacherById(id);
-    if (teacher == null) {
-      return Result.error("教师不存在");
-    }
-
-
-    if (teacher.getGroups() != null) {
-      for (Teacher.GroupInfo group : teacher.getGroups()) {
-      }
-    }
-
-    return Result.success(teacher);
-  }
 }

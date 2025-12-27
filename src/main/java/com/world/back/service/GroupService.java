@@ -23,4 +23,7 @@ public interface GroupService
     List<Student> getStudentByGid(Integer group_id);
 
     int getMaxStudentCountByGid(Integer group_id);
+    
+    List<Map<String, Object>> getMember(Integer group_id);
+    
 }

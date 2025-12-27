@@ -2,16 +2,16 @@ package com.world.back.serviceImpl;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.world.back.entity.user.*;
+import com.world.back.mapper.InstituteMapper;
 import com.world.back.mapper.LoginMapper;
 import com.world.back.entity.res.LoginResponse;
+import com.world.back.mapper.UserMapper;
 import com.world.back.service.LoginService;
 import com.world.back.utils.EntityHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,7 +19,10 @@ public class LoginServiceImpl implements LoginService {
 
   @Autowired
   private LoginMapper loginMapper;
-
+  @Autowired
+  private InstituteMapper instituteMapper;
+  @Autowired
+  private UserMapper userMapper;
   @Override
   public LoginResponse login(String username, String password) {
     // 1. 查询基础用户信息
@@ -59,32 +62,20 @@ public class LoginServiceImpl implements LoginService {
       throw new IllegalArgumentException("该账号不是教师账号");
     }
 
-    // 4. 验证教师是否有该年份的权限
-    boolean hasPermission = checkTeacherYearPermission(baseUser.getId(), year);
+    List<Map<String, Object>> years = loginMapper.findDefenseYears(username);
+    Map<String, Object> yearinfo = null;
+    for (Map<String, Object> map : years) {
+      if (Objects.equals((Integer)map.get("year"), year)){
+        yearinfo = map;
+      }
+    }
 
-    if (!hasPermission) {
-      // 进一步检查原因
-      boolean hasTeaStuRel = loginMapper.checkTeacherDefenseYearPermission(baseUser.getId(), year);
-      boolean isLeader = loginMapper.checkIsDefenseLeaderByYear(baseUser.getId(), year);
+    if (yearinfo == null) {
 
       throw new IllegalArgumentException("该教师没有" + year + "年的答辩权限");
     }
 
-    // 5. 构建教师响应（带年份）
-    return buildTeacherResponse(baseUser, year);
-  }
-
-  public boolean checkTeacherYearPermission(String teacherId, Integer year) {
-    // 1. 从 tea_stu_rel 表查询教师是否有该年份的指导记录
-    boolean hasPermission = loginMapper.checkTeacherDefenseYearPermission(teacherId, year);
-
-    // 2. 如果没有 tea_stu_rel 表记录，检查是否在该年份是答辩组长
-    if (!hasPermission) {
-      Boolean isDefenseLeader = loginMapper.checkIsDefenseLeaderByYear(teacherId, year);
-      hasPermission = Boolean.TRUE.equals(isDefenseLeader);
-    }
-
-    return hasPermission;
+    return buildTeacherResponse(baseUser, yearinfo);
   }
 
 
@@ -139,35 +130,31 @@ public class LoginServiceImpl implements LoginService {
       return false;
     }
   }
-  private LoginResponse buildTeacherResponse(BaseUser baseUser, Integer year) {
+  
+  private LoginResponse buildTeacherResponse(BaseUser baseUser, Map<String, Object> yearinfo) {
     Teacher teacher = new Teacher();
     copyBaseUserProperties(teacher, baseUser);
 
     // 查询教师所属院系
     Integer instituteId = loginMapper.findInstituteIdByUserId(baseUser.getId());
     if (instituteId != null) {
-      teacher.setInstituteId(instituteId);
+      teacher.setInstId(instituteId);
       String instituteName = loginMapper.findInstituteNameById(instituteId);
       teacher.setInstituteName(instituteName);
     }
 
     // 检查是否为答辩组长
-    boolean isDefenseLeader = false;
+    boolean isDefenseLeader = !Objects.equals(yearinfo.get("is_defense_leader"), false);
     String userType = "teacher";
 
-    if (year != null) {
-      // 有年份参数，检查该年份是否为答辩组长
-      isDefenseLeader = loginMapper.checkIsDefenseLeaderByYear(baseUser.getId(), year);
-    } else {
-      // 没有年份参数，检查是否有任何年份是答辩组长
-      isDefenseLeader = loginMapper.checkIsDefenseLeader(baseUser.getId());
-    }
-
     teacher.setIsDefenseLeader(isDefenseLeader);
+    teacher.setGroupYear((Integer) yearinfo.get("year"));
+    teacher.setGroupId((Integer)yearinfo.get("group_id"));
+    teacher.setInstituteName(instituteMapper.getInstituteNameById(userMapper.getInstIdByUserId((String)yearinfo.get("teacher_id"))));
 
     if (isDefenseLeader) {
       // 如果是答辩组长，创建DefenseLeader对象
-      DefenseLeader defenseLeader = EntityHelper.buildDefenseLeader(teacher, year);
+      DefenseLeader defenseLeader = EntityHelper.buildDefenseLeader(teacher);
       userType = "defenseLeader";
       return new LoginResponse(userType, defenseLeader);
     } else {
@@ -178,30 +165,21 @@ public class LoginServiceImpl implements LoginService {
 
   @Override
   public List<Integer> getTeacherDefenseYears(String teacherId) {
-    // 1. 验证教师编号格式
     if (teacherId == null || teacherId.trim().isEmpty()) {
       throw new IllegalArgumentException("教师编号不能为空");
     }
 
-    // 2. 检查教师是否存在且是教师角色
     if (!checkTeacherExists(teacherId)) {
       throw new IllegalArgumentException("该教师不存在或不是教师角色");
     }
 
-    // 3. 从数据库查询该教师指导过的年份
     List<Integer> years = loginMapper.findDefenseYearsByTeacherId(teacherId);
 
-
-    // 5. 如果没有找到年份，检查是否在 dbgroup 表中作为答辩组长
-    if (CollectionUtils.isEmpty(years)) {
-      // 检查教师是否在任何年份担任过答辩组长
-      List<Integer> leaderYears = findDefenseLeaderYears(teacherId);
-      if (CollectionUtils.isNotEmpty(leaderYears)) {
-        years = leaderYears;
-      }
+    for (Map<String, Object> map : loginMapper.findDefenseYears(teacherId)){
+      years.add((Integer) map.get("year"));
     }
+    
 
-    // 6. 去重并排序（降序）
     if (CollectionUtils.isNotEmpty(years)) {
       return years.stream()
               .distinct()
@@ -210,23 +188,6 @@ public class LoginServiceImpl implements LoginService {
     }
     return Collections.emptyList();
   }
-  private List<Integer> findDefenseLeaderYears(String teacherId) {
-    // 这里需要添加一个查询方法到 LoginMapper 中
-    // 查询 dbgroup 表中教师作为组长的年份
-    // 暂时使用现有的方法，通过循环检查
-    List<Integer> years = new ArrayList<>();
-
-    // 检查近几年的年份（例如2020-2030）
-    for (int year = 2020; year <= 2030; year++) {
-      Boolean isLeader = loginMapper.checkIsDefenseLeaderByYear(teacherId, year);
-      if (Boolean.TRUE.equals(isLeader)) {
-        years.add(year);
-      }
-    }
-
-    return years;
-  }
-
 
   private void copyBaseUserProperties(BaseUser target, BaseUser source) {
     target.setId(source.getId());

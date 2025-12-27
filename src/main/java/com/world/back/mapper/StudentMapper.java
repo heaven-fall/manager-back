@@ -8,14 +8,9 @@ import java.util.Map;
 
 @Mapper
 public interface StudentMapper {
-
-    // 根据ID查询学生
+    
     @Select("select * from student where id = #{id}")
     Student findById(@Param("id") String id);
-
-    // 根据学号查询
-    @Select("select * from student where id = #{studentId}")
-    Student findByStudentId(@Param("studentId") String studentId);
 
     // 查询学院下的学生列表（支持分页和搜索）
     @Select("select * from student where institute_id=#{instituteId}")
@@ -80,4 +75,7 @@ public interface StudentMapper {
 
     @Select("select * from student where institute_id=#{instituteId}")
     List<Student> getStudentByInstituteId(Integer instituteId);
+    
+    @Select("select * from dbinfo where stu_id=#{id} limit 1")
+    Map<String, Object> getDbInfoById(String id);
 }
