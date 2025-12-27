@@ -29,12 +29,12 @@ public interface GroupMapper
     @Delete("delete from dbgroup where id=#{id}")
     void deleteGroup(Integer id);
 
-    @Select("select * from student join dbinfo on id=stu_id where gid=#{gid}")
-    List<Student> getStudentByGid(Integer gid);
-
     @Select("select max_student_count from dbgroup where id=#{gid}")
     int getMaxStudentCountByGid(Integer gid);
     
     @Select("select * from dbinfo where gid=#{id}")
     List<Map<String, Object>> getMember(Integer id);
+    
+    @Delete("delete from dbinfo where gid=#{group_id} and stu_id=#{student_id}")
+    void deleteFromGroup(Integer group_id, String student_id);
 }

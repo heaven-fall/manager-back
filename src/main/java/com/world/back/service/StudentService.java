@@ -7,7 +7,9 @@ import java.util.Map;
 
 public interface StudentService {
     // 获取学生列表
-    Map<String, Object> getStudentList(Long instituteId);
+    List<Map<String, Object>> getStudentList(Long instituteId);
+    
+    List<Map<String, Object>> getStudentListPage(Integer instituteId, Integer currentpage, Integer pagesize);
 
     // 根据ID获取学生
     Student getStudentById(String id);
@@ -28,4 +30,13 @@ public interface StudentService {
 
     // 验证学号是否重复
     boolean isStudentIdDuplicate(String studentId, String excludeId);
+    
+    String getTeacherById(String student_id);
+    
+    
+    Integer getGidBySid(String sid);
+    
+    Integer getCount(Integer instituteId);
+    
+    Integer getUnassignCount(Integer instituteId);
 }

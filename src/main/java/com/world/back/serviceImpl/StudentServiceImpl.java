@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,45 +22,79 @@ public class StudentServiceImpl implements StudentService {
     private final StudentMapper studentMapper;
     @Autowired
     private final GroupMapper groupMapper;
-
+    
     @Override
-    public Map<String, Object> getStudentList(Long instituteId) {
-        try {
-            Map<String, Object> result = new HashMap<>();
-
+    public List<Map<String, Object>> getStudentList(Long instituteId)
+    {
+        try
+        {
             List<Map<String, Object>> list = studentMapper.findListByInstitute(instituteId);
-
-            // 查询总数
-            Integer total = list.size();
-
+            
             // 处理字段映射
-            list.forEach(item -> {
+            list.forEach(item ->
+            {
                 // 将下划线字段转为驼峰
-                if (item.containsKey("real_name")) {
+                if (item.containsKey("real_name"))
+                {
                     item.put("name", item.get("real_name"));
                     item.put("realName", item.get("real_name"));
                     item.remove("real_name");
                 }
-
+                
                 // 处理电话字段
-                if (item.containsKey("tel")) {
+                if (item.containsKey("tel"))
+                {
                     item.put("phone", item.get("tel"));
                 }
-
+                
                 // 添加前端需要的字段
                 item.put("studentId", item.get("id"));  // 学号
                 item.put("dbgroup", studentMapper.findGroupIdByStudentId(item.get("id").toString()));
             });
-
-            result.put("list", list);
-            result.put("total", total);
-            return result;
-        } catch (Exception e) {
-            log.error("获取学生列表失败", e);
+            
+            return list;
+        } catch (Exception e)
+        {
             throw new RuntimeException("获取学生列表失败: " + e.getMessage());
         }
     }
 
+    @Override
+    public List<Map<String, Object>> getStudentListPage(Integer instituteId, Integer currentpage, Integer pagesize)
+    {
+        try
+        {
+            List<Map<String, Object>> list = studentMapper.findListByInstitutePage(instituteId, (currentpage - 1)*pagesize, pagesize);
+            
+            // 处理字段映射
+            list.forEach(item ->
+            {
+                // 将下划线字段转为驼峰
+                if (item.containsKey("real_name"))
+                {
+                    item.put("name", item.get("real_name"));
+                    item.put("realName", item.get("real_name"));
+                    item.remove("real_name");
+                }
+                
+                // 处理电话字段
+                if (item.containsKey("tel"))
+                {
+                    item.put("phone", item.get("tel"));
+                }
+                
+                // 添加前端需要的字段
+                item.put("studentId", item.get("id"));  // 学号
+                item.put("dbgroup", studentMapper.findGroupIdByStudentId(item.get("id").toString()));
+            });
+            
+            return list;
+        } catch (Exception e)
+        {
+            throw new RuntimeException("获取学生列表失败: " + e.getMessage());
+        }
+    }
+    
     @Override
     public Student getStudentById(String id) {
         try {
@@ -127,7 +160,7 @@ public class StudentServiceImpl implements StudentService {
     @Transactional
     public boolean assignGroup(String studentId, Integer groupId) {
         try {
-            if (groupMapper.getStudentByGid(groupId).size() == groupMapper.getMaxStudentCountByGid(groupId))
+            if (groupMapper.getMember(groupId).size() == groupMapper.getMaxStudentCountByGid(groupId))
             {
                 return false;
             }
@@ -155,5 +188,29 @@ public class StudentServiceImpl implements StudentService {
             log.error("检查学号重复失败", e);
             return true;
         }
+    }
+    
+    @Override
+    public String getTeacherById(String student_id)
+    {
+        return studentMapper.getTeacherById(student_id);
+    }
+    
+    @Override
+    public Integer getGidBySid(String sid)
+    {
+        return studentMapper.getGidBySid(sid);
+    }
+    
+    @Override
+    public Integer getCount(Integer instituteId)
+    {
+        return studentMapper.getCount(instituteId);
+    }
+    
+    @Override
+    public Integer getUnassignCount(Integer instituteId)
+    {
+        return studentMapper.getUnassignCount(instituteId);
     }
 }

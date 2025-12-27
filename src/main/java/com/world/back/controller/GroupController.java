@@ -3,6 +3,8 @@ package com.world.back.controller;
 import com.world.back.entity.Student;
 import com.world.back.entity.res.Group;
 import com.world.back.entity.res.Result;
+import com.world.back.service.InstituteService;
+import com.world.back.service.StudentService;
 import com.world.back.serviceImpl.DefenseServiceImpl;
 import com.world.back.serviceImpl.GroupServiceImpl;
 import com.world.back.serviceImpl.TeacherServiceImpl;
@@ -24,13 +26,17 @@ public class GroupController
     private TeacherServiceImpl teacherService;
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private InstituteService instituteService;
+    @Autowired
+    private StudentService studentService;
     @GetMapping("/all")
     public Result<List<Map<String, Object>>> getAllGroups(@RequestParam Integer year)
     {
         List<Map<String, Object>> res = groupService.getAllGroups(year);
         for (Map<String, Object> map : res) {
             map.put("realName", userService.getNameById((String)map.get("admin_id")));
-            map.put("student_count", groupService.getStudentByGid((Integer)map.get("id")).size());
+            map.put("student_count", groupService.getMember((Integer)map.get("id")).size());
         }
         return Result.success(res);
     }
@@ -64,9 +70,14 @@ public class GroupController
     }
 
     @GetMapping("/studentlist")
-    public Result<List<Student>> getStudentList(@RequestParam Integer group_id)
+    public Result<List<Map<String, Object>>> getStudentList(@RequestParam Integer group_id)
     {
-        List<Student> res = groupService.getStudentByGid(group_id);
+        List<Map<String, Object>> res = groupService.getMember(group_id);
+        for (Map<String, Object> map : res) {
+            map.put("instituteName", instituteService.getInstituteNameById((Integer) map.get("instituteId")));
+            map.put("teacherName", userService.getNameById(studentService.getTeacherById((String) map.get("id"))));;
+            
+        }
         return Result.success(res);
     }
 
@@ -76,4 +87,12 @@ public class GroupController
         return Result.success(groupService.getMember(group_id));
     }
     
+    @PostMapping("/deletefromgroup")
+    public Result<Boolean> deleteFromGroup(@RequestBody Map<String, Object> map)
+    {
+        Integer group_id = (Integer)map.get("group_id");
+        String student_id = (String)map.get("student_id");
+        groupService.deleteFromGroup(group_id, student_id);
+        return Result.success(true);
+    }
 }

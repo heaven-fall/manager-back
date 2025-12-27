@@ -88,7 +88,12 @@ public class UserServiceImpl implements UserService
   @Override
   public String getNameById(String id)
   {
-    return userMapper.getUserById(id).getRealName();
+    BaseUser user = userMapper.getUserById(id);
+    if (user != null)
+    {
+      return user.getRealName();
+    }
+    return "查无此人";
   }
 
   @Override
