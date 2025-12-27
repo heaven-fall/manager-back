@@ -1,14 +1,16 @@
 use manager;
 
-drop table if exists dbinfo;
-drop table if exists tea_stu_rel;
-drop table if exists user_inst_rel;
 drop table if exists tea_group_rel;
 drop table if exists dbinfo;
 drop table if exists dbgroup;
+drop table if exists tea_stu_rel;
+drop table if exists user_inst_rel;
 drop table if exists student;
 drop table if exists institute;
 drop table if exists user;
+drop table if exists template;
+drop table if exists date_config;
+drop table if exists placeholder_config;
 
 create table user(
                      id char(10) not null comment '用户id',
@@ -74,7 +76,6 @@ create table dbinfo(
                        time date comment '答辩日期',
                        summary varchar(255) comment '毕业考核摘要',
                        reviewer_id char(10) comment '评阅人id',
-                        -- 成绩相关字段
                        paper_quality int default 0 comment '论文质量分(毕业论文用)',
                        presentation int default 0 comment '自述报告分',
                        qa_performance int default 0 comment '回答问题分(毕业论文用)',
@@ -87,11 +88,10 @@ create table dbinfo(
                        total_score int default 0 comment '总分',
                        comment text comment '答辩小组评语',
                        graded_by varchar(10) comment '评分人id',
-                       graded_at timestamp comment '评分时间',
-                       teacher_scores json comment '其他教师评分(JSON格式存储)',
-                       foreign key fk_rev_id(reviewer_id) references user(id),
-                       foreign key fk_gid(gid) references dbgroup(id),
-                       foreign key fk_stu_id(stu_id) references student(id)
+                       teacher_scores json comment '其他教师评分(json格式存储)',
+                       foreign key (reviewer_id) references user(id),
+                       foreign key (gid) references dbgroup(id),
+                       foreign key (stu_id) references student(id),
                        unique key uk_stu_gid (stu_id, gid)
 ) comment='学生答辩信息';
 
