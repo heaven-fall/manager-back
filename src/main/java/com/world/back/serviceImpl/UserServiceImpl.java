@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService
           DateTimeFormatter.ofPattern("yyyyMMdd");
 
   @Override
-  public Long getAdminCount()
+  public Integer getAdminCount()
   {
     return userMapper.getAdminCount();
   }
@@ -295,5 +295,5 @@ public class UserServiceImpl implements UserService
       log.warn("删除旧签名文件失败：{}", oldSignaturePath, e);
     }
   }
-
+  
 }

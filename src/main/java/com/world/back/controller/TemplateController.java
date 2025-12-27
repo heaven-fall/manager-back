@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/templates")
+@RequestMapping("/templates")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
 public class TemplateController {
@@ -49,7 +49,7 @@ public class TemplateController {
             HttpServletRequest request) {
 
         try {
-            String userId = AuthUtil.getUserIdFromToken((jakarta.servlet.http.HttpServletRequest) request);
+            String userId = AuthUtil.getUserIdFromToken(request);
             Map<String, Object> result = templateService.uploadTemplate(file, templateId, userId);
 
             int code = (int) result.get("code");
@@ -78,7 +78,7 @@ public class TemplateController {
 
         Map<String, Object> response = new HashMap<>();
         try {
-            AuthUtil.getUserIdFromToken((jakarta.servlet.http.HttpServletRequest) request); // 验证token
+            AuthUtil.getUserIdFromToken(request); // 验证token
 
             boolean success = templateService.deleteTemplate(id);
             if (success) {
@@ -119,7 +119,7 @@ public class TemplateController {
 
         Map<String, Object> response = new HashMap<>();
         try {
-            AuthUtil.getUserIdFromToken((jakarta.servlet.http.HttpServletRequest) request);
+            AuthUtil.getUserIdFromToken(request);
 
             // 这里可以实现具体的业务逻辑
             // 暂时返回成功

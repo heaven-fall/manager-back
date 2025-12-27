@@ -1,7 +1,8 @@
 package com.world.back.utils;
 
 import org.springframework.stereotype.Component;
-import jakarta.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Component
 public class AuthUtil {

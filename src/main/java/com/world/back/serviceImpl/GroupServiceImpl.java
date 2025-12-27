@@ -66,6 +66,8 @@ public class GroupServiceImpl implements GroupService
             map.put("realName", student.getRealName());
             map.put("title", dbinfo.get("title"));
             map.put("instituteId", student.getInstituteId());
+            map.put("summary", dbinfo.get("summary"));
+            map.put("type", dbinfo.get("type"));
         }
         return groupMembers;
     }

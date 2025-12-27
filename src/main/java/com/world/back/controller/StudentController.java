@@ -150,8 +150,9 @@ public class StudentController {
     public ResponseEntity<Map<String, Object>> assignGroup(@RequestBody Map<String, Object> map) {
         String student_id = (String) map.get("student_id");
         Integer group_id = (Integer) map.get("group_id");
+        Integer type = (Integer) map.get("type");
         try {
-            boolean success = studentService.assignGroup(student_id, group_id);
+            boolean success = studentService.assignGroup(student_id, group_id, type);
             if (success) {
                 return ResponseEntity.ok(buildSuccessResponse("分配成功"));
             } else {

@@ -62,7 +62,7 @@ public class AdminController {
     }
     
     @GetMapping("/count")
-    public Result<Long> getCount()
+    public Result<Integer> getCount()
     {
         return Result.success(userService.getAdminCount());
     }

@@ -12,7 +12,6 @@ import com.world.back.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -76,7 +75,6 @@ public class GroupController
         for (Map<String, Object> map : res) {
             map.put("instituteName", instituteService.getInstituteNameById((Integer) map.get("instituteId")));
             map.put("teacherName", userService.getNameById(studentService.getTeacherById((String) map.get("id"))));;
-            
         }
         return Result.success(res);
     }

@@ -13,7 +13,7 @@ public class Student {
     private String instituteName;
 
     // 毕业考核信息
-    private Integer defenseType;    // 考核类型：1-论文，2-设计
+    private Integer type;    // 考核类型：1-论文，2-设计
     private String defenseTitle;    // 考核题目
     private String defenseDate;     // 答辩日期
 

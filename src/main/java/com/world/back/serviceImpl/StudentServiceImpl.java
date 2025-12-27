@@ -158,7 +158,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @Transactional
-    public boolean assignGroup(String studentId, Integer groupId) {
+    public boolean assignGroup(String studentId, Integer groupId, Integer type) {
         try {
             if (groupMapper.getMember(groupId).size() == groupMapper.getMaxStudentCountByGid(groupId))
             {
@@ -168,7 +168,7 @@ public class StudentServiceImpl implements StudentService {
             studentMapper.removeGroupAssignment(studentId);
 
             // 添加新的分配
-            int result = studentMapper.assignGroup(studentId, groupId);
+            int result = studentMapper.assignGroup(studentId, groupId, type);
             return result > 0;
         } catch (Exception e) {
             log.error("分配答辩小组失败", e);
@@ -212,5 +212,11 @@ public class StudentServiceImpl implements StudentService {
     public Integer getUnassignCount(Integer instituteId)
     {
         return studentMapper.getUnassignCount(instituteId);
+    }
+    
+    @Override
+    public Map<String, Object> getDbInfoById(String id)
+    {
+        return studentMapper.getDbInfoById(id);
     }
 }
