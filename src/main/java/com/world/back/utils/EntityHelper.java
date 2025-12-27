@@ -18,13 +18,9 @@ public class EntityHelper {
         leader.setInstId(teacher.getInstId());
         leader.setInstituteName(teacher.getInstituteName());
         leader.setIsDefenseLeader(true);
+        leader.setGroupId(teacher.getGroupId());
         leader.setGuidedStudentsCount(teacher.getGuidedStudentsCount());
 
         return leader;
-    }
-
-    // 简化的构建方法（不带年份）
-    public static DefenseLeader buildDefenseLeader(Teacher teacher) {
-        return buildDefenseLeader(teacher, null);
     }
 }

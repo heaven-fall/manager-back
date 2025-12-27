@@ -154,7 +154,7 @@ public class LoginServiceImpl implements LoginService {
 
     if (isDefenseLeader) {
       // 如果是答辩组长，创建DefenseLeader对象
-      DefenseLeader defenseLeader = EntityHelper.buildDefenseLeader(teacher);
+      DefenseLeader defenseLeader = EntityHelper.buildDefenseLeader(teacher,teacher.getGroupYear());
       userType = "defenseLeader";
       return new LoginResponse(userType, defenseLeader);
     } else {
