@@ -60,7 +60,6 @@ create table dbgroup(
                         id int auto_increment comment '编号',
                         year int comment '答辩年份',
                         admin_id char(10) comment '答辩组长',
-                        student_count int comment '学生数量',
                         max_student_count int comment '最大学生数量',
                         primary key (id),
                         foreign key fk_user_id(admin_id) references user(id)

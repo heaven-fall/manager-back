@@ -4,6 +4,7 @@ import com.world.back.entity.user.BaseUser;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface LoginMapper {
@@ -23,13 +24,8 @@ public interface LoginMapper {
   @Select("select count(*) > 0 from dbgroup where admin_id = #{userId}")
   Boolean checkIsDefenseLeader(@Param("userId") String userId);
 
-  @Select("select count(*) > 0 from dbgroup where admin_id = #{userId} and year = #{year}")
-  Boolean checkIsDefenseLeaderByYear(@Param("userId") String userId,
-                                     @Param("year") Integer year);
-
-  // 添加方法：查询教师作为答辩组长的所有年份
-  @Select("select distinct year from dbgroup where admin_id = #{userId} order by year desc")
-  List<Integer> findDefenseLeaderYears(@Param("userId") String userId);
+  @Select("select * from tea_group_rel t inner join dbgroup d on d.id=t.group_id where t.teacher_id=#{teacher_id}")
+  List<Map<String, Object>> findDefenseYears(String teacher_id);
 
   // 添加方法：查询教师的所有权限年份（包括指导关系和答辩组长）
   @Select("select distinct year from tea_stu_rel where tea_id = #{teacherId} " +

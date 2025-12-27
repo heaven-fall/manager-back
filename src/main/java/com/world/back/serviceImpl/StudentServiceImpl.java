@@ -1,6 +1,7 @@
 package com.world.back.serviceImpl;
 
 import com.world.back.entity.Student;
+import com.world.back.mapper.GroupMapper;
 import com.world.back.mapper.StudentMapper;
 import com.world.back.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private final StudentMapper studentMapper;
-    
+    @Autowired
+    private final GroupMapper groupMapper;
+
     @Override
     public Map<String, Object> getStudentList(Long instituteId) {
         try {
@@ -70,13 +73,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student getStudentByStudentId(String studentId) {
-        try {
-            return studentMapper.findByStudentId(studentId);
-        } catch (Exception e) {
-            log.error("根据学号查询学生失败", e);
-            throw new RuntimeException("根据学号查询学生失败");
-        }
+    public List<Student> getStudentByInstituteId(Integer institute_id)
+    {
+        return studentMapper.getStudentByInstituteId(institute_id);
     }
 
     @Override
@@ -128,6 +127,10 @@ public class StudentServiceImpl implements StudentService {
     @Transactional
     public boolean assignGroup(String studentId, Integer groupId) {
         try {
+            if (groupMapper.getStudentByGid(groupId).size() == groupMapper.getMaxStudentCountByGid(groupId))
+            {
+                return false;
+            }
             // 先移除旧的分配
             studentMapper.removeGroupAssignment(studentId);
 

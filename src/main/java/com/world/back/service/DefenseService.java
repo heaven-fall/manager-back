@@ -10,16 +10,13 @@ import java.util.Map;
 public interface DefenseService
 {
     void yearAdd(Integer year);
-    
+
     void yearDelete(Integer year);
-    
+
     List<Map<String, Object>> yearAll();
-    
+
     Integer getCountByYear(Integer year);
-    
+
     Integer getStudentCountByYear(Integer year);
-    
-    List<Student> getStudentByGid(Integer group_id);
-    
-    
+
 }

@@ -8,14 +8,9 @@ import java.util.Map;
 
 @Mapper
 public interface StudentMapper {
-
-    // 根据ID查询学生
+    
     @Select("select * from student where id = #{id}")
     Student findById(@Param("id") String id);
-
-    // 根据学号查询
-    @Select("select * from student where id = #{studentId}")
-    Student findByStudentId(@Param("studentId") String studentId);
 
     // 查询学院下的学生列表（支持分页和搜索）
     @Select("select * from student where institute_id=#{instituteId}")
@@ -59,7 +54,7 @@ public interface StudentMapper {
             "join dbinfo d on s.id = d.stu_id " +
             "where d.gid = #{groupId}")
     List<Student> findStudentsByGroupId(@Param("groupId") Long groupId);
-    
+
     @Select("select gid from dbinfo where stu_id=#{id}")
     Integer findGroupIdByStudentId(@Param("id") String id);
 
@@ -77,4 +72,10 @@ public interface StudentMapper {
     // 获取学生答辩信息（从dbinfo表）
     @Select("select d.* from dbinfo d where d.stu_id = #{studentId}")
     Map<String, Object> getStudentDefenseInfo(@Param("studentId") String studentId);
+
+    @Select("select * from student where institute_id=#{instituteId}")
+    List<Student> getStudentByInstituteId(Integer instituteId);
+    
+    @Select("select * from dbinfo where stu_id=#{id} limit 1")
+    Map<String, Object> getDbInfoById(String id);
 }

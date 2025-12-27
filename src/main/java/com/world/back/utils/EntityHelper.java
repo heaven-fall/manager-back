@@ -7,18 +7,24 @@ public class EntityHelper {
 
     // 构建答辩组长对象（带年份）
     public static DefenseLeader buildDefenseLeader(Teacher teacher, Integer year) {
-        DefenseLeader defenseLeader = new DefenseLeader();
+        DefenseLeader leader = new DefenseLeader();
 
-        defenseLeader.setId(teacher.getId());
-        defenseLeader.setPwd(teacher.getPwd());
-        defenseLeader.setRole(teacher.getRole());
-        defenseLeader.setRealName(teacher.getRealName());
-        defenseLeader.setInstituteId(teacher.getInstituteId());
-        defenseLeader.setInstituteName(teacher.getInstituteName());
-        defenseLeader.setIsDefenseLeader(true);
-        defenseLeader.setGroupId(teacher.getGroupId());
+        // 复制Teacher属性
+        leader.setId(teacher.getId());
+        leader.setPwd(teacher.getPwd());
+        leader.setRole(teacher.getRole());
+        leader.setGroupYear(year);
+        leader.setRealName(teacher.getRealName());
+        leader.setInstId(teacher.getInstId());
+        leader.setInstituteName(teacher.getInstituteName());
+        leader.setIsDefenseLeader(true);
+        leader.setGuidedStudentsCount(teacher.getGuidedStudentsCount());
 
-        return defenseLeader;
+        return leader;
     }
 
+    // 简化的构建方法（不带年份）
+    public static DefenseLeader buildDefenseLeader(Teacher teacher) {
+        return buildDefenseLeader(teacher, null);
+    }
 }
