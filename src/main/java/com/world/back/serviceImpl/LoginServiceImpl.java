@@ -160,22 +160,26 @@ public class LoginServiceImpl implements LoginService {
     }
 
     // 检查是否为答辩组长
+    Integer groupId = null;
     boolean isDefenseLeader = false;
     String userType = "teacher";
 
     if (year != null) {
       // 有年份参数，检查该年份是否为答辩组长
-      isDefenseLeader = loginMapper.checkIsDefenseLeaderByYear(baseUser.getId(), year);
+      groupId = loginMapper.findGroupIdByLeaderAndYear(baseUser.getId(), year);
+      isDefenseLeader = groupId != null;
     } else {
       // 没有年份参数，检查是否有任何年份是答辩组长
       isDefenseLeader = loginMapper.checkIsDefenseLeader(baseUser.getId());
     }
 
     teacher.setIsDefenseLeader(isDefenseLeader);
+    teacher.setGroupId(groupId);
 
     if (isDefenseLeader) {
       // 如果是答辩组长，创建DefenseLeader对象
       DefenseLeader defenseLeader = EntityHelper.buildDefenseLeader(teacher, year);
+      defenseLeader.setGroupId(groupId);
       userType = "defenseLeader";
       return new LoginResponse(userType, defenseLeader);
     } else {
