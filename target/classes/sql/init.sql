@@ -1,5 +1,6 @@
 use manager;
 
+drop table if exists dbinfo;
 drop table if exists tea_stu_rel;
 drop table if exists user_inst_rel;
 drop table if exists tea_group_rel;
@@ -138,7 +139,6 @@ insert into tea_group_rel (teacher_id, group_id, is_defense_leader) values
                                                                         ('100002', 2, false),  -- 李老师也是第2组成员
                                                                         ('100003', 3, true),   -- 王老师是第3组组长
                                                                         ('100004', 3, false);  -- 赵老师是第3组成员
-<<<<<<< HEAD
 
 
 -- 1. 模板表
@@ -296,5 +296,3 @@ insert into placeholder_config (template_type, placeholder_key, placeholder_name
                                                                                       (7, '{{response_score2}}', '回答问题分2'),
                                                                                       (7, '{{total_score}}', '总成绩'),
                                                                                       (7, '{{signature_judge}}', '评委签名');
-=======
->>>>>>> dca2a4332162d5c800f830ad4f064d07f73320a1
