@@ -17,6 +17,9 @@ public interface StudentMapper {
     List<Map<String, Object>> findListByInstitute(
             @Param("instituteId") Long instituteId
     );
+    
+    @Select("select * from student where institute_id=#{instituteId} limit #{pagesize} offset #{offset}")
+    List<Map<String, Object>> findListByInstitutePage(Integer instituteId, Integer offset, Integer pagesize);
 
     // 插入学生
     @Insert("insert into student(id, real_name, tel, email, institute_id) " +
@@ -78,4 +81,16 @@ public interface StudentMapper {
     
     @Select("select * from dbinfo where stu_id=#{id} limit 1")
     Map<String, Object> getDbInfoById(String id);
+    
+    @Select("select tea_id from tea_stu_rel where stu_id=#{id}")
+    String getTeacherById(String id);
+    
+    @Select("select gid from dbinfo where stu_id=#{sid}")
+    Integer getGidBySid(String sid);
+    
+    @Select("select count(1) from student where institute_id=#{instituteId}")
+    Integer getCount(Integer instituteId);
+    
+    @Select("select count(1) from student where institute_id=#{instituteId} and id not in (select stu_id from dbinfo)")
+    Integer getUnassignCount(Integer instituteId);
 }

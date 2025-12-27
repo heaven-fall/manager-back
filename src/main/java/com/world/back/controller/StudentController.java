@@ -1,12 +1,18 @@
 package com.world.back.controller;
 
 import com.world.back.entity.Student;
+import com.world.back.entity.res.Result;
+import com.world.back.service.InstituteService;
 import com.world.back.service.StudentService;
+import com.world.back.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -14,24 +20,65 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class StudentController {
 
-    private final StudentService studentService;
+    @Autowired
+    private StudentService studentService;
+    @Autowired
+    private InstituteService instituteService;
+    @Autowired
+    private UserService userService;
 
-    /**
-     * 获取学生列表
-     * GET /api/students/list
-     */
     @GetMapping("/list")
-    public ResponseEntity<Map<String, Object>> getStudentList(
-            @RequestParam Long institute_id) {
+    public Result<List<Map<String, Object>>> getStudentList(
+            @RequestParam Integer institute_id,
+            @RequestParam Integer currentpage,
+            @RequestParam Integer pagesize) {
 
         try {
-            Map<String, Object> result = studentService.getStudentList(institute_id);
-            return ResponseEntity.ok(buildSuccessResponse(result));
+            List<Map<String, Object>> result = studentService.getStudentListPage(institute_id, currentpage, pagesize);
+            for (Map<String, Object> map : result) {
+                map.put("instituteName", instituteService.getInstituteNameById((Integer) map.get("institute_id")));
+                map.put("teacherName", userService.getNameById(studentService.getTeacherById((String) map.get("id"))));;
+            }
+            return Result.success(result);
         } catch (Exception e) {
-            return ResponseEntity.ok(buildErrorResponse(e.getMessage()));
+            return Result.error(e.getMessage());
         }
     }
-
+    
+    @GetMapping("/listunassign")
+    public Result<List<Map<String, Object>>> getStudentListUnassign(
+            @RequestParam Integer institute_id,
+            @RequestParam Integer currentpage,
+            @RequestParam Integer pagesize)
+    {
+        try {
+            List<Map<String, Object>> result = studentService.getStudentListPage(institute_id, currentpage, pagesize);
+            List<Map<String, Object>> res = new ArrayList<>();
+            for (int i = 0; i < result.size(); i++) {
+                if (studentService.getGidBySid((String)result.get(i).get("id")) == null)
+                {
+                    Map<String, Object> item = result.get(i);
+                    item.put("instituteName", instituteService.getInstituteNameById((Integer) result.get(i).get("institute_id")));
+                    item.put("teacherName", userService.getNameById(studentService.getTeacherById((String) result.get(i).get("id"))));;
+                    res.add(item);
+                }
+            }
+            return Result.success(res);
+        } catch (Exception e) {
+            return Result.error(e.getMessage());
+        }
+    }
+    
+    @GetMapping("/count")
+    public Result<Integer> count(@RequestParam Integer institute_id){
+        return Result.success(studentService.getCount(institute_id));
+    }
+    
+    @GetMapping("/unassigncount")
+    public Result<Integer> unassigncount(@RequestParam Integer institute_id)
+    {
+        return Result.success(studentService.getUnassignCount(institute_id));
+    }
     /**
      * 创建学生
      * POST /api/students/create
@@ -112,25 +159,6 @@ public class StudentController {
             }
         } catch (Exception e) {
             return ResponseEntity.ok(buildErrorResponse(e.getMessage()));
-        }
-    }
-
-    /**
-     * 检查学号是否重复
-     * GET /api/students/check-student-id
-     */
-    @GetMapping("/check-student-id")
-    public ResponseEntity<Map<String, Object>> checkStudentId(
-            @RequestParam String student_id,
-            @RequestParam(required = false) String exclude_id) {
-        try {
-            boolean isDuplicate = studentService.isStudentIdDuplicate(student_id, exclude_id);
-            Map<String, Object> data = new HashMap<>();
-            data.put("isDuplicate", isDuplicate);
-            data.put("message", isDuplicate ? "学号已存在" : "学号可用");
-            return ResponseEntity.ok(buildSuccessResponse(data));
-        } catch (Exception e) {
-            return ResponseEntity.ok(buildErrorResponse("检查失败"));
         }
     }
 

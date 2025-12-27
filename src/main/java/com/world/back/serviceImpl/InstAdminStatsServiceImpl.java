@@ -31,10 +31,7 @@ public class InstAdminStatsServiceImpl
 
         try {
             // 1. 获取学生数量
-            Map<String, Object> studentList = studentService.getStudentList(instituteId);
-            if (studentList != null && studentList.containsKey("total")) {
-                stats.put("student_count", studentList.get("total"));
-            }
+            stats.put("student_count", studentService.getStudentList(instituteId).size());
 
             // 2. 获取教师数量
             Long teacherCount = teacherService.getTeacherCount(instituteId.intValue());

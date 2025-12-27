@@ -48,12 +48,7 @@ public class GroupServiceImpl implements GroupService
     {
         groupMapper.deleteAdmin(gid);
     }
-
-    @Override
-    public List<Student> getStudentByGid(Integer group_id)
-    {
-        return groupMapper.getStudentByGid(group_id);
-    }
+    
 
     @Override
     public int getMaxStudentCountByGid(Integer group_id)
@@ -68,10 +63,16 @@ public class GroupServiceImpl implements GroupService
         for (Map<String, Object> map : groupMembers) {
             Student student = studentMapper.findById((String)map.get("stu_id"));
             Map<String, Object> dbinfo = studentMapper.getDbInfoById(student.getId());
-            map.put("real_name", student.getRealName());
+            map.put("realName", student.getRealName());
             map.put("title", dbinfo.get("title"));
+            map.put("instituteId", student.getInstituteId());
         }
         return groupMembers;
     }
     
+    @Override
+    public void deleteFromGroup(Integer group_id, String student_id)
+    {
+        groupMapper.deleteFromGroup(group_id, student_id);
+    }
 }

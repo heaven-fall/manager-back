@@ -20,10 +20,9 @@ public interface GroupService
 
     void deleteAdmin(Integer gid);
 
-    List<Student> getStudentByGid(Integer group_id);
-
     int getMaxStudentCountByGid(Integer group_id);
     
     List<Map<String, Object>> getMember(Integer group_id);
     
+    void deleteFromGroup(Integer group_id, String student_id);
 }
