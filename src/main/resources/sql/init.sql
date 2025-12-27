@@ -137,3 +137,160 @@ insert into tea_group_rel (teacher_id, group_id, is_defense_leader) values
                                                                         ('100002', 2, false),  -- 李老师也是第2组成员
                                                                         ('100003', 3, true),   -- 王老师是第3组组长
                                                                         ('100004', 3, false);  -- 赵老师是第3组成员
+
+
+-- 1. 模板表
+create table template (
+                          id int auto_increment primary key comment '模板id',
+                          name varchar(100) not null comment '模板名称',
+                          type int not null comment '模板类型：1-本科毕业设计答辩成绩表, 2-本科毕业设计成绩评定表, 3-本科毕业论文答辩成绩表, 4-本科毕业论文成绩评定表, 5-毕业论文(设计)答辩小组统分表, 6-毕业论文答辩成绩无评语过程表, 7-毕业设计答辩成绩无评语过程表',
+                          file_path varchar(500) not null comment '文件存储路径',
+                          file_name varchar(255) not null comment '原始文件名',
+                          file_size bigint comment '文件大小',
+                          updated_at timestamp default current_timestamp on update current_timestamp comment '更新时间',
+                          updated_by varchar(50) comment '最后更新人',
+                          unique key uk_template_type (type)
+) comment='文档模板表';
+
+-- 2. 日期配置表
+create table date_config (
+                             id int auto_increment primary key,
+                             config_key varchar(50) not null comment '配置键：defense_date/evaluation_date',
+                             config_value date not null comment '日期值',
+                             updated_at timestamp default current_timestamp on update current_timestamp comment '更新时间',
+                             unique key uk_config_key (config_key)
+) comment='日期配置表';
+
+-- 3. 占位符配置表（用于验证）
+create table placeholder_config (
+                                    id int auto_increment primary key,
+                                    template_type int not null comment '模板类型',
+                                    placeholder_key varchar(100) not null comment '占位符键名',
+                                    placeholder_name varchar(100) not null comment '占位符显示名称',
+                                    is_required boolean default true comment '是否必需',
+                                    unique key uk_type_placeholder (template_type, placeholder_key)
+) comment='模板占位符配置表';
+
+-- 初始化模板类型
+insert into template (name, type, file_path, file_name) values
+                                                            ('本科毕业设计答辩成绩表', 1, '', ''),
+                                                            ('本科毕业设计成绩评定表', 2, '', ''),
+                                                            ('本科毕业论文答辩成绩表', 3, '', ''),
+                                                            ('本科毕业论文成绩评定表', 4, '', ''),
+                                                            ('毕业论文(设计)答辩小组统分表', 5, '', ''),
+                                                            ('毕业论文答辩成绩无评语过程表', 6, '', ''),
+                                                            ('毕业设计答辩成绩无评语过程表', 7, '', '');
+
+-- 初始化日期配置
+insert into date_config (config_key, config_value) values
+                                                       ('defense_date', curdate()),
+                                                       ('evaluation_date', curdate());
+
+-- 初始化占位符配置（根据需求文档）
+-- 类型1：本科毕业设计答辩成绩表
+insert into placeholder_config (template_type, placeholder_key, placeholder_name) values
+                                                                                      (1, '{{student_name}}', '学生姓名'),
+                                                                                      (1, '{{student_id}}', '学号'),
+                                                                                      (1, '{{date_year}}', '年份'),
+                                                                                      (1, '{{date_month}}', '月份'),
+                                                                                      (1, '{{date_day}}', '日期'),
+                                                                                      (1, '{{thesis_title}}', '题目'),
+                                                                                      (1, '{{design_quality_score1}}', '设计质量分1'),
+                                                                                      (1, '{{design_quality_score2}}', '设计质量分2'),
+                                                                                      (1, '{{design_quality_score3}}', '设计质量分3'),
+                                                                                      (1, '{{defense_report_score}}', '答辩报告分'),
+                                                                                      (1, '{{response_score1}}', '回答问题分1'),
+                                                                                      (1, '{{response_score2}}', '回答问题分2'),
+                                                                                      (1, '{{total_score}}', '总成绩'),
+                                                                                      (1, '{{signature_judge}}', '评委签名');
+
+-- 类型2：本科毕业设计成绩评定表
+insert into placeholder_config (template_type, placeholder_key, placeholder_name) values
+                                                                                      (2, '{{student_name}}', '学生姓名'),
+                                                                                      (2, '{{student_id}}', '学号'),
+                                                                                      (2, '{{date_year}}', '年份'),
+                                                                                      (2, '{{date_month}}', '月份'),
+                                                                                      (2, '{{date_day}}', '日期'),
+                                                                                      (2, '{{thesis_title}}', '题目'),
+                                                                                      (2, '{{advisor_score}}', '指导老师成绩'),
+                                                                                      (2, '{{reviewer_score}}', '评阅人成绩'),
+                                                                                      (2, '{{defense_score}}', '答辩成绩'),
+                                                                                      (2, '{{advisor_calculated}}', '指导老师成绩×0.3'),
+                                                                                      (2, '{{reviewer_calculated}}', '评阅人成绩×0.3'),
+                                                                                      (2, '{{defense_calculated}}', '答辩成绩×0.4'),
+                                                                                      (2, '{{final_score}}', '最终成绩'),
+                                                                                      (2, '{{signature_department_head}}', '系主任签名');
+
+-- 类型3：本科毕业论文答辩成绩表
+insert into placeholder_config (template_type, placeholder_key, placeholder_name) values
+                                                                                      (3, '{{student_name}}', '学生姓名'),
+                                                                                      (3, '{{student_id}}', '学号'),
+                                                                                      (3, '{{date_year}}', '年份'),
+                                                                                      (3, '{{date_month}}', '月份'),
+                                                                                      (3, '{{date_day}}', '日期'),
+                                                                                      (3, '{{thesis_title}}', '题目'),
+                                                                                      (3, '{{paper_quality_score}}', '论文质量分'),
+                                                                                      (3, '{{defense_report_score}}', '答辩报告分'),
+                                                                                      (3, '{{response_score}}', '回答问题分'),
+                                                                                      (3, '{{total_score}}', '总成绩'),
+                                                                                      (3, '{{defense_comment}}', '答辩评语'),
+                                                                                      (3, '{{signature_group_leader}}', '组长签名');
+
+-- 类型4：本科毕业论文成绩评定表（同类型2）
+insert into placeholder_config (template_type, placeholder_key, placeholder_name) values
+                                                                                      (4, '{{student_name}}', '学生姓名'),
+                                                                                      (4, '{{student_id}}', '学号'),
+                                                                                      (4, '{{date_year}}', '年份'),
+                                                                                      (4, '{{date_month}}', '月份'),
+                                                                                      (4, '{{date_day}}', '日期'),
+                                                                                      (4, '{{thesis_title}}', '题目'),
+                                                                                      (4, '{{advisor_score}}', '指导老师成绩'),
+                                                                                      (4, '{{reviewer_score}}', '评阅人成绩'),
+                                                                                      (4, '{{defense_score}}', '答辩成绩'),
+                                                                                      (4, '{{advisor_calculated}}', '指导老师成绩×0.3'),
+                                                                                      (4, '{{reviewer_calculated}}', '评阅人成绩×0.3'),
+                                                                                      (4, '{{defense_calculated}}', '答辩成绩×0.4'),
+                                                                                      (4, '{{final_score}}', '最终成绩'),
+                                                                                      (4, '{{signature_department_head}}', '系主任签名');
+
+-- 类型5：毕业论文(设计)答辩小组统分表（通用字段）
+insert into placeholder_config (template_type, placeholder_key, placeholder_name) values
+                                                                                      (5, '{{student_name}}', '学生姓名'),
+                                                                                      (5, '{{student_id}}', '学号'),
+                                                                                      (5, '{{date_year}}', '年份'),
+                                                                                      (5, '{{date_month}}', '月份'),
+                                                                                      (5, '{{date_day}}', '日期'),
+                                                                                      (5, '{{thesis_title}}', '题目'),
+                                                                                      (5, '{{total_score}}', '总成绩'),
+                                                                                      (5, '{{signature_judge}}', '评委签名');
+
+-- 类型6：毕业论文答辩成绩无评语过程表
+insert into placeholder_config (template_type, placeholder_key, placeholder_name) values
+                                                                                      (6, '{{student_name}}', '学生姓名'),
+                                                                                      (6, '{{student_id}}', '学号'),
+                                                                                      (6, '{{date_year}}', '年份'),
+                                                                                      (6, '{{date_month}}', '月份'),
+                                                                                      (6, '{{date_day}}', '日期'),
+                                                                                      (6, '{{thesis_title}}', '题目'),
+                                                                                      (6, '{{paper_quality_score}}', '论文质量分'),
+                                                                                      (6, '{{defense_report_score}}', '答辩报告分'),
+                                                                                      (6, '{{response_score}}', '回答问题分'),
+                                                                                      (6, '{{total_score}}', '总成绩'),
+                                                                                      (6, '{{signature_judge}}', '评委签名');
+
+-- 类型7：毕业设计答辩成绩无评语过程表（同类型1）
+insert into placeholder_config (template_type, placeholder_key, placeholder_name) values
+                                                                                      (7, '{{student_name}}', '学生姓名'),
+                                                                                      (7, '{{student_id}}', '学号'),
+                                                                                      (7, '{{date_year}}', '年份'),
+                                                                                      (7, '{{date_month}}', '月份'),
+                                                                                      (7, '{{date_day}}', '日期'),
+                                                                                      (7, '{{thesis_title}}', '题目'),
+                                                                                      (7, '{{design_quality_score1}}', '设计质量分1'),
+                                                                                      (7, '{{design_quality_score2}}', '设计质量分2'),
+                                                                                      (7, '{{design_quality_score3}}', '设计质量分3'),
+                                                                                      (7, '{{defense_report_score}}', '答辩报告分'),
+                                                                                      (7, '{{response_score1}}', '回答问题分1'),
+                                                                                      (7, '{{response_score2}}', '回答问题分2'),
+                                                                                      (7, '{{total_score}}', '总成绩'),
+                                                                                      (7, '{{signature_judge}}', '评委签名');
