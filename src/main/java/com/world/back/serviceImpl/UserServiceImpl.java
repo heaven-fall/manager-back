@@ -47,18 +47,6 @@ public class UserServiceImpl implements UserService
   }
 
   @Override
-  public Long getTeacherCount()
-  {
-    return userMapper.getTeacherCount();
-  }
-
-  @Override
-  public List<BaseUser> getAllTeachers()
-  {
-    return userMapper.getAllTeachers();
-  }
-
-  @Override
   public Boolean createAdmin(InstituteAdmin admin)
   {
     userMapper.createAdmin(admin.getId(), admin.getRealName(), admin.getRole(), admin.getPwd());
@@ -96,7 +84,7 @@ public class UserServiceImpl implements UserService
     int rows = userMapper.updatePassword(userId, newPassword);
     return rows > 0;
   }
-  
+
   @Override
   public String getNameById(String id)
   {
@@ -302,5 +290,5 @@ public class UserServiceImpl implements UserService
       log.warn("删除旧签名文件失败：{}", oldSignaturePath, e);
     }
   }
-  
+
 }

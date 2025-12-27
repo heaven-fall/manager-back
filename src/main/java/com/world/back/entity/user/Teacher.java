@@ -10,19 +10,6 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class Teacher extends BaseUser {
 
-    private String realName;
-
-    @JsonProperty("name")
-    public String getName() {
-        return this.realName;
-    }
-
-    @JsonProperty("name")
-    public void setName(String name) {
-        this.realName = name;
-    }
-
-    private Integer instituteId;
     private String instituteName;
 
     private Integer groupId;
@@ -30,13 +17,8 @@ public class Teacher extends BaseUser {
     private Boolean isDefenseLeader = false;
 
     private Boolean isAdmin = false;
-    private Integer role;
 
-    private String title;
-    private String department;
     private Integer guidedStudentsCount;
-
-    private List<GroupInfo> groups;
 
     @Data
     public static class GroupInfo {

@@ -13,16 +13,14 @@ import java.util.List;
 public interface UserService
 {
   Long getAdminCount();
-  Long getTeacherCount();
-  List<BaseUser> getAllTeachers();
   Boolean createAdmin(InstituteAdmin admin);
   Boolean updateAdmin(String realName, String username, String phone, String email);
   List<Admin> getAllAdmins();
 
   boolean changePassword(String userId, String oldPassword, String newPassword);
-    
+
     String getNameById(String id);
-    
+
     Result<String> getCurrentSignature(String userId);
 
   Result<String> uploadSignature(MultipartFile file, String userId);

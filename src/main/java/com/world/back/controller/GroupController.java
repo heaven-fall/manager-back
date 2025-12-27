@@ -5,6 +5,7 @@ import com.world.back.entity.res.Group;
 import com.world.back.entity.res.Result;
 import com.world.back.serviceImpl.DefenseServiceImpl;
 import com.world.back.serviceImpl.GroupServiceImpl;
+import com.world.back.serviceImpl.TeacherServiceImpl;
 import com.world.back.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class GroupController
     @Autowired
     private GroupServiceImpl groupService;
     @Autowired
-    private DefenseServiceImpl defenseService;
+    private TeacherServiceImpl teacherService;
     @Autowired
     private UserServiceImpl userService;
     @GetMapping("/all")
@@ -29,10 +30,11 @@ public class GroupController
         List<Map<String, Object>> res = groupService.getAllGroups(year);
         for (Map<String, Object> map : res) {
             map.put("realName", userService.getNameById((String)map.get("admin_id")));
+            map.put("student_count", groupService.getStudentByGid((Integer)map.get("id")).size());
         }
         return Result.success(res);
     }
-    
+
     @PostMapping("/update")
     public Result<Boolean> updateGroup(@RequestBody Map<String, Object> map)
     {
@@ -43,13 +45,16 @@ public class GroupController
         group.setMax_student_count(Integer.parseInt(map.get("maxStudents").toString()));
         if (group_id != null)
         {
+            groupService.deleteAdmin(group_id);
             groupService.updateGroup(group);
+            teacherService.addTeacherToGroup(group.getAdmin_id(), group_id, true);
             return Result.success(true);
         }
         groupService.createGroup(group);
+        teacherService.addTeacherToGroup(group.getAdmin_id(), group.getId(), true);
         return Result.success(true);
     }
-    
+
     @PostMapping("/delete")
     public Result<Boolean> deleteGroup(@RequestBody Map<String, Object> map)
     {
@@ -57,10 +62,18 @@ public class GroupController
         groupService.deleteGroup(group_id);
         return Result.success(true);
     }
+
+    @GetMapping("/studentlist")
+    public Result<List<Student>> getStudentList(@RequestParam Integer group_id)
+    {
+        List<Student> res = groupService.getStudentByGid(group_id);
+        return Result.success(res);
+    }
+
+    @GetMapping("/getmember")
+    public Result<List<Map<String, Object>>> getMember(@RequestParam Integer group_id)
+    {
+        return Result.success(groupService.getMember(group_id));
+    }
     
-//    @GetMapping("/studentlist")
-//    public Result<List<Student>> getStudentList(@RequestParam Integer group_id)
-//    {
-//        List<Student> res = defenseService.getStudentByGid();
-//    }
 }

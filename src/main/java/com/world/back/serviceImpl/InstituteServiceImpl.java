@@ -1,7 +1,6 @@
 package com.world.back.serviceImpl;
 
 import com.world.back.entity.Institute;
-import com.world.back.entity.res.Result;
 import com.world.back.mapper.InstituteMapper;
 import com.world.back.mapper.UserMapper;
 import com.world.back.service.InstituteService;
@@ -23,7 +22,7 @@ public class InstituteServiceImpl implements InstituteService
   {
     return instituteMapper.getInstituteCount();
   }
-  
+
   @Override
   public List<Institute> getAll()
   {
@@ -36,13 +35,13 @@ public class InstituteServiceImpl implements InstituteService
     }
     return list;
   }
-  
+
   @Override
   public String getInstituteNameById(Integer id)
   {
     return instituteMapper.getInstituteNameById(id);
   }
-  
+
   @Override
   public Boolean updateInstitute(Institute institute)
   {
@@ -57,19 +56,19 @@ public class InstituteServiceImpl implements InstituteService
     userMapper.createUserInstRel(institute.getAdminId(), institute.getId());
     return true;
   }
-  
+
   @Override
   public Boolean deleteInstitute(Integer id)
   {
     instituteMapper.deleteInstitute(id);
     return true;
   }
-  
+
   @Override
   public void addInstitute(Institute institute)
   {
     instituteMapper.addInstitute(institute.getName(), institute.getAdminId());
     userMapper.createUserInstRel(institute.getAdminId(), institute.getId());
   }
-  
+
 }

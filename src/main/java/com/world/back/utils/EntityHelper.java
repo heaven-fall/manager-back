@@ -13,21 +13,12 @@ public class EntityHelper {
         leader.setId(teacher.getId());
         leader.setPwd(teacher.getPwd());
         leader.setRole(teacher.getRole());
+        leader.setGroupYear(year);
         leader.setRealName(teacher.getRealName());
-        leader.setInstituteId(teacher.getInstituteId());
+        leader.setInstId(teacher.getInstId());
         leader.setInstituteName(teacher.getInstituteName());
         leader.setIsDefenseLeader(true);
         leader.setGuidedStudentsCount(teacher.getGuidedStudentsCount());
-
-        // 设置答辩组长特有属性
-        leader.setYear(year);
-
-        // 这里可以查询具体的答辩组信息
-        // DefenseGroup group = defenseGroupMapper.findByLeaderIdAndYear(teacher.getId(), year);
-        // if (group != null) {
-        //     leader.setGroupId(group.getId());
-        //     leader.setGroupName(group.getGroupName());
-        // }
 
         return leader;
     }
