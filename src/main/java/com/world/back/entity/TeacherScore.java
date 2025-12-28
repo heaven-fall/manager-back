@@ -1,22 +1,37 @@
 package com.world.back.entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 public class TeacherScore {
-    private String teacherId;      // 教师ID
-    private String teacherName;    // 教师姓名
-    private Integer totalScore;    // 总分
+    @JsonProperty("teacher_id")
+    private String teacherId;
+    @JsonProperty("teacher_name")
+    private String teacherRealName;
+    @JsonProperty("type")
+    private Integer type;
+    @JsonProperty("total_score")
+    private Integer totalScore;
 
-    // 毕业论文成绩
-    private Integer paperQuality;  // 论文质量分
-    private Integer presentation;  // 自述报告分
-    private Integer qaPerformance; // 回答问题分
+    // 毕业论文评分项
+    @JsonProperty("paper_quality")
+    private Integer paperQuality;
+    @JsonProperty("presentation")
+    private Integer presentation;
+    @JsonProperty("qa_performance")
+    private Integer qaPerformance;
 
-    // 毕业设计成绩
-    private Integer designQuality1; // 设计质量分1
-    private Integer designQuality2; // 设计质量分2
-    private Integer designQuality3; // 设计质量分3
-    private Integer designPresentation; // 设计展示分
-    private Integer designQa1;     // 回答问题分1
-    private Integer designQa2;     // 回答问题分2
+    // 毕业设计评分项
+    @JsonProperty("design_quality1")
+    private Integer designQuality1;
+    @JsonProperty("design_quality2")
+    private Integer designQuality2;
+    @JsonProperty("design_quality3")
+    private Integer designQuality3;
+    @JsonProperty("design_presentation")
+    private Integer designPresentation;
+    @JsonProperty("design_qa1")
+    private Integer designQa1;
+    @JsonProperty("design_qa2")
+    private Integer designQa2;    // 回答问题分项2
 }

@@ -322,3 +322,76 @@ insert into dbinfo (gid, stu_id, type, title, time, summary, reviewer_id) values
 insert into dbinfo (gid, stu_id, type, title, time, summary, reviewer_id) values
     (1, '2023002', 2, '人工智能在智能客服系统中的关键技术研究与应用', '2023-05-20',
      '本毕业论文研究了人工智能技术在智能客服系统中的应用，重点探讨了自然语言处理和机器学习算法。', '100002');
+
+-- 对于毕业设计类型（type=1）
+UPDATE dbinfo
+SET teacher_scores = '[
+  {
+    "teacher_id": "100002",
+    "teacher_name": "李老师",
+    "design_quality1": 13,
+    "design_quality2": 13,
+    "design_quality3": 13,
+    "design_presentation": 22,
+    "design_qa1": 13,
+    "design_qa2": 13,
+    "total_score": 86
+  },
+  {
+    "teacher_id": "100003",
+    "teacher_name": "王老师",
+    "design_quality1": 14,
+    "design_quality2": 14,
+    "design_quality3": 13,
+    "design_presentation": 22,
+    "design_qa1": 13,
+    "design_qa2": 13,
+    "total_score": 89
+  },
+  {
+    "teacher_id": "100004",
+    "teacher_name": "赵老师",
+    "design_quality1": 13,
+    "design_quality2": 13,
+    "design_quality3": 12,
+    "design_presentation": 22,
+    "design_qa1": 12,
+    "design_qa2": 12,
+    "total_score": 84
+  }
+]',
+    total_score = 86,
+    graded_by = '100001'
+WHERE stu_id = '2023001' AND gid = 1;
+
+-- 对于毕业论文类型（type=2）
+UPDATE dbinfo
+SET teacher_scores = '[
+  {
+    "teacher_id": "100002",
+    "teacher_name": "李老师",
+    "paper_quality": 45,
+    "presentation": 25,
+    "qa_performance": 30,
+    "total_score": 100
+  },
+  {
+    "teacher_id": "100003",
+    "teacher_name": "王老师",
+    "paper_quality": 43,
+    "presentation": 28,
+    "qa_performance": 29,
+    "total_score": 100
+  },
+  {
+    "teacher_id": "100004",
+    "teacher_name": "赵老师",
+    "paper_quality": 40,
+    "presentation": 25,
+    "qa_performance": 28,
+    "total_score": 93
+  }
+]',
+    total_score = 98,
+    graded_by = '100001'
+WHERE stu_id = '2023002' AND gid = 1;
