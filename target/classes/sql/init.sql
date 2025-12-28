@@ -123,17 +123,18 @@ insert into student (id, real_name, tel, email, institute_id) values
                                                                   ('2023002', 'lwx', '13800138002', 'lwx@email.com',1),
                                                                   ('2023003', 'zzh', '13800138003', 'zzh@email.com',1);
 
-insert into tea_stu_rel (tea_id, stu_id, year) values
-    ('123123', '2023003', 2025);
-
-insert into user_inst_rel(user_id, inst_id) values
-    ('inst',1);
-
 insert into user (id, pwd, role, real_name, phone, email) values
                                                               ('100001', '123456', 2, '张老师', '13800138001', 'zhang@example.com'),
                                                               ('100002', '123456', 2, '李老师', '13800138002', 'li@example.com'),
                                                               ('100003', '123456', 2, '王老师', '13800138003', 'wang@example.com'),
                                                               ('100004', '123456', 2, '赵老师', '13800138004', 'zhao@example.com');
+
+insert into tea_stu_rel (tea_id, stu_id, year) values
+                                                   ('100001', '2023001', 2023),
+                                                   ('100001', '2023002', 2023);
+
+insert into user_inst_rel(user_id, inst_id) values
+    ('inst',1);
 
 insert into user_inst_rel (user_id, inst_id) values
                                                  ('100001', 1),
@@ -143,11 +144,11 @@ insert into user_inst_rel (user_id, inst_id) values
 
 -- 插入多个年份的小组数据
 insert into dbgroup (admin_id, year) values
-                                                 ('100001', 2023),
-                                                 (null, 2023),  -- 第2组，没有指定组长
-                                                 ('100003', 2024),
-                                                 (null, 2024),  -- 第4组，没有指定组长
-                                                 (null, 2025);  -- 第5组，2025年的小组
+                                         ('100001', 2023),
+                                         (null, 2023),  -- 第2组，没有指定组长
+                                         ('100003', 2024),
+                                         (null, 2024),  -- 第4组，没有指定组长
+                                         (null, 2025);  -- 第5组，2025年的小组
 
 insert into tea_group_rel (teacher_id, group_id, is_defense_leader) values
                                                                         ('100001', 1, true),   -- 张老师是第1组组长
