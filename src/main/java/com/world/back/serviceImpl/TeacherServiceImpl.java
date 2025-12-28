@@ -1,6 +1,9 @@
 package com.world.back.serviceImpl;
 
+import com.world.back.entity.Student;
 import com.world.back.entity.user.Teacher;
+import com.world.back.mapper.InstituteMapper;
+import com.world.back.mapper.StudentMapper;
 import com.world.back.mapper.TeacherMapper;
 import com.world.back.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,10 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Autowired
     private TeacherMapper teacherMapper;
+    @Autowired
+    private InstituteMapper instituteMapper;
+    @Autowired
+    private StudentMapper studentMapper;
 
     @Override
     public List<Teacher> getTeacherList(Integer instituteId) {
@@ -104,7 +111,33 @@ public class TeacherServiceImpl implements TeacherService {
             throw new RuntimeException("清除组长失败: " + e.getMessage());
         }
     }
-
+    
+    @Override
+    public List<Student> getGuidedStudents(String teacher_id, Integer year)
+    {
+        List<Student> students = teacherMapper.getGuidedStudents(teacher_id, year);
+        for (Student student : students) {
+            student.setInstituteName(instituteMapper.getInstituteNameById(student.getInstituteId()));
+            Map<String, Object> dbinfo = studentMapper.getDbInfoById(student.getId());
+            student.setDefenseTitle((String) dbinfo.get("title"));
+            student.setDefenseGroupId((Integer) dbinfo.get("gid"));
+            student.setType((Integer) dbinfo.get("type"));
+            student.setSummary((String) dbinfo.get("summary"));
+        }
+        return students;
+    }
+    
+    @Override
+    public Boolean addGuideStudent(String teacher_id, String student_id, Integer year)
+    {
+        if (teacherMapper.checkGuideExist(teacher_id, student_id, year))
+        {
+            return false;
+        }
+        teacherMapper.addGuideStudent(teacher_id, student_id, year);
+        return true;
+    }
+    
     @Override
     public Long getTeacherCount(Integer instituteId) {
         return teacherMapper.countTeachers(instituteId, null);
@@ -175,4 +208,6 @@ public class TeacherServiceImpl implements TeacherService {
     public boolean isTeacherInYear(String teacherId, Integer year) {
         return teacherMapper.checkTeacherInYear(teacherId, year) > 0;
     }
+    
+    
 }

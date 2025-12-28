@@ -93,4 +93,7 @@ public interface StudentMapper {
     
     @Select("select count(1) from student where institute_id=#{instituteId} and id not in (select stu_id from dbinfo)")
     Integer getUnassignCount(Integer instituteId);
+    
+    @Update("update dbinfo set title=#{title}, summary=#{summary}, type=#{type} where stu_id=#{student_id}")
+    void setTitle(String student_id, String title, String summary, Integer type);
 }

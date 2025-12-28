@@ -1,5 +1,6 @@
 package com.world.back.mapper;
 
+import com.world.back.entity.Student;
 import com.world.back.entity.user.Teacher;
 import org.apache.ibatis.annotations.*;
 import java.util.List;
@@ -193,4 +194,13 @@ public interface TeacherMapper {
     where teacher_id = #{teacherId}
     """)
     List<Map<String, Object>> selectRawTeacherGroups(@Param("teacherId") String teacherId);
+    
+    @Select("select * from tea_stu_rel inner join student on id=stu_id where tea_id=#{teacher_id} and year=#{year}")
+    List<Student> getGuidedStudents(String teacher_id, Integer year);
+    
+    @Select("select count(1) from tea_stu_rel where tea_id=#{teacher_id} and stu_id=#{student_id} and year=#{year}")
+    Boolean checkGuideExist(String teacher_id, String student_id, Integer year);
+    
+    @Insert("insert into tea_stu_rel values(#{teacher_id}, #{student_id}, #{year})")
+    void addGuideStudent(String teacher_id, String student_id, Integer year);
 }

@@ -15,6 +15,7 @@ public class Student {
     // 毕业考核信息
     private Integer type;    // 考核类型：1-论文，2-设计
     private String defenseTitle;    // 考核题目
+    private String summary;
     private String defenseDate;     // 答辩日期
 
     // 指导关系

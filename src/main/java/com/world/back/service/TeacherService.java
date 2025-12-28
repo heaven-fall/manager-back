@@ -1,5 +1,6 @@
 package com.world.back.service;
 
+import com.world.back.entity.Student;
 import com.world.back.entity.user.Teacher;
 import java.util.List;
 import java.util.Map;
@@ -17,4 +18,6 @@ public interface TeacherService {
     List<Integer> getGroupsByYear(Integer year);
     boolean isTeacherInYear(String teacherId, Integer year);
     boolean clearDefenseLeader(Integer groupId);
+    List<Student> getGuidedStudents(String teacher_id, Integer year);
+    Boolean addGuideStudent(String teacher_id, String student_id, Integer year);
 }

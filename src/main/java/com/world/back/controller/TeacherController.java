@@ -1,5 +1,6 @@
 package com.world.back.controller;
 
+import com.world.back.entity.Student;
 import com.world.back.entity.res.Result;
 import com.world.back.entity.user.Teacher;
 import com.world.back.service.TeacherService;
@@ -17,9 +18,6 @@ public class TeacherController {
 
   @Autowired
   private TeacherService teacherService;
-
-  @Autowired
-  private TeacherServiceImpl teacherServiceImpl;
 
   // 获取教师列表（分页+搜索）
   @GetMapping("/list")
@@ -164,7 +162,25 @@ public class TeacherController {
       ));
     }
   }
-
+  
+  @GetMapping("/getguidedstudents")
+  public Result<List<Student>> getGuidedStudents(String teacher_id, Integer year)
+  {
+    return Result.success(teacherService.getGuidedStudents(teacher_id, year));
+  }
+  
+  @PostMapping("/addguidestudent")
+  public Result<Boolean> addGuidStudent(@RequestBody Map<String, Object> map)
+  {
+    String teacher_id = (String) map.get("teacher_id");
+    String student_id = (String) map.get("student_id");
+    Integer year = (Integer) map.get("year");
+    if (teacherService.addGuideStudent(teacher_id, student_id, year))
+    {
+      return Result.success(true);
+    }
+    return Result.error("添加失败");
+  }
 
   // 获取可用年份
   @GetMapping("/years")
@@ -261,7 +277,7 @@ public class TeacherController {
   // 清除答辩组长
   @PostMapping("/clear-defense-leader")
   public Result<Boolean> clearDefenseLeader(@RequestParam("group_id") Integer groupId) {
-    boolean result = teacherServiceImpl.clearDefenseLeader(groupId);
+    boolean result = teacherService.clearDefenseLeader(groupId);
     return result ? Result.success(true) : Result.error("清除失败");
   }
 }
