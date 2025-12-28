@@ -9,7 +9,7 @@ import java.util.Map;
 public interface TeacherMapper {
 
     // 查询教师列表（包括院系信息）
-    @Select("select * from user inner join user_inst_rel on user_id=id where inst_id=#{instituteId} ")
+    @Select("select * from user inner join user_inst_rel on user_id=id where inst_id=#{instituteId} or #{instituteId}=0")
     List<Teacher> selectTeacherList(
             @Param("instituteId") Integer instituteId);
 

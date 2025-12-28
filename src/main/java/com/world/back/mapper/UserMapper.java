@@ -11,7 +11,7 @@ import java.util.List;
 public interface UserMapper
 {
   @Select("select count(1) from user where role=1")
-  Long getAdminCount();
+  Integer getAdminCount();
 
   @Select("select real_name from user where id=#{id}")
   String getRealNameById(String id);

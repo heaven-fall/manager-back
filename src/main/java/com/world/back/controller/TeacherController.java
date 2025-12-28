@@ -2,15 +2,12 @@ package com.world.back.controller;
 
 import com.world.back.entity.res.Result;
 import com.world.back.entity.user.Teacher;
-import com.world.back.mapper.TeacherMapper;
 import com.world.back.service.TeacherService;
 import com.world.back.serviceImpl.TeacherServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +26,9 @@ public class TeacherController {
   public ResponseEntity<?> getTeacherList(
           @RequestParam(required = false) Integer institute_id) {
     try {
+      if (institute_id == null) {
+        institute_id = 0;
+      }
       List<Teacher> result = teacherService.getTeacherList(institute_id);
       return ResponseEntity.ok(Map.of(
               "success", true,

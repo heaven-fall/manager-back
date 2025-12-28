@@ -3,6 +3,7 @@ package com.world.back.controller;
 import com.world.back.service.DateConfigService;
 import com.world.back.utils.AuthUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,11 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/date-config")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/date-config")
 @RequiredArgsConstructor
 public class DateConfigController {
 
+    @Autowired
     private final DateConfigService dateConfigService;
     private final AuthUtil authUtil;
 

@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public interface UserService
 {
-  Long getAdminCount();
+  Integer getAdminCount();
   Boolean createAdmin(InstituteAdmin admin);
   Boolean updateAdmin(String realName, String username, String phone, String email);
   List<Admin> getAllAdmins();

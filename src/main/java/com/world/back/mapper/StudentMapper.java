@@ -44,9 +44,9 @@ public interface StudentMapper {
     int deleteById(@Param("id") String id);
 
     // 分配答辩小组（通过dbinfo表关联）
-    @Insert("insert into dbinfo(gid, stu_id) values(#{groupId}, #{studentId}) " +
+    @Insert("insert into dbinfo(gid, stu_id, type) values(#{groupId}, #{studentId}, #{type}) " +
             "on duplicate key update gid = #{groupId}")
-    int assignGroup(@Param("studentId") String studentId, @Param("groupId") Integer groupId);
+    int assignGroup(@Param("studentId") String studentId, @Param("groupId") Integer groupId, Integer type);
 
     // 检查学号是否存在
     @Select("select count(*) from student where id = #{studentId}")

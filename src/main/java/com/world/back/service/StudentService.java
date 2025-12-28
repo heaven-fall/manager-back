@@ -26,7 +26,7 @@ public interface StudentService {
     boolean deleteStudent(String id);
 
     // 分配答辩小组
-    boolean assignGroup(String studentId, Integer groupId);
+    boolean assignGroup(String studentId, Integer groupId, Integer type);
 
     // 验证学号是否重复
     boolean isStudentIdDuplicate(String studentId, String excludeId);
@@ -39,4 +39,6 @@ public interface StudentService {
     Integer getCount(Integer instituteId);
     
     Integer getUnassignCount(Integer instituteId);
+    
+    Map<String, Object> getDbInfoById(String id);
 }
