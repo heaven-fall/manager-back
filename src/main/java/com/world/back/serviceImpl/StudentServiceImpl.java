@@ -2,6 +2,7 @@ package com.world.back.serviceImpl;
 
 import com.world.back.entity.Student;
 import com.world.back.mapper.GroupMapper;
+import com.world.back.mapper.InstituteMapper;
 import com.world.back.mapper.StudentMapper;
 import com.world.back.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,8 @@ public class StudentServiceImpl implements StudentService {
     private final StudentMapper studentMapper;
     @Autowired
     private final GroupMapper groupMapper;
+    @Autowired
+    private final InstituteMapper instituteMapper;
     
     @Override
     public List<Map<String, Object>> getStudentList(Long instituteId)
@@ -98,7 +101,13 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student getStudentById(String id) {
         try {
-            return studentMapper.findById(id);
+            Student student = studentMapper.findById(id);
+            if (student == null)
+            {
+                return null;
+            }
+            student.setInstituteName(instituteMapper.getInstituteNameById(student.getInstituteId()));
+            return student;
         } catch (Exception e) {
             log.error("获取学生信息失败", e);
             throw new RuntimeException("获取学生信息失败");
@@ -218,5 +227,16 @@ public class StudentServiceImpl implements StudentService {
     public Map<String, Object> getDbInfoById(String id)
     {
         return studentMapper.getDbInfoById(id);
+    }
+    
+    @Override
+    public Boolean setTitle(Map<String, Object> map)
+    {
+        String student_id = (String) map.get("student_id");
+        String title = (String) map.get("title");
+        String summary = (String) map.get("summary");
+        Integer type = (Integer) map.get("type");
+        studentMapper.setTitle(student_id, title, summary, type);
+        return true;
     }
 }

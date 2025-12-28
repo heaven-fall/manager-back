@@ -41,4 +41,6 @@ public interface StudentService {
     Integer getUnassignCount(Integer instituteId);
     
     Map<String, Object> getDbInfoById(String id);
+    
+    Boolean setTitle(Map<String, Object> map);
 }

@@ -141,6 +141,17 @@ public class StudentController {
             return ResponseEntity.ok(buildErrorResponse(e.getMessage()));
         }
     }
+    
+    @GetMapping("/search")
+    public Result<Student> searchStudent(@RequestParam String id)
+    {
+        Student student = studentService.getStudentById(id);
+        if (student == null)
+        {
+            return Result.error("没有找到学生");
+        }
+        return Result.success(student);
+    }
 
     /**
      * 分配答辩小组
@@ -161,6 +172,12 @@ public class StudentController {
         } catch (Exception e) {
             return ResponseEntity.ok(buildErrorResponse(e.getMessage()));
         }
+    }
+    
+    @PostMapping("/settitle")
+    public Result<Boolean> setTitle(@RequestBody Map<String, Object> map)
+    {
+        return Result.success(studentService.setTitle(map));
     }
 
     /**
