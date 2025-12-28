@@ -1,5 +1,7 @@
 package com.world.back.controller;
 
+import com.world.back.entity.info.DefenseGroupInfo;
+import com.world.back.entity.info.DefenseInfo;
 import com.world.back.entity.res.Result;
 import com.world.back.serviceImpl.DefenseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,4 +44,41 @@ public class DefenseController
     }
 
 
+    /**
+     * 获取教师当前所在的答辩小组信息
+     */
+    @GetMapping("/current-group")
+    public Result<DefenseGroupInfo> getCurrentGroup(@RequestParam String teacherId) {
+        DefenseGroupInfo groupInfo = defenseService.getCurrentGroup(teacherId);
+        return Result.success(groupInfo);
+    }
+
+    /**
+     * 获取答辩小组的学生列表
+     */
+    @GetMapping("/group-students")
+    public Result<List<DefenseInfo>> getGroupStudents(
+            @RequestParam Integer groupId,
+            @RequestParam String teacherId) {
+        try {
+            List<DefenseInfo> students = defenseService.getGroupStudents(groupId, teacherId);
+            return Result.success(students);
+        } catch (Exception e) {
+            return Result.error("获取学生列表失败: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 为答辩组长获取更详细的学生信息
+     */
+    @GetMapping("/group-students/leader")
+    public Result<List<DefenseInfo>> getGroupStudentsForLeader(
+            @RequestParam Integer groupId) {
+        try {
+            List<DefenseInfo> students = defenseService.getGroupStudentsForLeader(groupId);
+            return Result.success(students);
+        } catch (Exception e) {
+            return Result.error("获取学生列表失败: " + e.getMessage());
+        }
+    }
 }

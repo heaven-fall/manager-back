@@ -312,3 +312,12 @@ insert into placeholder_config (template_type, placeholder_key, placeholder_name
                                                                                       (7, '{{response_score2}}', '回答问题分2'),
                                                                                       (7, '{{total_score}}', '总成绩'),
                                                                                       (7, '{{signature_judge}}', '评委签名');
+-- 学生2023001（wxy）的毕业设计答辩信息
+insert into dbinfo (gid, stu_id, type, title, time, summary, reviewer_id) values
+    (1, '2023001', 1, '基于springboot的在线教育平台设计与实现', '2023-05-20',
+     '本毕业设计基于springboot框架开发了一个在线教育平台，实现了课程管理、在线学习、考试系统等功能。', '100002');
+
+-- 学生2023002（lwx）的毕业论文答辩信息
+insert into dbinfo (gid, stu_id, type, title, time, summary, reviewer_id) values
+    (1, '2023002', 2, '人工智能在智能客服系统中的关键技术研究与应用', '2023-05-20',
+     '本毕业论文研究了人工智能技术在智能客服系统中的应用，重点探讨了自然语言处理和机器学习算法。', '100002');
