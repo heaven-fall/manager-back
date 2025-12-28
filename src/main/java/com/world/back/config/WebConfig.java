@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,6 +20,9 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Value("${signature.upload.path:./uploads/signatures/}")
     private String uploadPath;
+
+    @Value("${template.upload.path:./uploads/templates/}")
+    private String templateUploadPath;
 
     @PostConstruct
     public void init() {
@@ -41,6 +45,7 @@ public class WebConfig implements WebMvcConfigurer {
                 // 相对路径但不以./开头
                 uploadDirPath = projectRoot + File.separator + uploadPath;
             }
+            initDirectory(templateUploadPath, "模板");
 
             // 确保路径以分隔符结尾
             if (!uploadDirPath.endsWith(File.separator)) {
@@ -113,6 +118,14 @@ public class WebConfig implements WebMvcConfigurer {
             registry.addResourceHandler("/api/uploads/**")
                     .addResourceLocations(externalPath)
                     .setCachePeriod(0);
+            registry.addResourceHandler("/api/uploads/templates/**")
+                    .addResourceLocations("file:" + getAbsolutePath(templateUploadPath))
+                    .setCachePeriod(0);
+
+            registry.addResourceHandler("/uploads/templates/**")
+                    .addResourceLocations("file:" + getAbsolutePath(templateUploadPath))
+                    .setCachePeriod(0);
+
 
             log.info("静态资源映射配置完成");
 
@@ -120,4 +133,48 @@ public class WebConfig implements WebMvcConfigurer {
             log.error("配置静态资源映射失败: {}", e.getMessage(), e);
         }
     }
+    // 添加一个辅助方法获取绝对路径
+    private String getAbsolutePath(String relativePath) {
+        String projectRoot = System.getProperty("user.dir");
+        String absolutePath;
+
+        if (relativePath.startsWith("./")) {
+            absolutePath = projectRoot + File.separator + relativePath.substring(2);
+        } else if (relativePath.startsWith("/") || relativePath.contains(":")) {
+            absolutePath = relativePath;
+        } else {
+            absolutePath = projectRoot + File.separator + relativePath;
+        }
+
+        if (!absolutePath.endsWith(File.separator)) {
+            absolutePath += File.separator;
+        }
+
+        return absolutePath;
+    }
+    private void initDirectory(String path, String directoryType) throws IOException, IOException {
+        String projectRoot = System.getProperty("user.dir");
+        String absolutePath;
+
+        if (path.startsWith("./")) {
+            absolutePath = projectRoot + File.separator + path.substring(2);
+        } else if (path.startsWith("/") || path.contains(":")) {
+            absolutePath = path;
+        } else {
+            absolutePath = projectRoot + File.separator + path;
+        }
+
+        if (!absolutePath.endsWith(File.separator)) {
+            absolutePath += File.separator;
+        }
+
+        Path dir = Paths.get(absolutePath);
+        if (!Files.exists(dir)) {
+            Files.createDirectories(dir);
+            log.info("创建{}目录: {}", directoryType, dir.toAbsolutePath());
+        } else {
+            log.info("{}目录已存在: {}", directoryType, dir.toAbsolutePath());
+        }
+    }
+
 }

@@ -1,58 +1,49 @@
+// TemplateMapper.java - 修正 getDateConfig 方法
 package com.world.back.mapper;
-
 
 import com.world.back.entity.Template;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface TemplateMapper {
 
-    // 获取所有模板
-    @Select("SELECT * FROM template ORDER BY type")
-    @Results(id = "templateMap", value = {
-            @Result(property = "id", column = "id"),
-            @Result(property = "name", column = "name"),
-            @Result(property = "type", column = "type"),
-            @Result(property = "filePath", column = "file_path"),
-            @Result(property = "fileName", column = "file_name"),
-            @Result(property = "fileSize", column = "file_size"),
-            @Result(property = "updatedAt", column = "updated_at"),
-            @Result(property = "updatedBy", column = "updated_by")
-    })
-    List<Template> findAll();
-
-    // 根据ID查询模板
     @Select("SELECT * FROM template WHERE id = #{id}")
-    @ResultMap("templateMap")
-    Template findById(@Param("id") Integer id);
+    Template selectById(Integer id);
 
-    // 根据类型查询模板
-    @Select("SELECT * FROM template WHERE type = #{type}")
-    @ResultMap("templateMap")
-    Template findByType(@Param("type") Integer type);
+    @Update("UPDATE template SET file_path = #{filePath}, file_name = #{fileName}, " +
+            "file_size = #{fileSize}, updated_by = #{updatedBy}, updated_at = #{updatedAt} " +
+            "WHERE id = #{id}")
+    int updateById(Template template);
 
-    // 更新模板文件信息
-    @Update({
-            "<script>",
-            "UPDATE template ",
-            "SET file_path = #{filePath}, ",
-            "    file_name = #{fileName}, ",
-            "    file_size = #{fileSize}, ",
-            "    updated_by = #{updatedBy}, ",
-            "    updated_at = NOW() ",
-            "WHERE id = #{id}",
-            "</script>"
+    @Select("SELECT t.*, " +
+            "GROUP_CONCAT(pc.placeholder_key ORDER BY pc.placeholder_key) as placeholder_keys " +
+            "FROM template t " +
+            "LEFT JOIN placeholder_config pc ON t.type = pc.template_type " +
+            "GROUP BY t.id " +
+            "ORDER BY t.type")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "hasTemplate", column = "file_path",
+                    javaType = Boolean.class,
+                    one = @One(select = "com.world.back.mapper.TemplateMapper.hasTemplate"))
     })
-    int updateFileInfo(Template template);
+    List<Template> selectAllWithPlaceholders();
 
-    // 清空模板文件信息
-    @Update("UPDATE template SET file_path = '', file_name = '', file_size = NULL, " +
-            "updated_by = NULL, updated_at = NOW() WHERE id = #{id}")
-    int clearFileInfo(@Param("id") Integer id);
+    @Select("SELECT CASE WHEN #{filePath} IS NOT NULL AND #{filePath} != '' THEN true ELSE false END")
+    Boolean hasTemplate(String filePath);
 
-    // 检查模板是否已上传
-    @Select("SELECT COUNT(*) FROM template WHERE id = #{id} AND file_path IS NOT NULL AND file_path != ''")
-    int checkTemplateExists(@Param("id") Integer id);
+    @Select("SELECT placeholder_key FROM placeholder_config WHERE template_type = #{type} AND is_required = true")
+    List<String> getRequiredPlaceholdersByType(Integer type);
+
+    @Insert("INSERT INTO date_config (config_key, config_value) " +
+            "VALUES (#{key}, #{value}) " +
+            "ON DUPLICATE KEY UPDATE config_value = #{value}, updated_at = CURRENT_TIMESTAMP")
+    int saveDateConfig(@Param("key") String key, @Param("value") String value);
+
+    // 修正：使用 Object 类型接收数据库返回值
+    @Select("SELECT config_key, config_value FROM date_config")
+    List<Map<String, Object>> getDateConfig();
 }

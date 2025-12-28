@@ -1,135 +1,125 @@
+// TemplateController.java - 修正模板列表方法
 package com.world.back.controller;
 
-import com.world.back.entity.Template;
+import com.world.back.entity.res.Result;
 import com.world.back.service.TemplateService;
-import com.world.back.utils.AuthUtil;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/templates")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequiredArgsConstructor
+@CrossOrigin
 public class TemplateController {
 
-    private final TemplateService templateService;
+    @Autowired
+    private TemplateService templateService;
 
-    @GetMapping("/test")
-    public ResponseEntity<Map<String, Object>> getTemplates(HttpServletRequest request) {
-        Map<String, Object> response = new HashMap<>();
-        try {
-            // 验证token
-           // String userId = AuthUtil.getUserIdFromToken(request);
-
-            List<Template> templates = templateService.getTemplateList();
-            response.put("code", 200);
-            response.put("message", "success");
-            response.put("data", templates);
-
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            response.put("code", 500);
-            response.put("message", "获取模板列表失败: " + e.getMessage());
-            return ResponseEntity.status(500).body(response);
-        }
-    }
-
+    // 上传模板
     @PostMapping("/upload")
-    public ResponseEntity<Map<String, Object>> uploadTemplate(
+    public Result<String> uploadTemplate(
             @RequestParam("file") MultipartFile file,
-            @RequestParam("templateId") Integer templateId,
-            HttpServletRequest request) {
-
-        try {
-            String userId = AuthUtil.getUserIdFromToken(request);
-            Map<String, Object> result = templateService.uploadTemplate(file, templateId, userId);
-
-            int code = (int) result.get("code");
-            if (code == 200) {
-                return ResponseEntity.ok(result);
-            } else {
-                return ResponseEntity.status(code).body(result);
-            }
-        } catch (Exception e) {
-            Map<String, Object> response = new HashMap<>();
-            response.put("code", 500);
-            response.put("message", "上传失败: " + e.getMessage());
-            return ResponseEntity.status(500).body(response);
-        }
+            @RequestParam Integer templateId,
+            @RequestParam String userId) {
+        return templateService.uploadTemplate(file, templateId, userId);
     }
 
-    @GetMapping("/download/{id}")
-    public void downloadTemplate(@PathVariable Integer id, HttpServletResponse response) {
-        templateService.downloadTemplate(id, response);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteTemplate(
-            @PathVariable Integer id,
-            HttpServletRequest request) {
-
-        Map<String, Object> response = new HashMap<>();
-        try {
-            AuthUtil.getUserIdFromToken(request); // 验证token
-
-            boolean success = templateService.deleteTemplate(id);
-            if (success) {
-                response.put("code", 200);
-                response.put("message", "删除成功");
-                return ResponseEntity.ok(response);
-            } else {
-                response.put("code", 404);
-                response.put("message", "模板不存在");
-                return ResponseEntity.status(404).body(response);
-            }
-        } catch (Exception e) {
-            response.put("code", 500);
-            response.put("message", "删除失败: " + e.getMessage());
-            return ResponseEntity.status(500).body(response);
-        }
-    }
-
+    // 验证模板
     @PostMapping("/validate")
-    public ResponseEntity<Map<String, Object>> validateTemplate(
+    public Result<Map<String, Object>> validateTemplate(
             @RequestParam("file") MultipartFile file,
-            @RequestParam("templateId") Integer templateId) {
+            @RequestParam Integer templateId) {
+        return templateService.validateTemplate(file, templateId);
+    }
 
-        Map<String, Object> result = templateService.validateTemplatePlaceholders(file, templateId);
-        int code = (int) result.get("code");
+    // 下载模板
+    @GetMapping("/download/{id}")
+    public void downloadTemplate(@PathVariable Integer id,
+                                 HttpServletResponse response) {
+        try {
+            Result<Map<String, Object>> result = templateService.downloadTemplate(id);
+            if (result.getCode() != 200) {
+                response.setStatus(404);
+                response.getWriter().write(result.getMessage());
+                return;
+            }
 
-        if (code == 200) {
-            return ResponseEntity.ok(result);
-        } else {
-            return ResponseEntity.status(code).body(result);
+            Map<String, Object> data = result.getData();
+            String filePath = (String) data.get("filePath");
+            String fileName = (String) data.get("fileName");
+
+            if (filePath == null || fileName == null) {
+                response.setStatus(404);
+                response.getWriter().write("文件不存在");
+                return;
+            }
+
+            File file = new File(filePath);
+            if (!file.exists()) {
+                response.setStatus(404);
+                response.getWriter().write("文件不存在");
+                return;
+            }
+
+            // 设置响应头
+            response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+            response.setContentLength((int) file.length());
+
+            // 将文件流写入response
+            Files.copy(Paths.get(filePath), response.getOutputStream());
+            response.flushBuffer();
+
+        } catch (Exception e) {
+            try {
+                response.setStatus(500);
+                response.getWriter().write("下载失败: " + e.getMessage());
+            } catch (Exception ex) {
+                // 忽略
+            }
         }
     }
 
+    // 删除模板
+    @DeleteMapping("/{id}")
+    public Result<String> deleteTemplate(@PathVariable Integer id) {
+        return templateService.deleteTemplate(id);
+    }
+
+    // 获取所有模板 - 修正返回类型
+    @GetMapping
+    public Result<List<Map<String, Object>>> getTemplates() {
+        return templateService.getTemplates();
+    }
+
+    // 保存日期配置
+    @PostMapping("/date-config/save")
+    public Result<String> saveDateConfig(
+            @RequestBody Map<String, String> params) {
+        String defenseDate = params.get("defenseDate");
+        String evaluationDate = params.get("evaluationDate");
+        return templateService.saveDateConfig(defenseDate, evaluationDate);
+    }
+
+    // 获取日期配置
+    @GetMapping("/date-config")
+    public Result<Map<String, String>> getDateConfig() {
+        return templateService.getDateConfig();
+    }
+
+    // 应用日期到所有模板
     @PostMapping("/apply-dates")
-    public ResponseEntity<Map<String, Object>> applyDatesToTemplates(
-            @RequestBody Map<String, String> dateParams,
-            HttpServletRequest request) {
-
-        Map<String, Object> response = new HashMap<>();
-        try {
-            AuthUtil.getUserIdFromToken(request);
-
-            // 这里可以实现具体的业务逻辑
-            // 暂时返回成功
-            response.put("code", 200);
-            response.put("message", "日期已应用到所有相关模板");
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            response.put("code", 500);
-            response.put("message", "应用失败: " + e.getMessage());
-            return ResponseEntity.status(500).body(response);
-        }
+    public Result<String> applyDatesToAllTemplates(
+            @RequestBody Map<String, String> params) {
+        String defenseDate = params.get("defenseDate");
+        String evaluationDate = params.get("evaluationDate");
+        return templateService.applyDatesToAllTemplates(defenseDate, evaluationDate);
     }
 }
