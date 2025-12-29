@@ -64,11 +64,32 @@ public class InstituteServiceImpl implements InstituteService
     return true;
   }
 
-  @Override
-  public void addInstitute(Institute institute)
-  {
-    instituteMapper.addInstitute(institute.getName(), institute.getAdminId());
-    userMapper.createUserInstRel(institute.getAdminId(), institute.getId());
-  }
+    @Override
+    public void addInstitute(Institute institute)
+    {
+      // 验证院系名称是否为空
+      if (institute.getName() == null || institute.getName().trim().isEmpty()) {
+        throw new RuntimeException("院系名称不能为空");
+      }
+
+      // 检查院系名称是否已存在
+      if (checkInstituteNameExists(institute.getName())) {
+        throw new RuntimeException("院系名称 '" + institute.getName() + "' 已存在，请使用其他名称");
+      }
+
+      instituteMapper.addInstitute(institute.getName(), institute.getAdminId());
+      userMapper.createUserInstRel(institute.getAdminId(), institute.getId());
+    }
+
+    // 添加检查院系名称是否已存在的方法
+    private boolean checkInstituteNameExists(String name) {
+      // 这里需要添加一个方法来检查院系名称是否已存在
+      // 您可以修改InstituteMapper来添加这个方法
+      return instituteMapper.checkInstituteNameExists(name) > 0;
+    }
+
+
+
+
 
 }

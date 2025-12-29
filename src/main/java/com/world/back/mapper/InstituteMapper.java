@@ -28,4 +28,7 @@ public interface InstituteMapper
   
   @Delete("delete from institute where id=#{id}")
   void deleteInstitute(Integer id);
+
+  @Select("select count(1) from institute where name = #{name}")
+  int checkInstituteNameExists(String name);
 }
