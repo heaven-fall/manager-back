@@ -25,9 +25,14 @@ public class GroupServiceImpl implements GroupService
     }
 
     @Override
-    public void createGroup(Group group)
+    public Boolean createGroup(Group group) throws RuntimeException
     {
+        if (groupMapper.getGidByYearId(group.getYear(), group.getAdmin_id()) != null)
+        {
+            throw new RuntimeException("该老师在该年份已成为组长");
+        }
         groupMapper.createGroup(group);
+        return true;
     }
 
     @Override
@@ -39,7 +44,8 @@ public class GroupServiceImpl implements GroupService
     @Override
     public void deleteGroup(Integer id)
     {
-        groupMapper.beforeDeleteGroup(id);
+        groupMapper.deleteGroupInfo(id);
+        groupMapper.deleteGroupRelation(id);
         groupMapper.deleteGroup(id);
     }
 

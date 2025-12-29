@@ -28,7 +28,7 @@ public interface DefenseMapper
     @Select("select * from student where institute_id=#{instituteId}")
     List<Student> getStudentByInstituteId(Integer instituteId);
 
-    @Update("update dbinfo set teacher_scores = #{teacherScoresJson}, graded_by = #{teacherId} " +
+    @Update("update dbinfo set teacher_scores = #{teacherScoresJson}, graded_by = #{teacherId}, total_score=#{totalScore} " +
             "where stu_id = #{stuId} and gid = #{groupId}")
     int saveScore(Map<String, Object> map);
 

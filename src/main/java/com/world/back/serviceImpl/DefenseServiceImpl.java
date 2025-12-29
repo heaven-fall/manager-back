@@ -1,5 +1,6 @@
 package com.world.back.serviceImpl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.world.back.entity.Coefficient;
 import com.world.back.entity.TeacherScore;
 import com.world.back.mapper.DefenseMapper;
@@ -8,7 +9,6 @@ import com.world.back.service.DefenseService;
 import com.world.back.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tools.jackson.databind.ObjectMapper;
 
 import java.util.*;
 
@@ -23,8 +23,6 @@ public class DefenseServiceImpl implements DefenseService
     private GroupService groupService;
     @Autowired
     private TeacherMapper teacherMapper;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Override
     public void yearAdd(Integer year)
@@ -67,6 +65,7 @@ public class DefenseServiceImpl implements DefenseService
             String teacherId = map.get("teacher_id").toString();
             String groupId = map.get("group_id").toString();
             Integer type = Integer.parseInt(map.get("type").toString());
+            
 
             String teacherName = teacherMapper.selectTeacherById(teacherId).getRealName();
 
@@ -75,7 +74,12 @@ public class DefenseServiceImpl implements DefenseService
             List<TeacherScore> teacherScores = getExistingTeacherScores(stuId, groupId);
 
             updateTeacherScoresList(teacherScores, currentScore);
-
+            Integer total = 0;
+            for (TeacherScore teacherScore : teacherScores) {
+                total += teacherScore.getTotalScore();
+            }
+            total /= teacherScores.size();
+            ObjectMapper objectMapper = new ObjectMapper();
             String teacherScoresJson = objectMapper.writeValueAsString(teacherScores);
 
             Map<String, Object> updateData = new HashMap<>();
@@ -83,6 +87,7 @@ public class DefenseServiceImpl implements DefenseService
             updateData.put("groupId", groupId);
             updateData.put("teacherId", teacherId);
             updateData.put("teacherScoresJson", teacherScoresJson);
+            updateData.put("totalScore", total);
 
             int result = defenseMapper.saveScore(updateData);
 
@@ -119,7 +124,7 @@ public class DefenseServiceImpl implements DefenseService
             if (json == null || json.trim().isEmpty()) {
                 return new ArrayList<>();
             }
-
+            ObjectMapper objectMapper = new ObjectMapper();
             List<TeacherScore> scores = objectMapper.readValue(json,
                     objectMapper.getTypeFactory().constructCollectionType(List.class, TeacherScore.class));
 

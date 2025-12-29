@@ -145,36 +145,32 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     @Transactional
-    public boolean addTeacherToGroup(String teacherId, Integer groupId, Boolean isDefenseLeader) {
-        try {
-            if (teacherMapper.checkGroupExists(groupId) == 0) {
-                throw new RuntimeException("小组不存在");
-            }
-
-            Integer groupYear = teacherMapper.getGroupYearById(groupId);
-            if (groupYear == null) {
-                throw new RuntimeException("无法获取小组年份");
-            }
-
-            int count = teacherMapper.checkTeacherInYear(teacherId, groupYear);
-            if (count > 0) {
-                throw new RuntimeException("该教师已加入" + groupYear + "年的答辩小组，同一年只能参加一个小组");
-            }
-
-            // 如果设置为组长，检查该小组是否已有组长
-            if (isDefenseLeader != null && isDefenseLeader) {
-                // 检查该小组是否已有组长
-                String currentLeader = teacherMapper.getDefenseLeaderByGroupId(groupId);
-                if (currentLeader != null) {
-                    return false;
-                }
-            }
-
-            int result = teacherMapper.insertTeacherGroupRelation(teacherId, groupId, isDefenseLeader);
-            return result > 0;
-        } catch (Exception e) {
-            throw new RuntimeException("添加教师到小组失败: " + e.getMessage());
+    public boolean addTeacherToGroup(String teacherId, Integer groupId, Boolean isDefenseLeader) throws RuntimeException{
+        if (teacherMapper.checkGroupExists(groupId) == 0) {
+            throw new RuntimeException("小组不存在");
         }
+
+        Integer groupYear = teacherMapper.getGroupYearById(groupId);
+        if (groupYear == null) {
+            throw new RuntimeException("无法获取小组年份");
+        }
+
+        int count = teacherMapper.checkTeacherInYear(teacherId, groupYear);
+        if (count > 0) {
+            throw new RuntimeException("该教师已加入" + groupYear + "年的答辩小组，同一年只能参加一个小组");
+        }
+
+        // 如果设置为组长，检查该小组是否已有组长
+        if (isDefenseLeader != null && isDefenseLeader) {
+            // 检查该小组是否已有组长
+            String currentLeader = teacherMapper.getDefenseLeaderByGroupId(groupId);
+            if (currentLeader != null) {
+                return false;
+            }
+        }
+
+        int result = teacherMapper.insertTeacherGroupRelation(teacherId, groupId, isDefenseLeader);
+        return result > 0;
     }
 
     @Override
