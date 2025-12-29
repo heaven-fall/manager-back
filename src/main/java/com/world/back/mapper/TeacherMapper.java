@@ -10,11 +10,16 @@ import java.util.Map;
 public interface TeacherMapper {
 
     // 查询教师列表（包括院系信息）
-    @Select("select * from user inner join user_inst_rel on user_id=id where inst_id=#{instituteId} or #{instituteId}=0")
-    List<Teacher> selectTeacherList(
-            @Param("instituteId") Integer instituteId);
+    @Select("""
+    select *
+    from user u
+    inner join user_inst_rel ui on u.id = ui.user_id
+    where u.role = 2
+    and (ui.inst_id = #{instituteId} or #{instituteId} = 0)
+    """)
+    List<Teacher> selectTeacherList(@Param("instituteId") Integer instituteId);
 
-    // 查询教师的小组信息 - 修复后的SQL
+    // 查询教师的小组信息
     @Select("""
     SELECT
         dg.id as groupId,
@@ -40,7 +45,7 @@ public interface TeacherMapper {
     select count(*)
     from user u
     left join user_inst_rel ui on u.id = ui.user_id
-    where u.role in (1, 2)
+    where u.role in (2)
     and (#{instituteId} is null or ui.inst_id = #{instituteId})
     and (#{search} is null or u.real_name like concat('%', #{search}, '%') or u.id like concat('%', #{search}, '%'))
     """)
@@ -59,11 +64,11 @@ public interface TeacherMapper {
         u.role,
         ui.inst_id as instituteId,
         i.name as instituteName,
-        case when u.role = 1 then true else false end as isAdmin
     from user u
     left join user_inst_rel ui on u.id = ui.user_id
     left join institute i on ui.inst_id = i.id
     where u.id = #{id}
+    and u.role = 2
     """)
     Teacher selectTeacherById(@Param("id") String id);
 
