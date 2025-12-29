@@ -18,4 +18,11 @@ public interface DefenseService
 
     Integer getStudentCountByYear(Integer year);
 
+    List<Map<String, Object>> getGroupFirstStudents(Integer year);
+
+    Boolean saveMajorScore(Integer groupId, String studentId, Double majorScore);
+
+    Map<String, Object> SaveCoefficients(Integer year);
+
+    Double getAdjustmentCoefficient(Integer groupId);
 }

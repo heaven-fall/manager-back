@@ -1,5 +1,6 @@
 package com.world.back.serviceImpl;
 
+import com.world.back.entity.Coefficient;
 import com.world.back.entity.TeacherScore;
 import com.world.back.mapper.DefenseMapper;
 import com.world.back.mapper.TeacherMapper;
@@ -170,5 +171,119 @@ public class DefenseServiceImpl implements DefenseService
             score.setQaPerformance(null);
         }
         return score;
+    }
+
+    @Override
+    public List<Map<String, Object>> getGroupFirstStudents(Integer year) {
+        try {
+            List<Map<String, Object>> students = defenseMapper.getGroupFirstStudents(year);
+
+            for (Map<String, Object> student : students) {
+                if (student.get("adjustmentCoefficient") != null) {
+                    Double coefficient = (Double) student.get("adjustmentCoefficient");
+                    student.put("adjustmentCoefficient",
+                            coefficient != null ? Math.round(coefficient * 1000) / 1000.0 : null);
+                }
+
+                if (student.get("majorScore") != null) {
+                    Object majorScore = student.get("majorScore");
+                    if (majorScore instanceof Number) {
+                        student.put("majorScore", ((Number) majorScore).intValue());
+                    }
+                }
+                if (student.get("groupScore") != null) {
+                    Object groupScore = student.get("groupScore");
+                    if (groupScore instanceof Number) {
+                        student.put("groupScore", ((Number) groupScore).intValue());
+                    }
+                }
+            }
+            return students;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("获取数据失败: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public Boolean saveMajorScore(Integer groupId, String studentId, Double majorScore) {
+        try {
+            // 验证成绩范围
+            if (majorScore < 0 || majorScore > 100) {
+                throw new IllegalArgumentException("大组成绩必须在0-100之间");
+            }
+
+            // 保存到 group_defense 表
+            int result = defenseMapper.saveMajorScore(groupId, studentId, majorScore);
+            return result > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("保存大组成绩失败: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, Object> SaveCoefficients(Integer year) {
+        try {
+            // 获取所有小组第一名数据
+            List<Map<String, Object>> firstStudents = getGroupFirstStudents(year);
+
+            List<Coefficient> coefficientsToSave = new ArrayList<>();
+            int successCount = 0;
+            int skipCount = 0;
+
+            for (Map<String, Object> student : firstStudents) {
+                Integer groupId = (Integer) student.get("groupId");
+                Object majorScoreObj = student.get("majorScore");
+                Object groupScoreObj = student.get("groupScore");
+
+                Double majorScore = majorScoreObj != null ? ((Number) majorScoreObj).doubleValue() : null;
+                Double groupScore = groupScoreObj != null ? ((Number) groupScoreObj).doubleValue() : null;
+
+                // 检查是否有大组成绩
+                if (majorScore == null || groupScore == null || groupScore <= 0) {
+                    skipCount++;
+                    continue;
+                }
+
+                // 修正：使用浮点数除法
+                Double coefficient = majorScore / groupScore;
+                coefficient = Math.round(coefficient * 1000) / 1000.0;
+                coefficient = Math.round(coefficient * 1000) / 1000.0;
+
+                Coefficient coef= new Coefficient();
+                coef.setGroupId(groupId);
+                coef.setAdjustmentCoefficient(coefficient);
+
+                coefficientsToSave.add(coef);
+                successCount++;
+            }
+
+            // 批量保存调节系数
+            if (!coefficientsToSave.isEmpty()) {
+                defenseMapper.saveSaveCoefficients(coefficientsToSave);
+            }
+
+            Map<String, Object> result = new HashMap<>();
+            result.put("total", firstStudents.size());
+            result.put("success", successCount);
+            result.put("skipped", skipCount);
+            result.put("message", String.format("已为 %d 个小组计算并保存调节系数", successCount));
+
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("计算调节系数失败: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public Double getAdjustmentCoefficient(Integer groupId) {
+        try {
+            return defenseMapper.getAdjustmentCoefficient(groupId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("获取调节系数失败: " + e.getMessage());
+        }
     }
 }

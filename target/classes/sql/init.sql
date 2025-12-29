@@ -64,6 +64,7 @@ create table dbgroup(
                         year int comment '答辩年份',
                         admin_id char(10) comment '答辩组长',
                         max_student_count int comment '最大学生数量',
+                        adjustmentCoefficient double null comment '调节系数',
                         primary key (id),
                         foreign key fk_user_id(admin_id) references user(id)
 ) comment='答辩组';
@@ -76,15 +77,6 @@ create table dbinfo(
                        time date comment '答辩日期',
                        summary varchar(255) comment '毕业考核摘要',
                        reviewer_id char(10) comment '评阅人id',
-                       paper_quality int default 0 comment '论文质量分(毕业论文用)',
-                       presentation int default 0 comment '自述报告分',
-                       qa_performance int default 0 comment '回答问题分(毕业论文用)',
-                       design_quality1 int default 0 comment '设计质量分1(毕业设计用)',
-                       design_quality2 int default 0 comment '设计质量分2(毕业设计用)',
-                       design_quality3 int default 0 comment '设计质量分3(毕业设计用)',
-                       design_presentation int default 0 comment '设计展示分(毕业设计用)',
-                       design_qa1 int default 0 comment '回答问题分1(毕业设计用)',
-                       design_qa2 int default 0 comment '回答问题分2(毕业设计用)',
                        total_score int default 0 comment '总分',
                        comment text comment '答辩小组评语',
                        graded_by varchar(10) comment '评分人id',
@@ -105,6 +97,15 @@ create table tea_group_rel (
                                foreign key (group_id) references dbgroup(id),
                                unique key uk_teacher_group (teacher_id, group_id)
 ) comment='教师与答辩小组关联表';
+
+create table group_defense(
+                               group_id int not null comment '答辩组号',
+                               stu_id char(10) not null comment '学生编号',
+                               major_score int null comment '大组答辩成绩',
+                               primary key (group_id, stu_id),
+                               foreign key (group_id) references dbgroup(id),
+                               foreign key (stu_id) references student(id)
+) comment='大组答辩表';
 -- 添加索引
 create index idx_user_id on user(id);
 create index idx_student_id on student(id);

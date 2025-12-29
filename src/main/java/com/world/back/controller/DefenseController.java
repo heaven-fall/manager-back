@@ -46,4 +46,52 @@ public class DefenseController
 
         return Result.success(defenseService.saveScore(map));
     }
+
+    @GetMapping("/first-students")
+    public Result<List<Map<String, Object>>> getGroupFirstStudents(@RequestParam Integer year) {
+        try {
+            List<Map<String, Object>> students = defenseService.getGroupFirstStudents(year);
+            return Result.success(students);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error("获取数据失败: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/save-major-score")
+    public Result<Boolean> saveMajorScore(@RequestBody Map<String, Object> map) {
+        try {
+            Integer groupId = (Integer) map.get("groupId");
+            String studentId = (String) map.get("studentId");
+            Double majorScore = Double.parseDouble(map.get("majorScore").toString());
+
+            Boolean result = defenseService.saveMajorScore(groupId, studentId, majorScore);
+            return Result.success(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error("保存大组成绩失败: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/save-coefficients")
+    public Result<Map<String, Object>> saveCoefficients(@RequestParam Integer year) {
+        try {
+            Map<String, Object> result = defenseService.SaveCoefficients(year);
+            return Result.success(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error("计算调节系数失败: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/adjustment-coefficient")
+    public Result<Double> getAdjustmentCoefficient(@RequestParam Integer groupId) {
+        try {
+            Double coefficient = defenseService.getAdjustmentCoefficient(groupId);
+            return Result.success(coefficient);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error("获取调节系数失败: " + e.getMessage());
+        }
+    }
 }
