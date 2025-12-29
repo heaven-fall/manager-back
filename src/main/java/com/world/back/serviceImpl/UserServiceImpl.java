@@ -295,5 +295,24 @@ public class UserServiceImpl implements UserService
       log.warn("删除旧签名文件失败：{}", oldSignaturePath, e);
     }
   }
-  
+
+  @Override
+  public Boolean deleteInstituteAdmin(int id) {
+    try {
+      userMapper.deleteUser(id);
+      return true;
+    }catch (Exception e) {
+      return false;
+    }
+  }
+
+  @Override
+  public Boolean resetPassword(String id) {
+    try {
+      userMapper.updatePassword(id, "123456");
+      return true;
+    }catch (Exception e) {
+      return false;
+    }
+  }
 }

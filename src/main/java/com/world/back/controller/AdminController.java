@@ -56,8 +56,8 @@ public class AdminController {
     {
         String realName=data.get("realName").toString();
         String username = data.get("id").toString();
-        String phone = data.get("phone").toString();
-        String email = data.get("email").toString();
+        String phone = data.get("phone") != null ? data.get("phone").toString() : "";
+        String email = data.get("email") != null ? data.get("email").toString() : "";
         return Result.success(userService.updateAdmin(realName, username, phone, email));
     }
     
@@ -65,5 +65,17 @@ public class AdminController {
     public Result<Integer> getCount()
     {
         return Result.success(userService.getAdminCount());
+    }
+
+    @PostMapping("/delete")
+    public Result<Boolean> deleteInstituteAdmin(@RequestBody Map<String, Object> data){
+        return Result.success(userService.deleteInstituteAdmin(Integer.parseInt(data.get("id").toString())));
+    }
+
+    @PostMapping("/resetPassword")
+    public Result<Boolean> resetPassword(@RequestBody Map<String, Object> data)
+    {
+        String id = data.get("id").toString();
+        return Result.success(userService.resetPassword(id));
     }
 }

@@ -43,4 +43,7 @@ public interface UserMapper
   
   @Select("select inst_id from user_inst_rel where user_id=#{id}")
   Integer getInstIdByUserId(String userId);
+
+  @Delete("delete from user where id=#{id}")
+  Boolean deleteUser(int id);
 }

@@ -74,7 +74,7 @@ public class GroupController
         List<Map<String, Object>> res = groupService.getMember(group_id);
         for (Map<String, Object> map : res) {
             map.put("instituteName", instituteService.getInstituteNameById((Integer) map.get("instituteId")));
-            map.put("teacherName", userService.getNameById(studentService.getTeacherById((String) map.get("id"))));;
+            map.put("teacherName", userService.getNameById(studentService.getTeacherById((String) map.get("stu_id"))));;
         }
         return Result.success(res);
     }
