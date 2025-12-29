@@ -297,16 +297,6 @@ public class UserServiceImpl implements UserService
   }
 
   @Override
-  public Boolean deleteInstituteAdmin(int id) {
-    try {
-      userMapper.deleteUser(id);
-      return true;
-    }catch (Exception e) {
-      return false;
-    }
-  }
-
-  @Override
   public Boolean resetPassword(String id) {
     try {
       userMapper.updatePassword(id, "123456");

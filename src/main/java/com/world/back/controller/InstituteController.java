@@ -58,10 +58,4 @@ public class InstituteController {
         return Result.success(instituteService.updateInstitute(institute));
     }
     
-    @PostMapping("/delete")
-    public Result<Boolean> deleteInstitute(@RequestBody Map<String, Object> map)
-    {
-        return Result.success(instituteService.deleteInstitute(Integer.parseInt(map.get("id").toString())));
-    }
-    
 }

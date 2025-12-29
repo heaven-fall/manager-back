@@ -1,0 +1,1 @@
+{"apiKey":"sk-6240819c341d4e7594babd0e0cefa6f8","apiEndpoint":"https://dashscope.aliyun.com/api/v1/services/aigc/text-generation/generation","modelName":"qwen-turbo","temperature":0.7,"maxTokens":500}
