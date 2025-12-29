@@ -12,7 +12,7 @@ public interface GroupService
 {
     List<Map<String, Object>> getAllGroups(Integer year);
 
-    void createGroup(Group group);
+    Boolean createGroup(Group group);
 
     void updateGroup(Group group);
 

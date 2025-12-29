@@ -43,21 +43,27 @@ public class GroupController
     @PostMapping("/update")
     public Result<Boolean> updateGroup(@RequestBody Map<String, Object> map)
     {
-        Integer group_id = (Integer)map.get("id");
-        Group group = new Group();
-        group.setAdmin_id(map.get("admin_id").toString());
-        group.setYear(Integer.parseInt(map.get("year").toString()));
-        group.setMax_student_count(Integer.parseInt(map.get("maxStudents").toString()));
-        if (group_id != null)
-        {
-            groupService.deleteAdmin(group_id);
-            groupService.updateGroup(group);
-            teacherService.addTeacherToGroup(group.getAdmin_id(), group_id, true);
+        try{
+            Integer group_id = (Integer)map.get("id");
+            Group group = new Group();
+            group.setAdmin_id(map.get("admin_id").toString());
+            group.setYear(Integer.parseInt(map.get("year").toString()));
+            group.setMax_student_count(Integer.parseInt(map.get("maxStudents").toString()));
+            if (group_id != null)
+            {
+                groupService.deleteAdmin(group_id);
+                groupService.updateGroup(group);
+                teacherService.addTeacherToGroup(group.getAdmin_id(), group_id, true);
+                return Result.success(true);
+            }
+            groupService.createGroup(group);
+            teacherService.addTeacherToGroup(group.getAdmin_id(), group.getId(), true);
             return Result.success(true);
         }
-        groupService.createGroup(group);
-        teacherService.addTeacherToGroup(group.getAdmin_id(), group.getId(), true);
-        return Result.success(true);
+        catch (Exception e)
+        {
+            return Result.error(e.getMessage());
+        }
     }
 
     @PostMapping("/delete")
@@ -74,7 +80,7 @@ public class GroupController
         List<Map<String, Object>> res = groupService.getMember(group_id);
         for (Map<String, Object> map : res) {
             map.put("instituteName", instituteService.getInstituteNameById((Integer) map.get("instituteId")));
-            map.put("teacherName", userService.getNameById(studentService.getTeacherById((String) map.get("id"))));;
+            map.put("teacherName", userService.getNameById(studentService.getTeacherById((String) map.get("stu_id"))));;
         }
         return Result.success(res);
     }

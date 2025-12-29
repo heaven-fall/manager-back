@@ -43,7 +43,6 @@ public class DefenseController
     @PostMapping("/save-score")
     public Result<Boolean> saveScore(@RequestBody Map<String, Object> map)
     {
-
         return Result.success(defenseService.saveScore(map));
     }
 

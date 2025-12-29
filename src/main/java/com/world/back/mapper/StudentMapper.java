@@ -96,4 +96,7 @@ public interface StudentMapper {
     
     @Update("update dbinfo set title=#{title}, summary=#{summary}, type=#{type} where stu_id=#{student_id}")
     void setTitle(String student_id, String title, String summary, Integer type);
+    
+    @Update("update dbinfo set comment=#{comment} where gid=#{gid} and stu_id=#{stu_id}")
+    void saveComment(Integer gid, String stu_id,  String comment);
 }

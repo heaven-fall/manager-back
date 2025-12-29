@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 @RestController
@@ -26,11 +28,11 @@ public class EvaluationController
         String path;
         if (Objects.equals(type, "1"))
         {
-            path = PathHelper.root + "/t" + year + ".json";
+            path = PathHelper.root + "/file" + "/t" + year + ".json";
         }
         else
         {
-            path = PathHelper.root + "/d" + year + ".json";
+            path = PathHelper.root + "/file" + "/d" + year + ".json";
         }
         FileOutputStream fos = new FileOutputStream(path);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -50,15 +52,33 @@ public class EvaluationController
         String path;
         if (Objects.equals(type, "1"))
         {
-            path = PathHelper.root + "/t" + year + ".json";
+            path = PathHelper.root + "/file" + "/t" + year + ".json";
         }
         else
         {
-            path = PathHelper.root + "/d" + year + ".json";
+            path = PathHelper.root + "/file" + "/d" + year + ".json";
         }
-        FileInputStream fis = new FileInputStream(path);
-        ObjectMapper objectMapper = new ObjectMapper();
-        return Result.success(objectMapper.readValue(fis.readAllBytes(), new TypeReference<List<Evaluation>>(){}));
+        try
+        {
+            if (Files.notExists(Path.of(path)))
+            {
+                if (Objects.equals(type, "1"))
+                {
+                    Files.copy(Path.of(PathHelper.root + "/file" + "/tevaluation.json"), Path.of(path));
+                }
+                else
+                {
+                    Files.copy(Path.of(PathHelper.root + "/file" + "/devaluation.json"), Path.of(path));
+                }
+            }
+            FileInputStream fis = new FileInputStream(path);
+            ObjectMapper objectMapper = new ObjectMapper();
+            return Result.success(objectMapper.readValue(fis.readAllBytes(), new TypeReference<List<Evaluation>>(){}));
+        }
+        catch (Exception e)
+        {
+            return Result.error(e.getMessage());
+        }
     }
     
 }
