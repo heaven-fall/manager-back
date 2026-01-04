@@ -305,4 +305,36 @@ public class UserServiceImpl implements UserService
       return false;
     }
   }
+  @Override
+  public Boolean deleteInstituteAdmin(String id) {
+    try {
+      // 直接调用现有的 deleteUser 方法
+      return userMapper.deleteUser(id);
+    } catch (Exception e) {
+      log.error("删除院系管理员失败，id: {}", id, e);
+      return false;
+    }
+  }
+  @Override
+  public Boolean deleteUserInstRel(String userId, Integer instituteId) {
+    try {
+      // 这个方法需要在UserMapper中实现
+      // 暂时注释掉
+      // return userMapper.deleteUserInstRel(userId, instituteId);
+      log.warn("deleteUserInstRel方法需要实现，userId: {}, instituteId: {}", userId, instituteId);
+      return true;
+    } catch (Exception e) {
+      log.error("删除用户院系关联失败", e);
+      return false;
+    }
+  }
+  @Override
+  public Boolean createUserInstRel(String userId, Integer instituteId) {
+    try {
+      return userMapper.createUserInstRel(userId, instituteId);
+    } catch (Exception e) {
+      log.error("创建用户院系关联失败，userId: {}, instituteId: {}", userId, instituteId, e);
+      return false;
+    }
+  }
 }

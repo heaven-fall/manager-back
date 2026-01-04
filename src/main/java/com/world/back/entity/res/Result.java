@@ -19,20 +19,29 @@ public class Result<T> {
   }
 
   public static <T> Result<T> success() {
-    return new Result<>(200, "成功",null);
+    return new Result<>(200, "成功", null);
   }
 
   public static <T> Result<T> success(String message, T data) {
     return new Result<>(200, message, data);
   }
 
-  // 失败响应
+  // 失败响应 - 修复这里
   public static <T> Result<T> error(String message) {
     return new Result<>(500, message, null);
   }
 
   public static <T> Result<T> error(Integer code, String message) {
     return new Result<>(code, message, null);
+  }
+
+  // 新增：带数据和错误信息的方法
+  public static <T> Result<T> error(String message, T data) {
+    return new Result<>(500, message, data);
+  }
+
+  public static <T> Result<T> error(Integer code, String message, T data) {
+    return new Result<>(code, message, data);
   }
 
   // 便捷方法
