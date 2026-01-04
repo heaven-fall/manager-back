@@ -67,11 +67,6 @@ public class AdminController {
         return Result.success(userService.getAdminCount());
     }
 
-    @PostMapping("/delete")
-    public Result<Boolean> deleteInstituteAdmin(@RequestBody Map<String, Object> data){
-        return Result.success(userService.deleteInstituteAdmin(Integer.parseInt(data.get("id").toString())));
-    }
-
     @PostMapping("/resetPassword")
     public Result<Boolean> resetPassword(@RequestBody Map<String, Object> data)
     {
