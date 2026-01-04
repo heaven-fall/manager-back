@@ -26,4 +26,7 @@ public interface UserService
   Result<String> uploadSignature(MultipartFile file, String userId);
 
   Boolean resetPassword(String id);
+  Boolean deleteInstituteAdmin(String id);
+  Boolean createUserInstRel(String userId, Integer instituteId);
+  Boolean deleteUserInstRel(String userId, Integer instituteId);
 }

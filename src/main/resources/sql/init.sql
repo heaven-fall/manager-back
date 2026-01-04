@@ -25,17 +25,17 @@ create table user(
 ) comment='用户表';
 
 create table institute(
-                          id int not null auto_increment comment '院系id',
-                          name varchar(20) not null comment '院系名称',
-                          user_id char(10) comment '管理员用户id',
-                          primary key (id),
-                          unique key uk_institute(name),
-                          foreign key fk_user_id(user_id) references user(id)
-) comment='院系表';
+     id int not null auto_increment comment '院系id',
+     name varchar(20) not null comment '院系名称',
+     user_id char(10) comment '管理员id',
+     primary key (id),
+     unique key uk_institute(name)
+ ) comment='院系表';
 
 create table user_inst_rel(
                               user_id char(10) comment '用户id',
                               inst_id int comment '院系id',
+                              UNIQUE KEY uk_inst (inst_id),
                               foreign key uk_user_id(user_id) references user(id),
                               foreign key uk_inst_id(inst_id) references institute(id)
 ) comment='用户所属院系';
@@ -116,8 +116,8 @@ insert into user (id, pwd, role, real_name) values
                                                 ('123123', '123456', 2, 'jj3'),
                                                 ('123456', '123456', 2, 'jj4');
 
-insert into institute (name, user_id) values
-    ('计算机与信息学院', 'inst');
+insert into institute (name) values
+    ('计算机与信息学院');
 
 insert into student (id, real_name, tel, email, institute_id) values
                                                                   ('2023001', 'wxy', '13800138001', 'wxy@email.com',1),
