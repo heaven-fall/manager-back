@@ -27,6 +27,7 @@ create table user(
 create table institute(
      id int not null auto_increment comment '院系id',
      name varchar(20) not null comment '院系名称',
+     user_id char(10) comment '管理员id',
      primary key (id),
      unique key uk_institute(name)
  ) comment='院系表';
@@ -34,6 +35,7 @@ create table institute(
 create table user_inst_rel(
                               user_id char(10) comment '用户id',
                               inst_id int comment '院系id',
+                              UNIQUE KEY uk_inst (inst_id),
                               foreign key uk_user_id(user_id) references user(id),
                               foreign key uk_inst_id(inst_id) references institute(id)
 ) comment='用户所属院系';

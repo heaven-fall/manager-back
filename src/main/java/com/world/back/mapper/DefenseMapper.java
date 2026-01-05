@@ -10,7 +10,8 @@ import java.util.Map;
 @Mapper
 public interface DefenseMapper
 {
-    @Insert("insert into dbgroup(admin_id,year) values('admin',#{year})")
+    @Insert("INSERT INTO dbgroup(admin_id, year) SELECT 'admin', #{year} FROM dual " +
+            "WHERE NOT EXISTS (SELECT 1 FROM dbgroup WHERE admin_id = 'admin' AND year = #{year})")
     void yearAdd(Integer year);
 
     @Delete("delete from dbgroup where year=#{year} and admin_id='admin'")
