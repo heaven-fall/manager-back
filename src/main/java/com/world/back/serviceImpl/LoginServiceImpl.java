@@ -108,9 +108,12 @@ public class LoginServiceImpl implements LoginService {
     InstituteAdmin instAdmin = new InstituteAdmin();
     copyBaseUserProperties(instAdmin, baseUser);
 
-    // 查询院系信息
-    Integer instituteId = loginMapper.findInstituteIdByUserId(baseUser.getId());
-    if (instituteId != null) {
+    // 修复：使用 baseUser 而不是未定义的 admin
+    List<Integer> instituteIds = instituteMapper.findInstituteIdsByUserId(baseUser.getId());
+
+    if (instituteIds != null && !instituteIds.isEmpty()) {
+      Integer instituteId = instituteIds.get(0);
+      String instituteName = instituteMapper.findInstituteNameById(instituteId);
       instAdmin.setInstId(instituteId);
     }
 

@@ -25,17 +25,16 @@ create table user(
 ) comment='用户表';
 
 create table institute(
-     id int not null auto_increment comment '院系id',
-     name varchar(20) not null comment '院系名称',
-     user_id char(10) comment '管理员id',
-     primary key (id),
-     unique key uk_institute(name)
- ) comment='院系表';
+                          id int not null auto_increment comment '院系id',
+                          name varchar(20) not null comment '院系名称',
+                          user_id char(10) comment '管理员id',
+                          primary key (id),
+                          unique key uk_institute(name)
+) comment='院系表';
 
 create table user_inst_rel(
                               user_id char(10) comment '用户id',
                               inst_id int comment '院系id',
-                              UNIQUE KEY uk_inst (inst_id),
                               foreign key uk_user_id(user_id) references user(id),
                               foreign key uk_inst_id(inst_id) references institute(id)
 ) comment='用户所属院系';
@@ -99,12 +98,12 @@ create table tea_group_rel (
 ) comment='教师与答辩小组关联表';
 
 create table group_defense(
-                               group_id int not null comment '答辩组号',
-                               stu_id char(10) not null comment '学生编号',
-                               major_score int null comment '大组答辩成绩',
-                               primary key (group_id, stu_id),
-                               foreign key (group_id) references dbgroup(id),
-                               foreign key (stu_id) references student(id)
+                              group_id int not null comment '答辩组号',
+                              stu_id char(10) not null comment '学生编号',
+                              major_score int null comment '大组答辩成绩',
+                              primary key (group_id, stu_id),
+                              foreign key (group_id) references dbgroup(id),
+                              foreign key (stu_id) references student(id)
 ) comment='大组答辩表';
 -- 添加索引
 create index idx_user_id on user(id);
@@ -190,6 +189,7 @@ create table placeholder_config (
                                     is_required boolean default true comment '是否必需',
                                     unique key uk_type_placeholder (template_type, placeholder_key)
 ) comment='模板占位符配置表';
+
 
 -- 初始化模板类型
 insert into template (name, type, file_path, file_name) values
@@ -396,3 +396,4 @@ SET teacher_scores = '[
     total_score = 98,
     graded_by = '100001'
 WHERE stu_id = '2023002' AND gid = 1;
+ALTER TABLE user_inst_rel ADD UNIQUE INDEX uk_user_inst (user_id, inst_id);

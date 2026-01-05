@@ -63,7 +63,7 @@ public interface TeacherMapper {
         u.email,
         u.role,
         ui.inst_id as instituteId,
-        i.name as instituteName,
+        i.name as instituteName
     from user u
     left join user_inst_rel ui on u.id = ui.user_id
     left join institute i on ui.inst_id = i.id
