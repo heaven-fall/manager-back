@@ -2,6 +2,7 @@ use manager;
 
 drop table if exists tea_group_rel;
 drop table if exists dbinfo;
+drop table if exists group_defense;
 drop table if exists dbgroup;
 drop table if exists tea_stu_rel;
 drop table if exists user_inst_rel;
@@ -25,17 +26,16 @@ create table user(
 ) comment='用户表';
 
 create table institute(
-     id int not null auto_increment comment '院系id',
-     name varchar(20) not null comment '院系名称',
-     user_id char(10) comment '管理员id',
-     primary key (id),
-     unique key uk_institute(name)
- ) comment='院系表';
+                          id int not null auto_increment comment '院系id',
+                          name varchar(20) not null comment '院系名称',
+                          user_id char(10) comment '管理员id',
+                          primary key (id),
+                          unique key uk_institute(name)
+) comment='院系表';
 
 create table user_inst_rel(
                               user_id char(10) comment '用户id',
                               inst_id int comment '院系id',
-                              UNIQUE KEY uk_inst (inst_id),
                               foreign key uk_user_id(user_id) references user(id),
                               foreign key uk_inst_id(inst_id) references institute(id)
 ) comment='用户所属院系';
@@ -99,12 +99,12 @@ create table tea_group_rel (
 ) comment='教师与答辩小组关联表';
 
 create table group_defense(
-                               group_id int not null comment '答辩组号',
-                               stu_id char(10) not null comment '学生编号',
-                               major_score int null comment '大组答辩成绩',
-                               primary key (group_id, stu_id),
-                               foreign key (group_id) references dbgroup(id),
-                               foreign key (stu_id) references student(id)
+                              group_id int not null comment '答辩组号',
+                              stu_id char(10) not null comment '学生编号',
+                              major_score int null comment '大组答辩成绩',
+                              primary key (group_id, stu_id),
+                              foreign key (group_id) references dbgroup(id),
+                              foreign key (stu_id) references student(id)
 ) comment='大组答辩表';
 -- 添加索引
 create index idx_user_id on user(id);
@@ -131,8 +131,8 @@ insert into user (id, pwd, role, real_name, phone, email) values
                                                               ('100004', '123456', 2, '赵老师', '13800138004', 'zhao@example.com');
 
 insert into tea_stu_rel (tea_id, stu_id, year) values
-                                                   ('100001', '2023001', 2023),
-                                                   ('100001', '2023002', 2023);
+                                                   ('100001', '2023001', 2026),
+                                                   ('100001', '2023002', 2026);
 
 insert into user_inst_rel(user_id, inst_id) values
     ('inst',1);
@@ -144,12 +144,7 @@ insert into user_inst_rel (user_id, inst_id) values
                                                  ('100004', 1);
 
 -- 插入多个年份的小组数据
-insert into dbgroup (admin_id, year) values
-                                         ('100001', 2023),
-                                         (null, 2023),  -- 第2组，没有指定组长
-                                         ('100003', 2024),
-                                         (null, 2024),  -- 第4组，没有指定组长
-                                         (null, 2025);  -- 第5组，2025年的小组
+insert into dbgroup (admin_id, year) values('100001', 2026);
 
 insert into tea_group_rel (teacher_id, group_id, is_defense_leader) values
                                                                         ('100001', 1, true),   -- 张老师是第1组组长
@@ -190,6 +185,7 @@ create table placeholder_config (
                                     is_required boolean default true comment '是否必需',
                                     unique key uk_type_placeholder (template_type, placeholder_key)
 ) comment='模板占位符配置表';
+
 
 -- 初始化模板类型
 insert into template (name, type, file_path, file_name) values
@@ -396,3 +392,4 @@ SET teacher_scores = '[
     total_score = 98,
     graded_by = '100001'
 WHERE stu_id = '2023002' AND gid = 1;
+ALTER TABLE user_inst_rel ADD UNIQUE INDEX uk_user_inst (user_id, inst_id);
