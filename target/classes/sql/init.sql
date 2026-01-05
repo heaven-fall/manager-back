@@ -149,9 +149,8 @@ insert into dbgroup (admin_id, year) values('100001', 2026);
 insert into tea_group_rel (teacher_id, group_id, is_defense_leader) values
                                                                         ('100001', 1, true),   -- 张老师是第1组组长
                                                                         ('100002', 1, false),  -- 李老师是第1组成员
-                                                                        ('100002', 2, false),  -- 李老师也是第2组成员
-                                                                        ('100003', 3, true),   -- 王老师是第3组组长
-                                                                        ('100004', 3, false);  -- 赵老师是第3组成员
+                                                                        ('100003', 1, false),
+                                                                        ('100004', 1, false);
 
 
 -- 1. 模板表
