@@ -67,17 +67,36 @@ public class TeacherController {
   @PostMapping("/create")
   public ResponseEntity<?> createTeacher(@RequestBody Teacher teacher) {
     try {
+      System.out.println("========== 创建教师请求开始 ==========");
+      System.out.println("接收到教师数据:");
+      System.out.println("工号: " + teacher.getId());
+      System.out.println("姓名: " + teacher.getRealName());
+      System.out.println("电话: " + teacher.getPhone());
+      System.out.println("邮箱: " + teacher.getEmail());
+      System.out.println("院系ID: " + teacher.getInstId());
+      System.out.println("密码: " + teacher.getPwd());
+      System.out.println("角色: " + teacher.getRole());
+
       boolean result = teacherService.createTeacher(teacher);
+
+      System.out.println("创建结果: " + (result ? "成功" : "失败"));
+      System.out.println("========== 创建教师请求结束 ==========");
+
       return ResponseEntity.ok(Map.of(
               "success", result,
               "code", result ? 200 : 500,
               "message", result ? "创建成功" : "创建失败"
       ));
     } catch (Exception e) {
+      System.out.println("创建教师异常: " + e.getClass().getName());
+      System.out.println("异常消息: " + e.getMessage());
+      System.out.println("堆栈跟踪:");
+      e.printStackTrace();
+
       return ResponseEntity.ok(Map.of(
               "success", false,
               "code", 500,
-              "message", e.getMessage()
+              "message", "创建失败: " + e.getMessage()
       ));
     }
   }

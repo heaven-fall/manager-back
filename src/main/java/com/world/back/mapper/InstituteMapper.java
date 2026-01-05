@@ -34,7 +34,6 @@ public interface InstituteMapper
 
   @Select("select count(1) from institute where name = #{name}")
   int checkInstituteNameExists(String name);
-
   // 获取管理员管理的所有院系
   @Select("SELECT * FROM institute WHERE user_id = #{adminId}")
   List<Institute> getInstitutesByAdminId(String adminId);
@@ -44,4 +43,13 @@ public interface InstituteMapper
   List<Institute> getAvailableInstitutes();
   @Delete("delete from user_inst_rel where user_id = #{userId} and inst_id = #{instituteId}")
   Boolean deleteUserInstRel(@Param("userId") String userId, @Param("instituteId") Integer instituteId);
+
+  // 根据用户ID查找院系ID
+  @Select("SELECT inst_id FROM user_inst_rel WHERE user_id = #{userId} LIMIT 1")
+  List<Integer> findInstituteIdsByUserId(@Param("userId") String userId);
+
+  // 根据院系ID查找院系名称
+  @Select("SELECT name FROM institute WHERE id = #{id}")
+  String findInstituteNameById(@Param("id") Integer id);
+
 }
